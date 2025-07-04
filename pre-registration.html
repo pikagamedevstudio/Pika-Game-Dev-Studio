@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pre-Registration | Pika Game Dev Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    .step { display: none; }
+    .step.active { display: block; }
+    .step-dot.active {
+      background: var(--icon-yellow);
+      box-shadow: 0 0 10px var(--icon-yellow);
+    }
+    .step-dot.completed {
+      background: var(--icon-fill);
+      box-shadow: 0 0 10px var(--icon-fill);
+    }
+    select, input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Modal Wrapper -->
+<div id="preRegModal" class="modal-overlay">
+  <section class="content-section" id="pre-registration">
+    <h2 class="section-title">Pre-Registration</h2>
+    <div class="form-container" style="max-width: 800px; margin: auto;">
+      <div class="step-indicator">
+        <div class="step-dot active" id="dot1"></div>
+        <div class="step-dot" id="dot2"></div>
+        <div class="step-dot" id="dot3"></div>
+        <div class="step-dot" id="dot4"></div>
+        <div class="step-dot" id="dot5"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="step active" id="step1">
+        <div style="text-align: center;">
+          <h2 style="color: var(--icon-yellow); margin-bottom: 2rem;">Get Ready to Enter the Future of Gaming</h2>
+          <p style="font-size: 1.2rem; margin-bottom: 3rem; color: var(--text-body);">Join thousands of gamers waiting for the next generation of interactive entertainment.</p>
+          <button class="btn btn-primary" onclick="nextStep(2)">Start Registration</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step" id="step2">
+        <h2 style="color: var(--icon-fill); margin-bottom: 2rem; text-align: center;">Registration Details</h2>
+        <form id="preRegForm">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+              <option value="">Select Country</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <select id="state" name="state" required>
+              <option value="">Select State</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <select id="city" name="city" required>
+              <option value="">Select City</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Game Genres You Love</label>
+            <div class="checkbox-group">
+              <div class="checkbox-item"><input type="checkbox" id="fighting"><label for="fighting">Fighting</label></div>
+              <div class="checkbox-item"><input type="checkbox" id="simulation"><label for="simulation">Simulation</label></div>
+              <div class="checkbox-item"><input type="checkbox" id="sandbox"><label for="sandbox">Sandbox</label></div>
+              <div class="checkbox-item"><input type="checkbox" id="flying"><label for="flying">Flying</label></div>
+              <div class="checkbox-item"><input type="checkbox" id="multiplayer"><label for="multiplayer">Multiplayer</label></div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="nextStep(5)" style="width: 100%;">Continue</button>
+        </form>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step" id="step5">
+        <div class="success-message">
+          <h2>🎉 Registration Complete!</h2>
+          <p>Thanks for Pre-Registering! We'll keep you updated on our releases.</p>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+          <a href="index.html" class="btn btn-primary">Return to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
