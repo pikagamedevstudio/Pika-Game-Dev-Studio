@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pika Shop - India's Premier Tech Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .glow-text {
+      text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff66, 0 0 60px #00ffff33;
+    }
+
+    .neon-border {
+      border: 2px solid transparent;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4) border-box;
+      border-radius: 1rem;
+      position: relative;
+      animation: borderGlow 3s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { border-color: #ff6b6b; box-shadow: 0 0 20px #ff6b6b44; }
+      25% { border-color: #4ecdc4; box-shadow: 0 0 20px #4ecdc444; }
+      50% { border-color: #45b7d1; box-shadow: 0 0 20px #45b7d144; }
+      75% { border-color: #96ceb4; box-shadow: 0 0 20px #96ceb444; }
+      100% { border-color: #ff6b6b; box-shadow: 0 0 20px #ff6b6b44; }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 20px #00ffff44; }
+      to { box-shadow: 0 0 40px #00ffff88, 0 0 60px #00ffff44; }
+    }
+
+    .cart-bounce {
+      animation: cartBounce 0.6s ease-in-out;
+    }
+
+    @keyframes cartBounce {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.3) rotate(-5deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
+      75% { transform: scale(1.2) rotate(-3deg); }
+    }
+
+    .slide-in {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .product-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: 0 25px 50px rgba(0, 255, 255, 0.4);
+    }
+
+    .price-tag {
+      background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .discount-badge {
+      background: linear-gradient(45deg, #ff4757, #ff3838);
+      animation: pulse 2s infinite;
+    }
+
+    .live-indicator {
+      animation: livePulse 1.5s infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .stock-low {
+      animation: stockAlert 2s infinite;
+    }
+
+    @keyframes stockAlert {
+      0%, 100% { background-color: #ff4757; }
+      50% { background-color: #ff6b6b; }
+    }
+
+    .wishlist-heart {
+      transition: all 0.3s ease;
+    }
+
+    .wishlist-heart.active {
+      color: #ff4757;
+      transform: scale(1.2);
+    }
+
+    .rating-stars {
+      color: #ffd700;
+      text-shadow: 0 0 10px #ffd70066;
+    }
+
+    .delivery-truck {
+      animation: deliveryMove 3s ease-in-out infinite;
+    }
+
+    @keyframes deliveryMove {
+      0%, 100% { transform: translateX(0px); }
+      50% { transform: translateX(10px); }
+    }
+
+    .notification-slide {
+      animation: notificationSlide 0.5s ease-out;
+    }
+
+    @keyframes notificationSlide {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .modal-backdrop {
+      backdrop-filter: blur(15px);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .search-suggestions {
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    .live-chat-bubble {
+      animation: chatBubble 2s ease-in-out infinite;
+    }
+
+    @keyframes chatBubble {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Live Status Bar -->
+  <div class="bg-gradient-to-r from-green-500 to-emerald-500 text-center py-2 text-sm font-semibold">
+    🔴 <span class="live-indicator">LIVE</span> | Free Delivery on Orders Above ₹999 | 24/7 Customer Support | <span id="liveUsers">2,847</span> Users Online
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-black/30 backdrop-blur-xl border-b border-cyan-500/30">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <h1 class="text-3xl font-bold font-mono glow-text">⚡ PIKA SHOP</h1>
+          <div class="hidden md:flex items-center gap-2 text-sm">
+            <span class="bg-green-500 w-2 h-2 rounded-full"></span>
+            <span>Trusted by 50,000+ customers</span>
+          </div>
+        </div>
+        
+        <div class="flex-1 max-w-2xl mx-8 relative">
+          <input type="text" id="searchInput" placeholder="Search for products, brands and more..." 
+                 class="w-full bg-white/10 border border-cyan-500/50 rounded-full px-6 py-3 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-300">
+          <div id="searchSuggestions" class="absolute top-full left-0 right-0 mt-2 search-suggestions rounded-lg border border-cyan-500/30 hidden max-h-60 overflow-y-auto">
+            <!-- Search suggestions will appear here -->
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <button id="wishlistBtn" class="relative hover:scale-110 transition-transform">
+            ❤️ <span id="wishlistCount" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+          </button>
+          <button id="cartBtn" class="relative bg-gradient-to-r from-orange-500 to-red-500 px-6 py-3 rounded-full font-semibold hover:from-orange-400 hover:to-red-400 transition-all duration-300">
+            🛒 Cart
+            <span id="cartCount" class="absolute -top-2 -right-2 bg-yellow-500 text-black rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">0</span>
+          </button>
+          <button class="bg-gradient-to-r from-blue-500 to-purple-500 px-4 py-3 rounded-full font-semibold hover:from-blue-400 hover:to-purple-400 transition-all duration-300">
+            👤 Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Flash Sale Banner -->
+  <div class="bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 text-center py-4 relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative z-10">
+      <h2 class="text-2xl font-bold mb-2">⚡ FLASH SALE LIVE NOW! ⚡</h2>
+      <p class="text-lg">Up to 80% OFF | Ends in: <span id="flashTimer" class="font-mono font-bold">02:45:30</span></p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="py-8">
+    <div class="max-w-7xl mx-auto px-4">
+      
+      <!-- Hero Section -->
+      <div class="text-center mb-12 floating">
+        <h1 class="font-mono text-4xl md:text-6xl font-bold glow-text mb-4">PIKA SHOP</h1>
+        <p class="text-xl text-cyan-200 max-w-3xl mx-auto mb-6">India's Most Trusted Tech Store | Genuine Products | Same Day Delivery | 7-Day Returns</p>
+        <div class="flex justify-center gap-8 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-green-400">✓</span> 2 Crore+ Products
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-green-400">✓</span> 1000+ Brands
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-green-400">✓</span> 24x7 Support
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white/10 backdrop-blur-md rounded-lg p-4 text-center">
+          <div class="text-2xl font-bold text-green-400" id="todayOrders">1,247</div>
+          <div class="text-sm text-gray-300">Orders Today</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-lg p-4 text-center">
+          <div class="text-2xl font-bold text-blue-400" id="happyCustomers">50,000+</div>
+          <div class="text-sm text-gray-300">Happy Customers</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-lg p-4 text-center">
+          <div class="text-2xl font-bold text-purple-400">4.8⭐</div>
+          <div class="text-sm text-gray-300">Customer Rating</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-lg p-4 text-center">
+          <div class="text-2xl font-bold text-yellow-400 delivery-truck">🚚</div>
+          <div class="text-sm text-gray-300">Fast Delivery</div>
+        </div>
+      </div>
+
+      <!-- Filters & Sort -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8 bg-white/5 backdrop-blur-md rounded-lg p-4">
+        <div class="flex flex-wrap gap-3">
+          <button class="filter-btn bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full font-semibold transition-all duration-300" data-category="all">All Products</button>
+          <button class="filter-btn bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300" data-category="electronics">📱 Electronics</button>
+          <button class="filter-btn bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300" data-category="clothing">👕 Fashion</button>
+          <button class="filter-btn bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300" data-category="accessories">⌚ Accessories</button>
+          <button class="filter-btn bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300" data-category="gaming">🎮 Gaming</button>
+        </div>
+        <div class="flex items-center gap-4">
+          <select id="sortSelect" class="bg-white/10 border border-cyan-500/30 rounded-lg px-4 py-2 text-white">
+            <option value="popularity">Sort by Popularity</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Customer Rating</option>
+            <option value="newest">Newest First</option>
+          </select>
+          <div class="flex items-center gap-2">
+            <span class="text-sm">View:</span>
+            <button id="gridView" class="p-2 bg-cyan-500 rounded">⊞</button>
+            <button id="listView" class="p-2 bg-white/10 rounded">☰</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Products will be dynamically loaded here -->
+      </div>
+
+      <!-- Load More -->
+      <div class="text-center mt-12">
+        <button id="loadMoreBtn" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 pulse-glow">
+          Load More Products 🚀
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-slate-900/95 backdrop-blur-xl border border-cyan-500/50 rounded-2xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-3xl font-bold glow-text">🛒 Shopping Cart</h2>
+          <button id="closeCartBtn" class="text-4xl hover:text-red-400 transition-colors">&times;</button>
+        </div>
+        <div id="cartItems" class="space-y-4 mb-6">
+          <!-- Cart items will be displayed here -->
+        </div>
+        <div class="border-t border-cyan-500/30 pt-6">
+          <div class="bg-white/5 rounded-lg p-4 mb-4">
+            <div class="flex justify-between items-center mb-2">
+              <span>Subtotal:</span>
+              <span id="cartSubtotal">₹0.00</span>
+            </div>
+            <div class="flex justify-between items-center mb-2">
+              <span>Delivery:</span>
+              <span class="text-green-400">FREE</span>
+            </div>
+            <div class="flex justify-between items-center mb-2">
+              <span>GST (18%):</span>
+              <span id="cartGST">₹0.00</span>
+            </div>
+            <div class="border-t border-gray-600 pt-2 flex justify-between items-center text-xl font-bold">
+              <span>Total:</span>
+              <span id="cartTotal" class="price-tag">₹0.00</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105">
+              💳 Buy Now
+            </button>
+            <button id="checkoutBtn" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105">
+              🚀 Proceed to Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Detail Modal -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-slate-900/95 backdrop-blur-xl border border-cyan-500/50 rounded-2xl p-8 max-w-6xl w-full max-h-[95vh] overflow-y-auto">
+        <div class="flex justify-between items-start mb-6">
+          <h2 id="modalTitle" class="text-3xl font-bold glow-text"></h2>
+          <button id="closeProductBtn" class="text-4xl hover:text-red-400 transition-colors">&times;</button>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <img id="modalImage" class="w-full h-96 object-cover rounded-lg mb-4" alt="">
+            <div class="grid grid-cols-4 gap-2" id="modalThumbnails">
+              <!-- Thumbnails will be added here -->
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="rating-stars text-xl" id="modalRating"></div>
+              <span class="text-sm text-gray-400">(<span id="modalReviews"></span> reviews)</span>
+            </div>
+            <p id="modalDescription" class="text-lg text-cyan-200 mb-6"></p>
+            <div class="mb-6">
+              <div class="flex items-center gap-4 mb-2">
+                <span class="text-3xl font-bold price-tag" id="modalPrice"></span>
+                <span class="text-lg text-gray-400 line-through" id="modalOriginalPrice"></span>
+                <span class="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold" id="modalDiscount"></span>
+              </div>
+              <div class="text-sm text-green-400 mb-2">✓ Inclusive of all taxes</div>
+              <div class="text-sm text-blue-400">🚚 FREE delivery by tomorrow</div>
+            </div>
+            <div class="mb-6">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="font-semibold">Quantity:</span>
+                <div class="flex items-center gap-3">
+                  <button id="decreaseQty" class="bg-red-500 hover:bg-red-400 w-10 h-10 rounded-full font-bold transition-colors">-</button>
+                  <span id="quantity" class="text-xl font-bold px-4">1</span>
+                  <button id="increaseQty" class="bg-green-500 hover:bg-green-400 w-10 h-10 rounded-full font-bold transition-colors">+</button>
+                </div>
+                <span class="text-sm text-gray-400" id="stockStatus"></span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <button id="addToCartModal" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105">
+                🛒 Add to Cart
+              </button>
+              <button class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105">
+                ⚡ Buy Now
+              </button>
+            </div>
+            <div class="bg-white/5 rounded-lg p-4">
+              <h4 class="font-semibold mb-2">🛡️ Pika Shop Promise</h4>
+              <ul class="text-sm space-y-1">
+                <li>✓ 7-day easy returns & exchange</li>
+                <li>✓ 1-year warranty on electronics</li>
+                <li>✓ 100% genuine products</li>
+                <li>✓ Secure payments</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Chat -->
+  <div class="fixed bottom-6 right-6 z-40">
+    <button class="bg-gradient-to-r from-blue-500 to-purple-500 w-16 h-16 rounded-full flex items-center justify-center text-2xl live-chat-bubble shadow-lg">
+      💬
+    </button>
+  </div>
+
+  <!-- Notifications -->
+  <div id="notifications" class="fixed top-20 right-4 space-y-2 z-40">
+    <!-- Notifications will appear here -->
+  </div>
+
+  <!-- Success Toast -->
+  <div id="successToast" class="fixed top-24 right-4 bg-green-500 text-white px-6 py-3 rounded-lg font-semibold transform translate-x-full transition-transform duration-300 z-50 notification-slide">
+    ✅ Added to cart successfully!
+  </div>
+
+  <script>
+    // Enhanced Product Database with Indian context
+    const products = [
+      {
+        id: 1,
+        name: "iPhone 15 Pro Max",
+        category: "electronics",
+        price: 159900,
+        originalPrice: 179900,
+        description: "Latest iPhone with A17 Pro chip, titanium design, and advanced camera system. Perfect for photography and gaming.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23667eea'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle' dy='.3em'%3E📱 iPhone 15 Pro Max%3C/text%3E%3C/svg%3E",
+        rating: 4.8,
+        reviews: 2847,
+        inStock: 15,
+        featured: true,
+        fastDelivery: true,
+        brand: "Apple"
+      },
+      {
+        id: 2,
+        name: "Samsung Galaxy S24 Ultra",
+        category: "electronics",
+        price: 124999,
+        originalPrice: 139999,
+        description: "Flagship Android phone with S Pen, 200MP camera, and AI features. Best for productivity and creativity.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23f093fb'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle' dy='.3em'%3E📱 Galaxy S24 Ultra%3C/text%3E%3C/svg%3E",
+        rating: 4.7,
+        reviews: 1923,
+        inStock: 8,
+        featured: true,
+        fastDelivery: true,
+        brand: "Samsung"
+      },
+      {
+        id: 3,
+        name: "MacBook Air M3",
+        category: "electronics",
+        price: 114900,
+        originalPrice: 134900,
+        description: "Ultra-thin laptop with M3 chip, 18-hour battery life, and stunning Liquid Retina display.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%2320bf6b'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle' dy='.3em'%3E💻 MacBook Air M3%3C/text%3E%3C/svg%3E",
+        rating: 4.9,
+        reviews: 3456,
+        inStock: 12,
+        featured: true,
+        fastDelivery: true,
+        brand: "Apple"
+      },
+      {
+        id: 4,
+        name: "Sony WH-1000XM5",
+        category: "accessories",
+        price: 29990,
+        originalPrice: 34990,
+        description: "Industry-leading noise canceling headphones with 30-hour battery life and premium sound quality.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23fa709a'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle' dy='.3em'%3E🎧 Sony WH-1000XM5%3C/text%3E%3C/svg%3E",
+        rating: 4.6,
+        reviews: 1567,
+        inStock: 25,
+        featured: false,
+        fastDelivery: true,
+        brand: "Sony"
+      },
+      {
+        id: 5,
+        name: "PlayStation 5",
+        category: "gaming",
+        price: 54990,
+        originalPrice: 59990,
+        description: "Next-gen gaming console with ultra-high speed SSD, ray tracing, and 4K gaming capabilities.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%234facfe'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle' dy='.3em'%3E🎮 PlayStation 5%3C/text%3E%3C/svg%3E",
+        rating: 4.8,
+        reviews: 2134,
+        inStock: 3,
+        featured: true,
+        fastDelivery: false,
+        brand: "Sony"
+      },
+      {
+        id: 6,
+        name: "Nike Air Jordan 1",
+        category: "clothing",
+        price: 12995,
+        originalPrice: 15995,
+        description: "Iconic basketball sneakers with premium leather construction and classic colorway.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23a8edea'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='black' text-anchor='middle' dy='.3em'%3E👟 Air Jordan 1%3C/text%3E%3C/svg%3E",
+        rating: 4.5,
+        reviews: 892,
+        inStock: 18,
+        featured: false,
+        fastDelivery: true,
+        brand: "Nike"
+      },
+      {
+        id: 7,
+        name: "Apple Watch Series 9",
+        category: "accessories",
+        price: 41900,
+        originalPrice: 46900,
+        description: "Advanced smartwatch with health monitoring, fitness tracking, and seamless iPhone integration.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23ffecd2'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='black' text-anchor='middle' dy='.3em'%3E⌚ Apple Watch S9%3C/text%3E%3C/svg%3E",
+        rating: 4.7,
+        reviews: 1678,
+        inStock: 22,
+        featured: false,
+        fastDelivery: true,
+        brand: "Apple"
+      },
+      {
+        id: 8,
+        name: "Dell XPS 13",
+        category: "electronics",
+        price: 89990,
+        originalPrice: 104990,
+        description: "Premium ultrabook with InfinityEdge display, Intel Core i7, and all-day battery life.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23ff9a9e'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle' dy='.3em'%3E💻 Dell XPS 13%3C/text%3E%3C/svg%3E",
+        rating: 4.6,
+        reviews: 1234,
+        inStock: 7,
+        featured: false,
+        fastDelivery: true,
+        brand: "Dell"
+      },
+      {
+        id: 9,
+        name: "Razer DeathAdder V3",
+        category: "gaming",
+        price: 6999,
+        originalPrice: 8999,
+        description: "Professional gaming mouse with 30K DPI sensor, ergonomic design, and customizable RGB lighting.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%2343e97b'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle' dy='.3em'%3E🖱️ Razer Mouse%3C/text%3E%3C/svg%3E",
+        rating: 4.4,
+        reviews: 567,
+        inStock: 35,
+        featured: false,
+        fastDelivery: true,
+        brand: "Razer"
+      },
+      {
+        id: 10,
+        name: "Adidas Ultraboost 22",
+        category: "clothing",
+        price: 16999,
+        originalPrice: 19999,
+        description: "Premium running shoes with Boost midsole technology and Primeknit upper for ultimate comfort.",
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%2338f9d7'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='black' text-anchor='middle' dy='.3em'%3E👟 Ultraboost 22%3C/text%3E%3C/svg%3E",
+        rating: 4.6,
+        reviews: 743,
+        inStock: 14,
+        featured: false,
+        fastDelivery: true,
+        brand: "Adidas"
+      }
+    ];
+
+    // Shopping Cart and Wishlist
+    let cart = [];
+    let wishlist = [];
+    let currentFilter = 'all';
+    let currentSort = 'popularity';
+    let displayedProducts = 8;
+    let searchSuggestions = [];
+
+    // Live counters
+    let liveUsers = 2847;
+    let todayOrders = 1247;
+
+    // DOM Elements
+    const productsGrid = document.getElementById('productsGrid');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartCount = document.getElementById('cartCount');
+    const wishlistCount = document.getElementById('wishlistCount');
+    const cartModal = document.getElementById('cartModal');
+    const productModal = document.getElementById('productModal');
+    const searchInput = document.getElementById('searchInput');
+    const searchSuggestionsEl = document.getElementById('searchSuggestions');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const sortSelect = document.getElementById('sortSelect');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const successToast = document.getElementById('successToast');
+    const flashTimer = document.getElementById('flashTimer');
+    const liveUsersEl = document.getElementById('liveUsers');
+    const todayOrdersEl = document.getElementById('todayOrders');
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      renderProducts();
+      setupEventListeners();
+      startLiveUpdates();
+      startFlashTimer();
+      updateLiveStats();
+    });
+
+    // Live Updates
+    function startLiveUpdates() {
+      setInterval(() => {
+        // Update live user count
+        liveUsers += Math.floor(Math.random() * 10) - 5;
+        if (liveUsers < 2000) liveUsers = 2000;
+        if (liveUsers > 5000) liveUsers = 5000;
+        liveUsersEl.textContent = liveUsers.toLocaleString();
+
+        // Update today's orders
+        if (Math.random() > 0.7) {
+          todayOrders += Math.floor(Math.random() * 3) + 1;
+          todayOrdersEl.textContent = todayOrders.toLocaleString();
+          showLiveNotification();
+        }
+      }, 3000);
+    }
+
+    // Flash Sale Timer
+    function startFlashTimer() {
+      let timeLeft = 2 * 3600 + 45 * 60 + 30; // 2:45:30
+      
+      setInterval(() => {
+        timeLeft--;
+        if (timeLeft < 0) timeLeft = 24 * 3600; // Reset to 24 hours
+        
+        const hours = Math.floor(timeLeft / 3600);
+        const minutes = Math.floor((timeLeft % 3600) / 60);
+        const seconds = timeLeft % 60;
+        
+        flashTimer.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    // Show Live Notifications
+    function showLiveNotification() {
+      const notifications = [
+        "🔥 Someone just bought iPhone 15 Pro Max in Mumbai!",
+        "⚡ Flash sale item added to cart in Delhi!",
+        "🎉 New customer joined from Bangalore!",
+        "🚚 Order delivered successfully in Chennai!",
+        "💝 5-star review received for MacBook Air!"
+      ];
+      
+      const notification = notifications[Math.floor(Math.random() * notifications.length)];
+      const notificationEl = document.createElement('div');
+      notificationEl.className = 'bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold notification-slide';
+      notificationEl.textContent = notification;
+      
+      document.getElementById('notifications').appendChild(notificationEl);
+      
+      setTimeout(() => {
+        notificationEl.remove();
+      }, 4000);
+    }
+
+    // Render Products
+    function renderProducts() {
+      const filteredProducts = filterAndSortProducts();
+      const productsToShow = filteredProducts.slice(0, displayedProducts);
+      
+      productsGrid.innerHTML = productsToShow.map(product => {
+        const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+        const isLowStock = product.inStock < 10;
+        
+        return `
+          <div class="product-card neon-border rounded-2xl p-6 slide-in" data-category="${product.category}">
+            <div class="relative mb-4">
+              <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-lg">
+              ${product.featured ? '<div class="absolute top-2 left-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-2 py-1 rounded-full text-xs font-bold">⭐ BESTSELLER</div>' : ''}
+              ${product.fastDelivery ? '<div class="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">🚚 Fast</div>' : ''}
+              <div class="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded-full text-xs">
+                <span class="rating-stars">⭐</span> ${product.rating}
+              </div>
+              <button onclick="toggleWishlist(${product.id})" class="absolute bottom-2 left-2 wishlist-heart text-2xl bg-black/70 w-10 h-10 rounded-full flex items-center justify-center">
+                ${wishlist.includes(product.id) ? '❤️' : '🤍'}
+              </button>
+            </div>
+            
+            <div class="mb-2">
+              <span class="text-xs text-gray-400 uppercase">${product.brand}</span>
+            </div>
+            
+            <h3 class="font-bold text-lg mb-2 text-cyan-100 line-clamp-2">${product.name}</h3>
+            
+            <div class="flex items-center gap-2 mb-3">
+              <div class="rating-stars text-sm">
+                ${'⭐'.repeat(Math.floor(product.rating))}
+              </div>
+              <span class="text-xs text-gray-400">(${product.reviews.toLocaleString()})</span>
+            </div>
+            
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <span class="text-2xl font-bold price-tag">₹${product.price.toLocaleString()}</span>
+                <div class="text-sm text-gray-400">
+                  <span class="line-through">₹${product.originalPrice.toLocaleString()}</span>
+                  <span class="text-green-400 ml-2">${discount}% off</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              ${isLowStock ? 
+                `<div class="stock-low text-white text-xs px-2 py-1 rounded-full text-center font-bold">⚠️ Only ${product.inStock} left!</div>` :
+                `<div class="text-green-400 text-xs">✓ In Stock (${product.inStock}+ available)</div>`
+              }
+              ${product.fastDelivery ? '<div class="text-blue-400 text-xs">🚚 FREE delivery by tomorrow</div>' : ''}
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="addToCart(${product.id})" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 text-sm">
+                🛒 Add to Cart
+              </button>
+              <button onclick="openProductModal(${product.id})" class="bg-white/10 hover:bg-white/20 py-3 rounded-lg transition-all duration-300 text-sm">
+                👁️ View Details
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Show/hide load more button
+      loadMoreBtn.style.display = filteredProducts.length > displayedProducts ? 'block' : 'none';
+    }
+
+    // Filter and Sort Products
+    function filterAndSortProducts() {
+      let filtered = [...products];
+      
+      // Apply category filter
+      if (currentFilter !== 'all') {
+        filtered = filtered.filter(product => product.category === currentFilter);
+      }
+      
+      // Apply search filter
+      const searchTerm = searchInput.value.toLowerCase();
+      if (searchTerm) {
+        filtered = filtered.filter(product => 
+          product.name.toLowerCase().includes(searchTerm) ||
+          product.description.toLowerCase().includes(searchTerm) ||
+          product.brand.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      // Apply sorting
+      switch (currentSort) {
+        case 'price-low':
+          filtered.sort((a, b) => a.price - b.price);
+          break;
+        case 'price-high':
+          filtered.sort((a, b) => b.price - a.price);
+          break;
+        case 'rating':
+          filtered.sort((a, b) => b.rating - a.rating);
+          break;
+        case 'newest':
+          filtered.sort((a, b) => b.id - a.id);
+          break;
+        default: // popularity
+          filtered.sort((a, b) => b.reviews - a.reviews);
+      }
+      
+      return filtered;
+    }
+
+    // Search Suggestions
+    function updateSearchSuggestions(query) {
+      if (!query) {
+        searchSuggestionsEl.classList.add('hidden');
+        return;
+      }
+      
+      const suggestions = products
+        .filter(product => 
+          product.name.toLowerCase().includes(query.toLowerCase()) ||
+          product.brand.toLowerCase().includes(query.toLowerCase())
+        )
+        .slice(0, 5);
+      
+      if (suggestions.length > 0) {
+        searchSuggestionsEl.innerHTML = suggestions.map(product => `
+          <div class="p-3 hover:bg-white/10 cursor-pointer border-b border-gray-700 last:border-b-0" onclick="selectSuggestion('${product.name}')">
+            <div class="flex items-center gap-3">
+              <img src="${product.image}" alt="${product.name}" class="w-10 h-10 object-cover rounded">
+              <div>
+                <div class="font-semibold text-sm">${product.name}</div>
+                <div class="text-xs text-gray-400">₹${product.price.toLocaleString()}</div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+        searchSuggestionsEl.classList.remove('hidden');
+      } else {
+        searchSuggestionsEl.classList.add('hidden');
+      }
+    }
+
+    // Select Search Suggestion
+    function selectSuggestion(productName) {
+      searchInput.value = productName;
+      searchSuggestionsEl.classList.add('hidden');
+      renderProducts();
+    }
+
+    // Add to Cart
+    function addToCart(productId, quantity = 1) {
+      const product = products.find(p => p.id === productId);
+      const existingItem = cart.find(item => item.id === productId);
+      
+      if (existingItem) {
+        existingItem.quantity += quantity;
+      } else {
+        cart.push({ ...product, quantity });
+      }
+      
+      updateCartUI();
+      showSuccessToast();
+      
+      // Reduce stock
+      product.inStock -= quantity;
+      if (product.inStock < 0) product.inStock = 0;
+      
+      renderProducts(); // Re-render to update stock display
+    }
+
+    // Toggle Wishlist
+    function toggleWishlist(productId) {
+      const index = wishlist.indexOf(productId);
+      if (index > -1) {
+        wishlist.splice(index, 1);
+      } else {
+        wishlist.push(productId);
+      }
+      
+      wishlistCount.textContent = wishlist.length;
+      renderProducts(); // Re-render to update heart icons
+    }
+
+    // Update Cart UI
+    function updateCartUI() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalItems;
+      cartCount.classList.add('cart-bounce');
+      setTimeout(() => cartCount.classList.remove('cart-bounce'), 600);
+    }
+
+    // Open Product Modal
+    function openProductModal(productId) {
+      const product = products.find(p => p.id === productId);
+      
+      document.getElementById('modalTitle').textContent = product.name;
+      document.getElementById('modalImage').src = product.image;
+      document.getElementById('modalDescription').textContent = product.description;
+      document.getElementById('modalPrice').textContent = `₹${product.price.toLocaleString()}`;
+      document.getElementById('modalOriginalPrice').textContent = `₹${product.originalPrice.toLocaleString()}`;
+      document.getElementById('modalDiscount').textContent = `${Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF`;
+      document.getElementById('modalRating').textContent = '⭐'.repeat(Math.floor(product.rating));
+      document.getElementById('modalReviews').textContent = product.reviews.toLocaleString();
+      document.getElementById('quantity').textContent = '1';
+      document.getElementById('stockStatus').textContent = product.inStock < 10 ? `Only ${product.inStock} left!` : `${product.inStock}+ in stock`;
+      
+      document.getElementById('addToCartModal').onclick = () => {
+        const qty = parseInt(document.getElementById('quantity').textContent);
+        addToCart(productId, qty);
+        productModal.classList.add('hidden');
+      };
+      
+      productModal.classList.remove('hidden');
+    }
+
+    // Show Success Toast
+    function showSuccessToast() {
+      successToast.classList.remove('translate-x-full');
+      setTimeout(() => {
+        successToast.classList.add('translate-x-full');
+      }, 3000);
+    }
+
+    // Update Live Stats
+    function updateLiveStats() {
+      setInterval(() => {
+        // Simulate real-time activity
+        if (Math.random() > 0.8) {
+          showLiveNotification();
+        }
+      }, 5000);
+    }
+
+    // Setup Event Listeners
+    function setupEventListeners() {
+      // Filter buttons
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.classList.remove('bg-gradient-to-r', 'from-cyan-500', 'to-blue-500', 'text-white');
+            b.classList.add('bg-white/10', 'hover:bg-white/20');
+          });
+          btn.classList.remove('bg-white/10', 'hover:bg-white/20');
+          btn.classList.add('bg-gradient-to-r', 'from-cyan-500', 'to-blue-500', 'text-white');
+          
+          currentFilter = btn.dataset.category;
+          displayedProducts = 8;
+          renderProducts();
+        });
+      });
+
+      // Search with suggestions
+      searchInput.addEventListener('input', (e) => {
+        updateSearchSuggestions(e.target.value);
+        displayedProducts = 8;
+        renderProducts();
+      });
+
+      // Sort
+      sortSelect.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        renderProducts();
+      });
+
+      // Load more
+      loadMoreBtn.addEventListener('click', () => {
+        displayedProducts += 8;
+        renderProducts();
+      });
+
+      // Cart modal
+      cartBtn.addEventListener('click', () => {
+        renderCartModal();
+        cartModal.classList.remove('hidden');
+      });
+
+      document.getElementById('closeCartBtn').addEventListener('click', () => {
+        cartModal.classList.add('hidden');
+      });
+
+      // Product modal
+      document.getElementById('closeProductBtn').addEventListener('click', () => {
+        productModal.classList.add('hidden');
+      });
+
+      // Quantity controls
+      document.getElementById('increaseQty').addEventListener('click', () => {
+        const qtyEl = document.getElementById('quantity');
+        const current = parseInt(qtyEl.textContent);
+        if (current < 10) qtyEl.textContent = current + 1;
+      });
+
+      document.getElementById('decreaseQty').addEventListener('click', () => {
+        const qtyEl = document.getElementById('quantity');
+        const current = parseInt(qtyEl.textContent);
+        if (current > 1) qtyEl.textContent = current - 1;
+      });
+
+      // Checkout
+      document.getElementById('checkoutBtn').addEventListener('click', () => {
+        alert('🚀 Redirecting to secure payment gateway... (Demo Mode)\n\nAccepted: UPI, Cards, Net Banking, Wallets');
+      });
+
+      // Close modals on backdrop click
+      cartModal.addEventListener('click', (e) => {
+        if (e.target === cartModal) cartModal.classList.add('hidden');
+      });
+
+      productModal.addEventListener('click', (e) => {
+        if (e.target === productModal) productModal.classList.add('hidden');
+      });
+
+      // Hide search suggestions when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !searchSuggestionsEl.contains(e.target)) {
+          searchSuggestionsEl.classList.add('hidden');
+        }
+      });
+    }
+
+    // Render Cart Modal
+    function renderCartModal() {
+      const cartItems = document.getElementById('cartItems');
+      const cartSubtotal = document.getElementById('cartSubtotal');
+      const cartGST = document.getElementById('cartGST');
+      const cartTotal = document.getElementById('cartTotal');
+      
+      if (cart.length === 0) {
+        cartItems.innerHTML = `
+          <div class="text-center py-12">
+            <div class="text-6xl mb-4">🛒</div>
+            <h3 class="text-xl font-semibold mb-2">Your cart is empty</h3>
+            <p class="text-gray-400 mb-4">Add some products to get started!</p>
+            <button onclick="document.getElementById('cartModal').classList.add('hidden')" class="bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 rounded-lg font-semibold">
+              Continue Shopping
+            </button>
+          </div>
+        `;
+        cartSubtotal.textContent = '₹0.00';
+        cartGST.textContent = '₹0.00';
+        cartTotal.textContent = '₹0.00';
+        return;
+      }
+      
+      cartItems.innerHTML = cart.map(item => `
+        <div class="flex items-center gap-4 bg-white/5 p-4 rounded-lg border border-cyan-500/20">
+          <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+          <div class="flex-1">
+            <h4 class="font-semibold text-lg">${item.name}</h4>
+            <p class="text-sm text-gray-400">${item.brand}</p>
+            <p class="text-cyan-400 font-semibold">₹${item.price.toLocaleString()} each</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="updateCartQuantity(${item.id}, -1)" class="bg-red-500 hover:bg-red-400 w-10 h-10 rounded-full font-bold transition-colors">-</button>
+            <span class="px-4 py-2 bg-white/10 rounded-lg font-bold">${item.quantity}</span>
+            <button onclick="updateCartQuantity(${item.id}, 1)" class="bg-green-500 hover:bg-green-400 w-10 h-10 rounded-full font-bold transition-colors">+</button>
+          </div>
+          <div class="text-right">
+            <div class="font-bold text-lg price-tag">₹${(item.price * item.quantity).toLocaleString()}</div>
+            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300 text-sm transition-colors">🗑️ Remove</button>
+          </div>
+        </div>
+      `).join('');
+      
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const gst = subtotal * 0.18;
+      const total = subtotal + gst;
+      
+      cartSubtotal.textContent = `₹${subtotal.toLocaleString()}`;
+      cartGST.textContent = `₹${gst.toLocaleString()}`;
+      cartTotal.textContent = `₹${total.toLocaleString()}`;
+    }
+
+    // Update Cart Quantity
+    function updateCartQuantity(productId, change) {
+      const item = cart.find(item => item.id === productId);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+          removeFromCart(productId);
+        } else {
+          updateCartUI();
+          renderCartModal();
+        }
+      }
+    }
+
+    // Remove from Cart
+    function removeFromCart(productId) {
+      const item = cart.find(item => item.id === productId);
+      if (item) {
+        // Restore stock
+        const product = products.find(p => p.id === productId);
+        product.inStock += item.quantity;
+      }
+      
+      cart = cart.filter(item => item.id !== productId);
+      updateCartUI();
+      renderCartModal();
+      renderProducts(); // Re-render to update stock display
+    }
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9696a4cd46d8a9ec',t:'MTc1NDIzMjc5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
