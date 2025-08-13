@@ -2,26 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5">
     <title>Buy Us a Coffee - Pika Game Dev Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* Global Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background: #0d0d0d;
-            color: #e0e0e0;
+            color: #b8b8b8;
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
         }
 
-        /* Rich Coffee Background */
+        /* Rich Coffee Background with Multiple Layers */
         .coffee-background {
             position: fixed;
             top: 0;
@@ -29,7 +39,7 @@
             width: 100%;
             height: 100%;
             background: 
-                /* Coffee shop atmosphere */
+                /* Coffee shop atmosphere gradients */
                 radial-gradient(ellipse at 15% 15%, rgba(139, 69, 19, 0.6) 0%, transparent 30%),
                 radial-gradient(ellipse at 85% 85%, rgba(160, 82, 45, 0.5) 0%, transparent 35%),
                 radial-gradient(ellipse at 50% 10%, rgba(210, 180, 140, 0.4) 0%, transparent 40%),
@@ -37,16 +47,18 @@
                 radial-gradient(ellipse at 25% 20%, rgba(245, 222, 179, 0.3) 0%, transparent 50%),
                 radial-gradient(ellipse at 75% 80%, rgba(222, 184, 135, 0.4) 0%, transparent 45%),
                 radial-gradient(ellipse at 50% 50%, rgba(205, 133, 63, 0.3) 0%, transparent 60%),
-                /* Coffee bean texture */
+                /* Coffee bean texture patterns */
                 radial-gradient(circle at 20% 30%, rgba(101, 67, 33, 0.7) 0%, transparent 25%),
                 radial-gradient(circle at 80% 70%, rgba(83, 53, 10, 0.8) 0%, transparent 30%),
                 radial-gradient(circle at 60% 40%, rgba(139, 69, 19, 0.6) 0%, transparent 35%),
-                /* Base coffee gradient */
+                /* Base coffee gradient foundation */
                 linear-gradient(135deg, #3d2817 0%, #2c1810 20%, #1a0f0a 40%, #4a2c17 60%, #2c1810 80%, #3d2817 100%);
             z-index: -3;
             animation: coffeeSwirl 25s ease-in-out infinite;
+            will-change: background-position, filter;
         }
 
+        /* Coffee Background Animation - Optimized for Mobile */
         @keyframes coffeeSwirl {
             0%, 100% { 
                 background-position: 0% 0%, 100% 100%, 50% 50%, 20% 30%, 80% 70%;
@@ -66,7 +78,7 @@
             }
         }
 
-        /* Floating Coffee Beans */
+        /* Floating Coffee Beans Layer - Reduced for Mobile Performance */
         .coffee-background::before {
             content: '';
             position: absolute;
@@ -75,33 +87,46 @@
             width: 100%;
             height: 100%;
             background-image: 
-                /* Extra Large coffee beans */
+                /* Extra Large coffee beans with realistic gradients */
                 radial-gradient(ellipse 12px 18px at center, rgba(101, 67, 33, 0.9) 0%, rgba(83, 53, 10, 1) 30%, rgba(62, 39, 35, 0.8) 60%, transparent 80%),
                 radial-gradient(ellipse 10px 15px at center, rgba(139, 69, 19, 0.8) 0%, rgba(101, 67, 33, 0.9) 40%, transparent 75%),
-                /* Large coffee beans */
+                /* Large coffee beans with varied sizes */
                 radial-gradient(ellipse 8px 12px at center, rgba(160, 82, 45, 0.7) 0%, rgba(139, 69, 19, 0.8) 50%, transparent 85%),
                 radial-gradient(ellipse 9px 13px at center, rgba(83, 53, 10, 0.9) 0%, rgba(62, 39, 35, 0.7) 40%, transparent 70%),
-                radial-gradient(ellipse 7px 11px at center, rgba(101, 67, 33, 0.8) 0%, rgba(83, 53, 10, 0.6) 60%, transparent 90%),
-                /* Medium coffee beans */
-                radial-gradient(ellipse 5px 8px at center, rgba(139, 69, 19, 0.6) 0%, rgba(101, 67, 33, 0.7) 70%, transparent 100%),
-                radial-gradient(ellipse 6px 9px at center, rgba(160, 82, 45, 0.5) 0%, rgba(139, 69, 19, 0.6) 80%, transparent 100%),
-                /* Small coffee beans */
-                radial-gradient(ellipse 3px 5px at center, rgba(101, 67, 33, 0.4) 0%, rgba(83, 53, 10, 0.5) 90%, transparent 100%),
-                radial-gradient(ellipse 4px 6px at center, rgba(139, 69, 19, 0.3) 0%, rgba(101, 67, 33, 0.4) 100%, transparent 100%);
+                radial-gradient(ellipse 7px 11px at center, rgba(205, 133, 63, 0.6) 0%, rgba(160, 82, 45, 0.7) 45%, transparent 80%);
+            background-position: 
+                15% 25%, 85% 75%, 45% 15%, 75% 45%, 25% 85%,
+                65% 25%, 35% 65%, 85% 35%, 15% 75%, 55% 55%;
             background-size: 
-                300px 400px, 280px 350px,
-                200px 300px, 220px 280px, 180px 250px,
-                150px 200px, 170px 220px,
-                100px 120px, 120px 140px;
-            background-position:
-                5% 15%, 85% 75%,
-                25% 25%, 75% 65%, 45% 85%,
-                15% 55%, 85% 35%,
-                35% 75%, 65% 15%;
-            animation: floatingBeans 20s infinite linear;
+                24px 36px, 20px 30px, 16px 24px, 18px 26px, 14px 22px,
+                22px 32px, 16px 24px, 20px 28px, 18px 26px, 12px 20px;
+            background-repeat: no-repeat;
+            animation: floatBeans 20s ease-in-out infinite;
+            z-index: -2;
+            will-change: transform, opacity;
         }
 
-        /* Coffee Bean Crack Details */
+        /* Floating Beans Animation - Optimized */
+        @keyframes floatBeans {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            25% { 
+                transform: translateY(-10px) rotate(2deg);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-5px) rotate(-1deg);
+                opacity: 0.9;
+            }
+            75% { 
+                transform: translateY(-15px) rotate(1deg);
+                opacity: 0.8;
+            }
+        }
+
+        /* Steam Animation Layer - Simplified for Mobile */
         .coffee-background::after {
             content: '';
             position: absolute;
@@ -109,685 +134,593 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                /* Bean cracks/lines */
-                linear-gradient(45deg, transparent 48%, rgba(62, 39, 35, 0.8) 49%, rgba(62, 39, 35, 0.8) 51%, transparent 52%),
-                linear-gradient(135deg, transparent 48%, rgba(83, 53, 10, 0.6) 49%, rgba(83, 53, 10, 0.6) 51%, transparent 52%),
-                linear-gradient(90deg, transparent 49%, rgba(101, 67, 33, 0.4) 50%, transparent 51%);
-            background-size: 
-                40px 60px, 50px 70px, 30px 45px;
-            background-position:
-                15% 25%, 85% 75%, 45% 15%;
-            animation: beanCracks 20s ease-in-out infinite;
-            opacity: 0.6;
-        }
-
-        @keyframes floatingBeans {
-            0% { 
-                transform: translateY(0px) rotate(0deg);
-                background-position:
-                    10% 20%, 80% 70%, 30% 80%,
-                    60% 10%, 90% 40%,
-                    20% 60%, 70% 30%;
-            }
-            25% { 
-                transform: translateY(-15px) rotate(90deg);
-                background-position:
-                    15% 25%, 75% 65%, 35% 85%,
-                    65% 15%, 85% 35%,
-                    25% 65%, 65% 25%;
-            }
-            50% { 
-                transform: translateY(-30px) rotate(180deg);
-                background-position:
-                    20% 30%, 70% 60%, 40% 90%,
-                    70% 20%, 80% 30%,
-                    30% 70%, 60% 20%;
-            }
-            75% { 
-                transform: translateY(-15px) rotate(270deg);
-                background-position:
-                    15% 35%, 75% 55%, 35% 95%,
-                    65% 25%, 85% 25%,
-                    25% 75%, 65% 15%;
-            }
-            100% { 
-                transform: translateY(0px) rotate(360deg);
-                background-position:
-                    10% 20%, 80% 70%, 30% 80%,
-                    60% 10%, 90% 40%,
-                    20% 60%, 70% 30%;
-            }
-        }
-
-        @keyframes beanCracks {
-            0%, 100% { 
-                opacity: 0.6;
-                background-position: 15% 25%, 85% 75%, 45% 15%;
-            }
-            50% { 
-                opacity: 0.8;
-                background-position: 25% 35%, 75% 65%, 55% 25%;
-            }
-        }
-
-        /* Coffee Steam Effects */
-        .coffee-steam {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -2;
-        }
-
-        .steam-particle {
-            position: absolute;
-            width: 4px;
-            height: 50px;
-            background: linear-gradient(to top, 
-                rgba(245, 222, 179, 0.6) 0%,
-                rgba(255, 248, 220, 0.4) 30%,
-                rgba(255, 255, 255, 0.3) 60%,
-                transparent 100%);
-            border-radius: 3px;
-            animation: steamRise 3.5s infinite ease-out;
-        }
-
-        .steam-particle:nth-child(1) { left: 8%; animation-delay: 0s; width: 3px; }
-        .steam-particle:nth-child(2) { left: 22%; animation-delay: 0.8s; width: 5px; }
-        .steam-particle:nth-child(3) { left: 38%; animation-delay: 1.6s; width: 4px; }
-        .steam-particle:nth-child(4) { left: 52%; animation-delay: 0.4s; width: 3px; }
-        .steam-particle:nth-child(5) { left: 68%; animation-delay: 1.2s; width: 5px; }
-        .steam-particle:nth-child(6) { left: 82%; animation-delay: 2s; width: 4px; }
-        .steam-particle:nth-child(7) { left: 15%; animation-delay: 2.4s; width: 3px; }
-        .steam-particle:nth-child(8) { left: 75%; animation-delay: 0.6s; width: 4px; }
-
-        @keyframes steamRise {
-            0% { 
-                transform: translateY(100vh) scaleX(1);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            50% { 
-                transform: translateY(50vh) scaleX(1.5);
-                opacity: 0.4;
-            }
-            100% { 
-                transform: translateY(-10vh) scaleX(2);
-                opacity: 0;
-            }
-        }
-
-        /* Coffee Cream Swirls */
-        .cream-swirls {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
             background: 
-                /* Large cream swirls */
-                radial-gradient(ellipse 250px 150px at 18% 25%, rgba(245, 222, 179, 0.15) 0%, rgba(255, 248, 220, 0.1) 50%, transparent 80%),
-                radial-gradient(ellipse 200px 250px at 82% 75%, rgba(222, 184, 135, 0.12) 0%, rgba(245, 222, 179, 0.08) 60%, transparent 90%),
-                radial-gradient(ellipse 220px 140px at 50% 15%, rgba(255, 228, 196, 0.1) 0%, rgba(255, 248, 220, 0.06) 70%, transparent 100%),
-                /* Medium cream swirls */
-                radial-gradient(ellipse 150px 100px at 35% 60%, rgba(210, 180, 140, 0.08) 0%, transparent 70%),
-                radial-gradient(ellipse 120px 180px at 65% 40%, rgba(245, 222, 179, 0.06) 0%, transparent 80%),
-                /* Small cream details */
-                radial-gradient(ellipse 80px 60px at 25% 80%, rgba(255, 248, 220, 0.05) 0%, transparent 90%),
-                radial-gradient(ellipse 60px 80px at 75% 20%, rgba(222, 184, 135, 0.04) 0%, transparent 100%);
-            animation: creamSwirl 18s ease-in-out infinite;
+                radial-gradient(ellipse 2px 20px at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 70%),
+                radial-gradient(ellipse 3px 25px at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 75%),
+                radial-gradient(ellipse 2px 18px at 60% 40%, rgba(255, 255, 255, 0.12) 0%, transparent 65%),
+                radial-gradient(ellipse 2px 22px at 40% 60%, rgba(255, 255, 255, 0.09) 0%, transparent 70%);
+            animation: steam 8s ease-in-out infinite;
+            z-index: -1;
+            will-change: transform, opacity;
         }
 
-        @keyframes creamSwirl {
+        /* Steam Rising Animation */
+        @keyframes steam {
             0%, 100% { 
-                transform: rotate(0deg) scale(1);
+                transform: translateY(0px);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-20px);
                 opacity: 0.6;
             }
-            33% { 
-                transform: rotate(120deg) scale(1.1);
-                opacity: 0.8;
-            }
-            66% { 
-                transform: rotate(240deg) scale(0.9);
-                opacity: 0.7;
-            }
         }
 
-        /* Neon overlay */
-        .neon-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
-            z-index: -1;
-            animation: neonPulse 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes neonPulse {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.6; }
-        }
-
-        /* Main container */
+        /* Main Container - Mobile Optimized */
         .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
             position: relative;
             z-index: 1;
         }
 
-        /* Header */
+        /* Header Section */
         .header {
             text-align: center;
-            margin-bottom: 3rem;
-            animation: fadeInDown 1s ease-out;
+            margin-bottom: 2rem;
+            position: relative;
+            padding: 1rem 0;
         }
 
+        /* Studio Name with Gradient Text - Mobile Responsive */
         .studio-name {
             font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
             font-weight: 900;
-            color: #000000;
-            text-shadow: 
-                0 0 10px rgba(255, 255, 255, 0.8),
-                0 0 20px rgba(255, 255, 255, 0.6),
-                0 0 30px rgba(255, 255, 255, 0.4),
-                2px 2px 4px rgba(0, 0, 0, 0.3);
-            margin-bottom: 0.5rem;
-            animation: titleGlow 3s ease-in-out infinite alternate;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0, #e8e8e8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+            margin-bottom: 1rem;
+            animation: glow 3s ease-in-out infinite alternate;
+            line-height: 1.2;
         }
 
-        @keyframes titleGlow {
-            0% { 
-                text-shadow: 
-                    0 0 10px rgba(255, 255, 255, 0.8),
-                    0 0 20px rgba(255, 255, 255, 0.6),
-                    0 0 30px rgba(255, 255, 255, 0.4),
-                    2px 2px 4px rgba(0, 0, 0, 0.3);
-            }
-            100% { 
-                text-shadow: 
-                    0 0 15px rgba(255, 255, 255, 1),
-                    0 0 25px rgba(255, 255, 255, 0.8),
-                    0 0 35px rgba(255, 255, 255, 0.6),
-                    2px 2px 6px rgba(0, 0, 0, 0.4);
-            }
+        /* Glowing Text Animation */
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(240, 240, 240, 0.3); }
+            to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(240, 240, 240, 0.5); }
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: #00D4AA;
-            font-weight: 400;
-            text-shadow: 
-                0 0 8px rgba(0, 212, 170, 0.8),
-                0 0 15px rgba(0, 255, 213, 0.6),
-                0 0 20px rgba(64, 224, 208, 0.4);
-            animation: subtitlePulse 4s ease-in-out infinite alternate;
+        /* Tagline Styling - Mobile Responsive */
+        .tagline {
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            color: #d4af37;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+            padding: 0 1rem;
         }
 
-        @keyframes subtitlePulse {
-            0% { 
-                color: #00D4AA;
-                text-shadow: 
-                    0 0 8px rgba(0, 212, 170, 0.8),
-                    0 0 15px rgba(0, 255, 213, 0.6),
-                    0 0 20px rgba(64, 224, 208, 0.4);
-            }
-            100% { 
-                color: #00FFD5;
-                text-shadow: 
-                    0 0 12px rgba(0, 255, 213, 1),
-                    0 0 20px rgba(64, 224, 208, 0.8),
-                    0 0 25px rgba(127, 255, 212, 0.6);
-            }
-        }
-
-        /* Central glass card */
+        /* Main Coffee Card Container - Mobile Optimized */
         .coffee-card {
-            background: 
-                /* Journey-inspired warm gradient */
-                linear-gradient(135deg, 
-                    #1a4b5c 0%,
-                    #2d5a6b 15%,
-                    #3f6a7a 30%,
-                    #4a7b8c 45%,
-                    #5a8b9c 60%,
-                    #6b9cad 75%,
-                    #7cadbe 90%,
-                    #8dbecf 100%
-                ),
-                /* Supportive warm overlay */
-                linear-gradient(45deg, 
-                    rgba(255, 140, 0, 0.15) 0%,
-                    rgba(255, 165, 0, 0.12) 50%,
-                    rgba(255, 215, 0, 0.08) 100%
-                );
-            border: 2px solid rgba(255, 215, 0, 0.4);
+            background: rgba(139, 69, 19, 0.15);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(210, 180, 140, 0.3);
             border-radius: 20px;
-            padding: 3rem 2rem;
+            padding: clamp(1.5rem, 4vw, 3rem);
             text-align: center;
             box-shadow: 
-                0 0 30px rgba(26, 75, 92, 0.4),
-                0 0 40px rgba(255, 140, 0, 0.2),
-                0 0 20px rgba(255, 215, 0, 0.15),
-                inset 0 0 30px rgba(255, 248, 220, 0.08);
-            transition: all 0.3s ease;
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
-            max-width: 500px;
+            max-width: 600px;
+            margin: 0 auto;
             width: 100%;
         }
 
+        /* Rotating Background Effect */
         .coffee-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(210, 180, 140, 0.1),
+                transparent,
+                rgba(139, 69, 19, 0.1),
+                transparent
+            );
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+            will-change: transform;
+        }
+
+        /* Rotation Animation */
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Coffee Emoji with Bounce - Mobile Optimized */
+        .coffee-emoji {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+            user-select: none;
+        }
+
+        /* Bouncing Animation */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Main Title Styling - Mobile Responsive */
+        .coffee-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.3rem, 5vw, 2rem);
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        /* Description Text - Mobile Optimized */
+        .coffee-description {
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            line-height: 1.6;
+            color: #b8b8b8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            padding: 0 0.5rem;
+        }
+
+        /* Interactive QR Section - Mobile Enhanced */
+        .interactive-section {
+            margin: 2rem 0;
+            padding: clamp(1rem, 4vw, 2rem);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden;
+            min-height: clamp(300px, 50vw, 350px);
+        }
+
+        /* Interactive Section Background */
+        .interactive-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(135, 206, 235, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(173, 216, 230, 0.12) 0%, transparent 35%),
-                radial-gradient(circle at 50% 20%, rgba(176, 224, 230, 0.1) 0%, transparent 45%),
-                radial-gradient(circle at 30% 80%, rgba(135, 206, 235, 0.08) 0%, transparent 50%);
-            animation: waterRipples 8s ease-in-out infinite;
-            pointer-events: none;
-            border-radius: 20px;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(210, 180, 140, 0.15) 0%, 
+                rgba(139, 69, 19, 0.15) 50%, 
+                rgba(210, 180, 140, 0.15) 100%);
+            z-index: -1;
         }
 
-        @keyframes waterRipples {
+        /* Section Title - Mobile Responsive */
+        .section-title {
+            color: #3d2817;
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.3;
+            padding: 0 0.5rem;
+        }
+
+        /* Coffee Cup Container - Mobile Optimized */
+        .coffee-cup-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            padding: clamp(1rem, 4vw, 2rem);
+        }
+
+        /* Realistic Coffee Seeds Container */
+        .coffee-seeds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Individual Coffee Seed Styling */
+        .coffee-seed {
+            position: absolute;
+            width: clamp(6px, 2vw, 8px);
+            height: clamp(9px, 3vw, 12px);
+            background: linear-gradient(135deg, 
+                #4a2c17 0%, 
+                #6d4c41 20%, 
+                #8b4513 40%, 
+                #5d4037 60%, 
+                #3e2723 80%, 
+                #2c1810 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 
+                inset 0 1px 2px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+                0 1px 3px rgba(0, 0, 0, 0.4);
+            animation: seedFloat 8s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        /* Coffee Seed Center Line */
+        .coffee-seed::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 60%;
+            background: linear-gradient(to bottom, 
+                rgba(139, 69, 19, 0.8) 0%, 
+                rgba(101, 67, 33, 0.9) 50%, 
+                rgba(62, 39, 35, 0.8) 100%);
+            border-radius: 1px;
+        }
+
+        /* Coffee Seed Positions and Rotations - Mobile Optimized */
+        .coffee-seed:nth-child(1) { 
+            top: 15%; left: 20%; 
+            animation-delay: 0s;
+            transform: rotate(25deg);
+        }
+        .coffee-seed:nth-child(2) { 
+            top: 25%; right: 15%; 
+            animation-delay: -1s;
+            transform: rotate(-15deg);
+        }
+        .coffee-seed:nth-child(3) { 
+            bottom: 30%; left: 25%; 
+            animation-delay: -2s;
+            transform: rotate(45deg);
+        }
+        .coffee-seed:nth-child(4) { 
+            bottom: 20%; right: 20%; 
+            animation-delay: -3s;
+            transform: rotate(-30deg);
+        }
+        .coffee-seed:nth-child(5) { 
+            top: 40%; left: 10%; 
+            animation-delay: -4s;
+            transform: rotate(60deg);
+        }
+        .coffee-seed:nth-child(6) { 
+            top: 50%; right: 8%; 
+            animation-delay: -5s;
+            transform: rotate(-45deg);
+        }
+        .coffee-seed:nth-child(7) { 
+            bottom: 45%; left: 12%; 
+            animation-delay: -6s;
+            transform: rotate(15deg);
+        }
+        .coffee-seed:nth-child(8) { 
+            bottom: 35%; right: 25%; 
+            animation-delay: -7s;
+            transform: rotate(-60deg);
+        }
+
+        /* Seed Floating Animation */
+        @keyframes seedFloat {
             0%, 100% { 
-                background-size: 100px 100px, 120px 120px, 80px 80px, 110px 110px;
-                background-position: 20% 30%, 80% 70%, 50% 20%, 30% 80%;
+                transform: translateY(0px) rotate(var(--rotation, 0deg));
+                opacity: 0.8;
+            }
+            25% { 
+                transform: translateY(-3px) rotate(calc(var(--rotation, 0deg) + 5deg));
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateY(-1px) rotate(calc(var(--rotation, 0deg) - 3deg));
+                opacity: 1;
+            }
+            75% { 
+                transform: translateY(-4px) rotate(calc(var(--rotation, 0deg) + 2deg));
+                opacity: 0.9;
+            }
+        }
+
+        /* Coffee Powder Container */
+        .coffee-powder {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Individual Powder Particle - Mobile Optimized */
+        .powder-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(101, 67, 33, 0.9) 0%, 
+                rgba(83, 53, 10, 0.8) 40%, 
+                rgba(62, 39, 35, 0.7) 70%, 
+                rgba(46, 24, 16, 0.6) 100%);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            animation: powderFloat 12s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        /* Powder Particle Size Variations - Mobile Responsive */
+        .powder-particle.small {
+            width: clamp(1.5px, 0.5vw, 2px);
+            height: clamp(1.5px, 0.5vw, 2px);
+        }
+
+        .powder-particle.medium {
+            width: clamp(2px, 0.7vw, 3px);
+            height: clamp(2px, 0.7vw, 3px);
+        }
+
+        .powder-particle.large {
+            width: clamp(3px, 1vw, 4px);
+            height: clamp(3px, 1vw, 4px);
+        }
+
+        /* Powder Particle Positions with Animation Delays */
+        .powder-particle:nth-child(1) { 
+            top: 18%; left: 15%; 
+            animation-delay: 0s;
+        }
+        .powder-particle:nth-child(2) { 
+            top: 22%; left: 18%; 
+            animation-delay: -0.5s;
+        }
+        .powder-particle:nth-child(3) { 
+            top: 28%; right: 12%; 
+            animation-delay: -1s;
+        }
+        .powder-particle:nth-child(4) { 
+            top: 32%; right: 16%; 
+            animation-delay: -1.5s;
+        }
+        .powder-particle:nth-child(5) { 
+            bottom: 25%; left: 20%; 
+            animation-delay: -2s;
+        }
+        .powder-particle:nth-child(6) { 
+            bottom: 28%; left: 16%; 
+            animation-delay: -2.5s;
+        }
+        .powder-particle:nth-child(7) { 
+            bottom: 22%; right: 18%; 
+            animation-delay: -3s;
+        }
+        .powder-particle:nth-child(8) { 
+            bottom: 30%; right: 22%; 
+            animation-delay: -3.5s;
+        }
+        .powder-particle:nth-child(9) { 
+            top: 45%; left: 8%; 
+            animation-delay: -4s;
+        }
+        .powder-particle:nth-child(10) { 
+            top: 48%; right: 6%; 
+            animation-delay: -4.5s;
+        }
+        .powder-particle:nth-child(11) { 
+            bottom: 40%; left: 14%; 
+            animation-delay: -5s;
+        }
+        .powder-particle:nth-child(12) { 
+            bottom: 38%; right: 12%; 
+            animation-delay: -5.5s;
+        }
+        .powder-particle:nth-child(13) { 
+            top: 35%; left: 22%; 
+            animation-delay: -6s;
+        }
+        .powder-particle:nth-child(14) { 
+            top: 38%; right: 24%; 
+            animation-delay: -6.5s;
+        }
+        .powder-particle:nth-child(15) { 
+            bottom: 50%; left: 18%; 
+            animation-delay: -7s;
+        }
+
+        /* Powder Floating Animation */
+        @keyframes powderFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px);
                 opacity: 0.6;
             }
             25% { 
-                background-size: 150px 150px, 180px 180px, 120px 120px, 160px 160px;
-                background-position: 25% 35%, 75% 65%, 55% 25%, 35% 75%;
+                transform: translateY(-2px) translateX(1px);
                 opacity: 0.8;
             }
             50% { 
-                background-size: 200px 200px, 240px 240px, 160px 160px, 210px 210px;
-                background-position: 30% 40%, 70% 60%, 60% 30%, 40% 70%;
-                opacity: 0.4;
+                transform: translateY(-1px) translateX(-1px);
+                opacity: 0.9;
             }
             75% { 
-                background-size: 150px 150px, 180px 180px, 120px 120px, 160px 160px;
-                background-position: 25% 35%, 75% 65%, 55% 25%, 35% 75%;
+                transform: translateY(-3px) translateX(0.5px);
                 opacity: 0.7;
             }
         }
 
-        .coffee-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 
-                0 0 40px rgba(26, 75, 92, 0.6),
-                0 0 50px rgba(255, 140, 0, 0.3),
-                0 0 30px rgba(255, 215, 0, 0.25),
-                inset 0 0 40px rgba(255, 248, 220, 0.12);
-            border-color: rgba(255, 215, 0, 0.7);
+        /* Coffee Powder Clusters */
+        .powder-cluster {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .coffee-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #FFD700;
-            text-shadow: 
-                0 0 10px rgba(255, 215, 0, 0.8),
-                0 0 20px rgba(255, 140, 0, 0.6),
-                0 0 30px rgba(255, 165, 0, 0.4);
-            animation: coffeeGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes coffeeGlow {
-            0% { 
-                color: #FFD700;
-                text-shadow: 
-                    0 0 10px rgba(255, 215, 0, 0.8),
-                    0 0 20px rgba(255, 140, 0, 0.6),
-                    0 0 30px rgba(255, 165, 0, 0.4);
-            }
-            100% { 
-                color: #FFA500;
-                text-shadow: 
-                    0 0 15px rgba(255, 165, 0, 1),
-                    0 0 25px rgba(255, 140, 0, 0.8),
-                    0 0 35px rgba(255, 215, 0, 0.6);
-            }
-        }
-
-        .coffee-description {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            color: #E6F3FF;
-            text-shadow: 
-                0 0 5px rgba(230, 243, 255, 0.6),
-                0 0 10px rgba(255, 248, 220, 0.4);
-            font-weight: 400;
-        }
-
-        /* Buy coffee button */
-        .buy-coffee-btn {
-            background: linear-gradient(135deg, #8B4513, #D2691E, #CD853F);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(139, 69, 19, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .buy-coffee-btn::before {
+        /* Powder Cluster Styling */
+        .powder-cluster::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
+            width: clamp(8px, 3vw, 12px);
+            height: clamp(6px, 2vw, 8px);
+            background: radial-gradient(ellipse at center, 
+                rgba(83, 53, 10, 0.7) 0%, 
+                rgba(62, 39, 35, 0.6) 30%, 
+                rgba(46, 24, 16, 0.5) 60%, 
+                transparent 80%);
+            border-radius: 50%;
+            filter: blur(0.5px);
+        }
+
+        /* Powder Cluster Positions */
+        .powder-cluster:nth-child(16) { 
+            top: 20%; left: 25%; 
+            transform: rotate(15deg);
+        }
+        .powder-cluster:nth-child(17) { 
+            top: 30%; right: 20%; 
+            transform: rotate(-25deg);
+        }
+        .powder-cluster:nth-child(18) { 
+            bottom: 35%; left: 15%; 
+            transform: rotate(45deg);
+        }
+        .powder-cluster:nth-child(19) { 
+            bottom: 25%; right: 28%; 
+            transform: rotate(-35deg);
+        }
+        .powder-cluster:nth-child(20) { 
+            top: 42%; left: 12%; 
+            transform: rotate(25deg);
+        }
+
+        /* Interactive Coffee Cup - Mobile Enhanced */
+        .coffee-cup {
+            width: clamp(180px, 40vw, 250px);
+            height: clamp(180px, 40vw, 250px);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Coffee Cup Hover/Touch Effect */
+        .coffee-cup:hover,
+        .coffee-cup:active {
+            transform: scale(1.05) rotate(2deg);
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+        }
+
+        /* SVG Sizing */
+        .coffee-cup svg {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
         }
 
-        .buy-coffee-btn:hover::before {
-            left: 100%;
+        /* Cup Text Styling - Mobile Responsive */
+        .cup-text {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: clamp(12px, 3vw, 16px);
+            fill: #2c1810;
+            text-anchor: middle;
+            dominant-baseline: middle;
         }
 
-        .buy-coffee-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 
-                0 0 30px rgba(139, 69, 19, 0.6),
-                0 0 25px rgba(210, 105, 30, 0.5),
-                0 0 15px rgba(245, 222, 179, 0.3);
-            background: linear-gradient(135deg, #A0522D, #F4A460, #DEB887);
+        /* Steam Path Animation */
+        .steam-path {
+            opacity: 0.6;
+            animation: steamRise 3s ease-in-out infinite;
+            will-change: opacity, transform;
         }
 
-        /* Steam animation */
-        .steam {
+        /* Steam Rising Effect */
+        @keyframes steamRise {
+            0%, 100% { 
+                opacity: 0.3;
+                transform: translateY(0px);
+            }
+            50% { 
+                opacity: 0.8;
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Flash Overlay for Click Effect */
+        .flash-overlay {
             position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 40px;
-            background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
-            border-radius: 2px;
-            opacity: 0;
-            animation: steam 2s infinite ease-in-out;
-        }
-
-        .steam:nth-child(2) { left: 45%; animation-delay: 0.5s; }
-        .steam:nth-child(3) { left: 55%; animation-delay: 1s; }
-
-        .buy-coffee-btn:hover .steam {
-            opacity: 1;
-        }
-
-        @keyframes steam {
-            0% { transform: translateX(-50%) translateY(0) scaleX(1); opacity: 0.8; }
-            50% { transform: translateX(-50%) translateY(-20px) scaleX(1.5); opacity: 0.4; }
-            100% { transform: translateX(-50%) translateY(-40px) scaleX(2); opacity: 0; }
-        }
-
-        /* Flip animation */
-        .flip-container {
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            perspective: 1000px;
-            z-index: 1000;
-            pointer-events: none;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 215, 0, 0.7) 30%, 
+                transparent 70%);
             opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .flip-container.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .flip-card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .flip-container.active .flip-card {
-            transform: rotateY(180deg);
-        }
-
-        .flip-front, .flip-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .flip-back {
-            transform: rotateY(180deg);
-            background: rgba(13, 13, 13, 0.95);
-        }
-
-        /* QR Code popup */
-.qr-popup {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(0, 255, 213, 0.3);
-    border-radius: 20px;
-    padding: 3rem;
-    text-align: center;
-    box-shadow: 
-        0 0 15px #00ffff,
-        0 0 25px #ff00ff,
-        0 0 20px rgba(255, 255, 255, 0.2);
-    position: relative;
-    max-width: 400px;
-    width: 90%;
-    animation: popupGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes popupGlow {
-    0% { 
-        box-shadow: 0 0 15px #00ffff, 
-                    0 0 25px #ff00ff, 
-                    0 0 20px rgba(255, 255, 255, 0.2); 
-    }
-    100% { 
-        box-shadow: 0 0 25px #00ffff, 
-                    0 0 35px #ff00ff, 
-                    0 0 30px rgba(255, 255, 255, 0.3); 
-    }
-}
-
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: #ff00ff;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.close-btn:hover {
-    color: #00ffff;
-    text-shadow: 0 0 10px currentColor;
-    transform: rotate(90deg);
-}
-
-.qr-code {
-    width: 200px;
-    height: 200px;
-    background: #ffffff;
-    border-radius: 10px;
-    margin: 0 auto 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    color: #333;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-}
-
-/* ✅ Resize Fix for QR Code Image */
-.qr-code img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-.gratitude-quote {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-    font-style: italic;
-    margin-bottom: 1rem;
-}
-
-.quote-author {
-    color: #ffaa00;
-    font-weight: 600;
-    text-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
-}
-        /* Floating coffee steam in popup */
-        .popup-steam {
-            position: absolute;
-            width: 3px;
-            height: 30px;
-            background: linear-gradient(to top, rgba(255, 255, 255, 0.6), transparent);
-            border-radius: 2px;
-            animation: popupSteam 3s infinite ease-in-out;
-        }
-
-        .popup-steam:nth-child(1) { top: 20px; left: 20%; animation-delay: 0s; }
-        .popup-steam:nth-child(2) { top: 25px; left: 25%; animation-delay: 1s; }
-        .popup-steam:nth-child(3) { top: 30px; right: 20%; animation-delay: 2s; }
-        .popup-steam:nth-child(4) { top: 35px; right: 25%; animation-delay: 0.5s; }
-
-        @keyframes popupSteam {
-            0% { transform: translateY(0) scaleX(1); opacity: 0.6; }
-            50% { transform: translateY(-15px) scaleX(1.5); opacity: 0.3; }
-            100% { transform: translateY(-30px) scaleX(2); opacity: 0; }
-        }
-
-        /* Social media section */
-        .social-section {
-            margin-top: 4rem;
-            text-align: center;
-            animation: fadeInUp 1s ease-out 0.5s both;
-        }
-
-        .social-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: #00ffd5;
-            text-shadow: 0 0 15px rgba(0, 255, 213, 0.5);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            display: inline-block;
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(0, 255, 213, 0.3);
+            pointer-events: none;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #e0e0e0;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            animation: socialPulse 3s ease-in-out infinite;
+            transform: scale(0);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
         }
 
-        .social-link:nth-child(1) { animation-delay: 0s; }
-        .social-link:nth-child(2) { animation-delay: 0.5s; }
-        .social-link:nth-child(3) { animation-delay: 1s; }
-        .social-link:nth-child(4) { animation-delay: 1.5s; }
-        .social-link:nth-child(5) { animation-delay: 2s; }
-
-        @keyframes socialPulse {
-            0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 213, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(0, 255, 213, 0.6); }
+        /* Flash Effect Active State */
+        .flash-overlay.active {
+            opacity: 1;
+            transform: scale(2);
+            animation: flashEffect 0.8s ease-out forwards;
         }
 
-        .social-link:hover {
-            transform: translateY(-5px) scale(1.1);
-            color: #00ffff;
-            box-shadow: 
-                0 0 25px #00ffff,
-                0 0 15px #ff00ff;
-            border-color: #00ffff;
-        }
-
-        .social-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .social-link:hover::before {
-            left: 100%;
-        }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
+        /* Flash Animation */
+        @keyframes flashEffect {
+            0% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.5);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2.5);
             }
         }
 
+        /* QR Code Container - Mobile Optimized */
+        .qr-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* QR Container Show State */
+        .qr-container.show {
+            display: flex;
+        }
+
+        /* Fade In Up Animation */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -799,205 +732,1935 @@
             }
         }
 
-        /* Responsive design */
-        @media (max-width: 768px) 
-        {
-            .studio-name {
-                font-size: 2rem;
+        /* QR Code Image Container - Mobile Responsive */
+        .qr-image {
+            width: clamp(140px, 35vw, 220px);
+            height: clamp(140px, 35vw, 220px);
+            border: 4px solid #3d2817;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* QR Image Border Glow */
+        .qr-image::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #d4af37, #ff6b35, #d4af37);
+            border-radius: 17px;
+            z-index: -1;
+            animation: borderGlow 2s ease-in-out infinite alternate;
+            will-change: opacity;
+        }
+
+        /* Border Glow Animation */
+        @keyframes borderGlow {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        /* QR Image Styling */
+        .qr-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 11px;
+        }
+
+        /* QR Instructions Text - Mobile Responsive */
+        .qr-instructions {
+            color: #3d2817;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+            line-height: 1.6;
+            max-width: 350px;
+            text-align: center;
+            font-weight: 500;
+            padding: 0 1rem;
+        }
+
+        /* Click Instruction Text - Mobile Responsive */
+        .click-instruction {
+            color: #8b4513;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-weight: 600;
+            text-align: center;
+            margin-top: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+            padding: 0 1rem;
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Donation Section Container - Mobile Optimized */
+        .donation-section {
+            margin-top: 3rem;
+            padding: clamp(1rem, 4vw, 2rem);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 2px solid rgba(210, 180, 140, 0.3);
+        }
+
+        /* Donation Section Title - Mobile Responsive */
+        .donation-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            font-weight: 700;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        /* Donation Amount Grid - Mobile Enhanced */
+        .donation-amounts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(150px, 40vw, 200px), 1fr));
+            gap: clamp(1rem, 3vw, 1.5rem);
+            margin-bottom: 2rem;
+        }
+
+        /* Individual Donation Card - Mobile Enhanced */
+        .donation-card {
+            background: linear-gradient(135deg, 
+                rgba(210, 180, 140, 0.15) 0%, 
+                rgba(139, 69, 19, 0.15) 100%);
+            border: 2px solid rgba(210, 180, 140, 0.4);
+            border-radius: 15px;
+            padding: clamp(1rem, 4vw, 2rem);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Donation Card Shine Effect */
+        .donation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.6s ease;
+        }
+
+        /* Donation Card Hover/Touch Shine */
+        .donation-card:hover::before,
+        .donation-card:active::before {
+            left: 100%;
+        }
+
+        /* Donation Card Hover/Touch State */
+        .donation-card:hover,
+        .donation-card:active {
+            background: linear-gradient(135deg, 
+                rgba(210, 180, 140, 0.25) 0%, 
+                rgba(139, 69, 19, 0.25) 100%);
+            border-color: rgba(210, 180, 140, 0.6);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Donation Amount Display - Mobile Responsive */
+        .donation-amount {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            font-weight: 900;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1;
+        }
+
+        /* Donation Description - Mobile Responsive */
+        .donation-description {
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            color: #b8b8b8;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        /* PayPal Button Styling - Mobile Enhanced */
+        .paypal-button {
+            background: linear-gradient(135deg, #0070ba 0%, #003087 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: clamp(8px 16px, 3vw, 12px 24px);
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 112, 186, 0.3);
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            width: 100%;
+            min-height: 44px; /* iOS touch target minimum */
+        }
+
+        /* PayPal Button Shine Effect */
+        .paypal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            transition: left 0.5s ease;
+        }
+
+        /* PayPal Button Hover/Touch Shine */
+        .paypal-button:hover::before,
+        .paypal-button:active::before {
+            left: 100%;
+        }
+
+        /* PayPal Button Hover/Touch State */
+        .paypal-button:hover,
+        .paypal-button:active {
+            background: linear-gradient(135deg, #0079c1 0%, #004494 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 112, 186, 0.4);
+        }
+
+        /* PayPal Button Active State */
+        .paypal-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(0, 112, 186, 0.3);
+        }
+
+        /* Custom Amount Section - Mobile Optimized */
+        .custom-amount-section {
+            background: rgba(210, 180, 140, 0.1);
+            border: 2px solid rgba(210, 180, 140, 0.3);
+            border-radius: 15px;
+            padding: clamp(1rem, 4vw, 2rem);
+            margin-top: 2rem;
+        }
+
+        /* Custom Amount Title - Mobile Responsive */
+        .custom-amount-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            font-weight: 700;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        /* Custom Amount Form - Mobile Enhanced */
+        .custom-amount-form {
+            display: flex;
+            gap: clamp(0.5rem, 2vw, 1rem);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Amount Input Field - Mobile Enhanced */
+        .amount-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(139, 69, 19, 0.3);
+            border-radius: 10px;
+            padding: clamp(8px 12px, 3vw, 12px 16px);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-weight: 600;
+            color: #3d2817;
+            width: clamp(100px, 25vw, 120px);
+            text-align: center;
+            transition: all 0.3s ease;
+            min-height: 44px; /* iOS touch target minimum */
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
+
+        /* Remove number input spinners */
+        .amount-input::-webkit-outer-spin-button,
+        .amount-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Amount Input Focus State */
+        .amount-input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            background: white;
+        }
+
+        /* Currency Symbol - Mobile Responsive */
+        .currency-symbol {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        /* Alternative Methods Section - Mobile Optimized */
+        .alternative-methods {
+            margin-top: 3rem;
+            padding: clamp(1rem, 4vw, 2rem);
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(210, 180, 140, 0.2);
+        }
+
+        /* Alternative Methods Title - Mobile Responsive */
+        .alternative-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            font-weight: 700;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        /* Bank Transfer Section - Mobile Optimized */
+        .bank-transfer-section {
+            background: rgba(210, 180, 140, 0.1);
+            border: 2px solid rgba(210, 180, 140, 0.3);
+            border-radius: 15px;
+            padding: clamp(1rem, 4vw, 2rem);
+            margin-bottom: 2rem;
+        }
+
+        /* Bank Transfer Title - Mobile Responsive */
+        .bank-transfer-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            font-weight: 700;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            line-height: 1.2;
+            flex-wrap: wrap;
+        }
+
+        /* Bank Grid Layout - Mobile Enhanced */
+        .bank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(140px, 35vw, 200px), 1fr));
+            gap: clamp(0.5rem, 2vw, 1rem);
+        }
+
+        /* Individual Bank Card - Mobile Enhanced */
+        .bank-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(240, 240, 240, 0.9) 100%);
+            border: 2px solid rgba(139, 69, 19, 0.2);
+            border-radius: 12px;
+            padding: clamp(0.8rem, 3vw, 1.5rem);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            min-height: clamp(80px, 20vw, 120px);
+        }
+
+        /* Bank Card Shine Effect */
+        .bank-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(212, 175, 55, 0.3), 
+                transparent);
+            transition: left 0.6s ease;
+        }
+
+        /* Bank Card Hover/Touch Shine */
+        .bank-card:hover::before,
+        .bank-card:active::before {
+            left: 100%;
+        }
+
+        /* Bank Card Hover/Touch State */
+        .bank-card:hover,
+        .bank-card:active {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 1) 0%, 
+                rgba(248, 248, 248, 0.95) 100%);
+            border-color: rgba(212, 175, 55, 0.6);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Bank Card Active State */
+        .bank-card:active {
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Bank Logo Styling - Mobile Responsive */
+        .bank-logo {
+            font-size: clamp(0.6rem, 2vw, 0.8rem);
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            display: block;
+            width: clamp(40px, 12vw, 60px);
+            height: clamp(25px, 8vw, 40px);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Bank Logo Shine Effect */
+        .bank-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        /* Bank Logo Hover/Touch Shine */
+        .bank-card:hover .bank-logo::before,
+        .bank-card:active .bank-logo::before {
+            transform: translateX(100%);
+        }
+
+        /* Individual Bank Logo Colors */
+        .bank-card.sbi .bank-logo {
+            background: linear-gradient(135deg, #1f4e79 0%, #2563eb 100%);
+            color: white;
+            border-color: #1f4e79;
+        }
+
+        .bank-card.hdfc .bank-logo {
+            background: linear-gradient(135deg, #004c8f 0%, #0066cc 100%);
+            color: white;
+            border-color: #004c8f;
+        }
+
+        .bank-card.icici .bank-logo {
+            background: linear-gradient(135deg, #f47920 0%, #ff8c42 100%);
+            color: white;
+            border-color: #f47920;
+        }
+
+        .bank-card.axis .bank-logo {
+            background: linear-gradient(135deg, #800080 0%, #9932cc 100%);
+            color: white;
+            border-color: #800080;
+        }
+
+        .bank-card.pnb .bank-logo {
+            background: linear-gradient(135deg, #0066cc 0%, #0080ff 100%);
+            color: white;
+            border-color: #0066cc;
+        }
+
+        .bank-card.bob .bank-logo {
+            background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+            color: white;
+            border-color: #ff6600;
+        }
+
+        .bank-card.union .bank-logo {
+            background: linear-gradient(135deg, #008000 0%, #00b300 100%);
+            color: white;
+            border-color: #008000;
+        }
+
+        .bank-card.canara .bank-logo {
+            background: linear-gradient(135deg, #cc0000 0%, #ff3333 100%);
+            color: white;
+            border-color: #cc0000;
+        }
+
+        .bank-card.iob .bank-logo {
+            background: linear-gradient(135deg, #4169e1 0%, #6495ed 100%);
+            color: white;
+            border-color: #4169e1;
+        }
+
+        .bank-card.central .bank-logo {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            border-color: #8b4513;
+        }
+
+        .bank-card.uco .bank-logo {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            border-color: #ff1493;
+        }
+
+        .bank-card.indian .bank-logo {
+            background: linear-gradient(135deg, #32cd32 0%, #7fff00 100%);
+            color: white;
+            border-color: #32cd32;
+        }
+
+        /* Bank Name Styling - Mobile Responsive */
+        .bank-name {
+            font-weight: 700;
+            color: #3d2817;
+            margin-bottom: 0.3rem;
+            font-size: clamp(0.7rem, 2.5vw, 0.95rem);
+            line-height: 1.2;
+        }
+
+        /* Bank Subtitle - Mobile Responsive */
+        .bank-subtitle {
+            font-size: clamp(0.6rem, 2vw, 0.8rem);
+            color: #666;
+            opacity: 0.8;
+            line-height: 1.2;
+        }
+
+        /* Bank Card Hover Border Colors */
+        .bank-card.sbi:hover, .bank-card.sbi:active { border-color: #1f4e79; }
+        .bank-card.hdfc:hover, .bank-card.hdfc:active { border-color: #004c8f; }
+        .bank-card.icici:hover, .bank-card.icici:active { border-color: #f47920; }
+        .bank-card.axis:hover, .bank-card.axis:active { border-color: #800080; }
+        .bank-card.pnb:hover, .bank-card.pnb:active { border-color: #0066cc; }
+        .bank-card.bob:hover, .bank-card.bob:active { border-color: #ff6600; }
+        .bank-card.union:hover, .bank-card.union:active { border-color: #008000; }
+        .bank-card.canara:hover, .bank-card.canara:active { border-color: #cc0000; }
+        .bank-card.iob:hover, .bank-card.iob:active { border-color: #4169e1; }
+        .bank-card.central:hover, .bank-card.central:active { border-color: #8b4513; }
+        .bank-card.uco:hover, .bank-card.uco:active { border-color: #ff1493; }
+        .bank-card.indian:hover, .bank-card.indian:active { border-color: #32cd32; }
+
+        /* Payment Details Box - Mobile Optimized */
+        .payment-details-box {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(248, 248, 248, 0.95) 100%);
+            border: 3px solid rgba(212, 175, 55, 0.4);
+            border-radius: 15px;
+            padding: clamp(1rem, 4vw, 2rem);
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Payment Details Box Top Border */
+        .payment-details-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #ff6b35, #d4af37);
+            animation: shimmer 3s ease-in-out infinite;
+            will-change: opacity;
+        }
+
+        /* Shimmer Animation */
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Payment Details Title - Mobile Responsive */
+        .payment-details-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            font-weight: 700;
+            color: #3d2817;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            line-height: 1.2;
+            flex-wrap: wrap;
+        }
+
+        /* Payment Details Grid - Mobile Enhanced */
+        .payment-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 60vw, 280px), 1fr));
+            gap: clamp(0.5rem, 2vw, 1rem);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Individual Detail Item - Mobile Enhanced */
+        .detail-item {
+            background: rgba(139, 69, 19, 0.05);
+            border: 2px solid rgba(139, 69, 19, 0.1);
+            border-radius: 10px;
+            padding: clamp(0.8rem, 3vw, 1rem);
+            transition: all 0.3s ease;
+        }
+
+        /* Detail Item Hover/Touch State */
+        .detail-item:hover,
+        .detail-item:active {
+            background: rgba(139, 69, 19, 0.08);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Full Width Detail Item */
+        .detail-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Detail Label - Mobile Responsive */
+        .detail-label {
+            display: block;
+            font-weight: 600;
+            color: #3d2817;
+            margin-bottom: 0.5rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        }
+
+        /* Detail Value Container - Mobile Enhanced */
+        .detail-value-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            border: 1px solid rgba(139, 69, 19, 0.2);
+            border-radius: 8px;
+            padding: clamp(0.5rem, 2vw, 0.75rem);
+        }
+
+        /* Detail Value Text - Mobile Responsive */
+        .detail-value {
+            flex: 1;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #2c1810;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            letter-spacing: 0.5px;
+            word-break: break-all;
+        }
+
+        /* Copy Button - Mobile Enhanced */
+        .copy-btn {
+            background: linear-gradient(135deg, #d4af37, #b8941f);
+            border: none;
+            border-radius: 6px;
+            padding: clamp(0.4rem, 2vw, 0.5rem);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            min-width: 32px;
+            min-height: 32px;
+        }
+
+        /* Copy Button Hover/Touch State */
+        .copy-btn:hover,
+        .copy-btn:active {
+            background: linear-gradient(135deg, #e6c547, #d4af37);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Copy Button Active State */
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Copy All Section - Mobile Optimized */
+        .copy-all-section {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(139, 69, 19, 0.1);
+        }
+
+        /* Copy All Button - Mobile Enhanced */
+        .copy-all-btn {
+            background: linear-gradient(135deg, #ff6b35, #e55a2b);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: clamp(8px 16px, 3vw, 12px 24px);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            margin-bottom: 1rem;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 44px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Copy All Button Hover/Touch State */
+        .copy-all-btn:hover,
+        .copy-all-btn:active {
+            background: linear-gradient(135deg, #ff7a47, #ff6b35);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Copy All Button Active State */
+        .copy-all-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Payment Note - Mobile Responsive */
+        .payment-note {
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+            color: #666;
+            line-height: 1.6;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: clamp(0.8rem, 3vw, 1rem);
+            margin: 0;
+        }
+
+        /* Payment Note Links */
+        .payment-note a {
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            word-break: break-word;
+        }
+
+        /* Payment Note Link Hover/Touch */
+        .payment-note a:hover,
+        .payment-note a:active {
+            text-decoration: underline;
+            color: #ff6b35 !important;
+        }
+
+        /* Footer Section - Mobile Optimized */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: clamp(1rem, 4vw, 2rem) 0;
+            border-top: 1px solid rgba(210, 180, 140, 0.3);
+        }
+
+        /* Footer Text - Mobile Responsive */
+        .footer-text {
+            color: #888;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            line-height: 1.6;
+        }
+
+        /* Heart Icon Animation */
+        .heart {
+            color: #ff6b35;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        /* Heartbeat Animation */
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Mobile Specific Optimizations */
+        @media (max-width: 768px) {
+            /* Reduce animation complexity on mobile for better performance */
+            .coffee-background {
+                animation-duration: 30s;
             }
             
-            .coffee-card {
-                padding: 2rem 1.5rem;
-                margin: 0 1rem;
+            .coffee-background::before {
+                animation-duration: 25s;
             }
             
-            .coffee-title {
-                font-size: 1.5rem;
+            .coffee-background::after {
+                animation-duration: 10s;
             }
             
-            .social-links {
+            /* Optimize container spacing */
+            .container {
+                padding: 0.5rem;
+            }
+            
+            /* Improve touch targets */
+            .donation-card,
+            .bank-card,
+            .paypal-button,
+            .copy-btn,
+            .copy-all-btn {
+                min-height: 44px;
+            }
+            
+            /* Better mobile grid layouts */
+            .donation-amounts {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
                 gap: 1rem;
             }
             
-            .social-link {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
+            .bank-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.75rem;
             }
             
-.qr-code {
-    width: 200px;
-    height: auto;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: 12px;
-    margin: 0 auto 2rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column; /* vertical layout */
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    color: #e0e0e0;
-    box-shadow: 0 0 16px rgba(0, 255, 255, 0.25);
-    backdrop-filter: blur(6px);
-}
-/* ✅ QR Image below */
-.qr-code img {
-    width: 140px;
-    height: 140px;
-    object-fit: contain;
-    border-radius: 6px;
-    box-shadow: 0 0 6px rgba(0, 255, 255, 0.2);
-}
-
+            .payment-details-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            /* Optimize custom amount form for mobile */
+            .custom-amount-form {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .amount-input {
+                width: 100%;
+                max-width: 200px;
+                margin: 0 auto;
+            }
+            
+            .paypal-button {
+                width: 100%;
+                max-width: 250px;
+                margin: 0 auto;
+            }
         }
 
-            @media (max-width: 480px) {
-                .studio-name {
-                    font-size: 1.5rem;
-                }
-                
-                .subtitle {
-                    font-size: 1rem;
-                }
-                
-                .coffee-title {
-                    font-size: 1.3rem;
-                }
-                
-                .buy-coffee-btn {
-                    padding: 0.8rem 1.5rem;
-                    font-size: 1rem;
-                }
+        /* Extra Small Mobile Devices */
+        @media (max-width: 480px) {
+            /* Further optimize for very small screens */
+            .coffee-card {
+                border-radius: 15px;
+                margin: 0 0.5rem;
             }
+            
+            .interactive-section {
+                border-radius: 15px;
+                min-height: 280px;
+            }
+            
+            .donation-section,
+            .alternative-methods,
+            .bank-transfer-section {
+                border-radius: 15px;
+            }
+            
+            /* Optimize bank grid for small screens */
+            .bank-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            
+            /* Improve readability on small screens */
+            .detail-value {
+                font-size: 0.75rem;
+                letter-spacing: 0.3px;
+            }
+            
+            /* Optimize QR section for small screens */
+            .qr-image {
+                width: 120px;
+                height: 120px;
+            }
+            
+            /* Better spacing for small screens */
+            .header {
+                margin-bottom: 1.5rem;
+            }
+            
+            .donation-section,
+            .alternative-methods {
+                margin-top: 2rem;
+            }
+        }
+
+        /* Landscape Mobile Optimization */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .coffee-emoji {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .interactive-section {
+                min-height: 250px;
+            }
+            
+            .coffee-cup {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .qr-image {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* High DPI Display Optimization */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .coffee-cup svg,
+            .qr-image img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Reduce Motion for Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .coffee-background,
+            .coffee-background::before,
+            .coffee-background::after {
+                animation: none;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            .payment-details-box {
+                background: linear-gradient(135deg, 
+                    rgba(40, 40, 40, 0.98) 0%, 
+                    rgba(30, 30, 30, 0.95) 100%);
+            }
+            
+            .detail-value-container {
+                background: rgba(50, 50, 50, 0.9);
+                border-color: rgba(139, 69, 19, 0.4);
+            }
+            
+            .detail-value {
+                color: #e0e0e0;
+            }
+            
+            .payment-note {
+                background: rgba(139, 69, 19, 0.2);
+                color: #b0b0b0;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Fixed Coffee Background -->
     <div class="coffee-background"></div>
-    <div class="coffee-steam">
-        <div class="steam-particle"></div>
-        <div class="steam-particle"></div>
-        <div class="steam-particle"></div>
-        <div class="steam-particle"></div>
-        <div class="steam-particle"></div>
-        <div class="steam-particle"></div>
-        <div class="steam-particle"></div>
-        <div class="steam-particle"></div>
-    </div>
-    <div class="cream-swirls"></div>
-    <div class="neon-overlay"></div>
     
+    <!-- Main Container -->
     <div class="container">
+        <!-- Header Section -->
         <header class="header">
             <h1 class="studio-name">PIKA GAME DEV STUDIO</h1>
-            <p class="subtitle">Fueling Innovation, One Coffee at a Time</p>
+            <p class="tagline">Crafting Digital Adventures, One Pixel at a Time</p>
         </header>
-        
+
+        <!-- Main Coffee Card -->
         <div class="coffee-card">
-            <h2 class="coffee-title">☕ Support Our Journey</h2>
+            <!-- Coffee Emoji -->
+            <span class="coffee-emoji">☕</span>
+            
+            <!-- Main Title -->
+            <h2 class="coffee-title">Buy Us a Coffee</h2>
+            
+            <!-- Description -->
             <p class="coffee-description">
-                Every line of code, every pixel perfected, every late-night debugging session - 
-                it all runs on coffee. Help us keep creating amazing games by buying us a virtual coffee!
+                Your support fuels our creativity! Every coffee helps us stay caffeinated 
+                during those late-night coding sessions and brings our game ideas to life. 
+                Thank you for being part of our journey! 🎮✨
             </p>
-            <button class="buy-coffee-btn" onclick="showQRCode()">
-                <div class="steam"></div>
-                <div class="steam"></div>
-                <div class="steam"></div>
-                ☕ Buy Us a Coffee
-            </button>
-        </div>
-        
-        <div class="social-section">
-            <h3 class="social-title">Connect With Us</h3>
-            <div class="social-links">
-                <a href="https://www.instagram.com/pikastudio.in/" target="_blank" class="social-link" title="Instagram">📷</a>
-                <a href="https://www.youtube.com/@pika.gamedevstudio" target="_blank" class="social-link" title="YouTube">📺</a>
-                <a href="https://github.com/pikagamedevstudio" target="_blank" class="social-link" title="GitHub">💻</a>
-                <a href="https://t.me/pikagamedevstudio" target="_blank" class="social-link" title="Telegram">📱</a>
+
+            <!-- Interactive QR Section -->
+            <div class="interactive-section">
+                <h3 class="section-title">Click the Coffee Cup to Reveal QR Code</h3>
+                
+                <div class="coffee-cup-container">
+                    <!-- Realistic Coffee Seeds -->
+                    <div class="coffee-seeds">
+                        <div class="coffee-seed"></div>
+                        <div class="coffee-seed"></div>
+                        <div class="coffee-seed"></div>
+                        <div class="coffee-seed"></div>
+                        <div class="coffee-seed"></div>
+                        <div class="coffee-seed"></div>
+                        <div class="coffee-seed"></div>
+                        <div class="coffee-seed"></div>
+                    </div>
+                    
+                    <!-- Realistic Coffee Powder -->
+                    <div class="coffee-powder">
+                        <div class="powder-particle small"></div>
+                        <div class="powder-particle medium"></div>
+                        <div class="powder-particle small"></div>
+                        <div class="powder-particle large"></div>
+                        <div class="powder-particle medium"></div>
+                        <div class="powder-particle small"></div>
+                        <div class="powder-particle large"></div>
+                        <div class="powder-particle medium"></div>
+                        <div class="powder-particle small"></div>
+                        <div class="powder-particle medium"></div>
+                        <div class="powder-particle large"></div>
+                        <div class="powder-particle small"></div>
+                        <div class="powder-particle medium"></div>
+                        <div class="powder-particle large"></div>
+                        <div class="powder-particle small"></div>
+                        <div class="powder-cluster"></div>
+                        <div class="powder-cluster"></div>
+                        <div class="powder-cluster"></div>
+                        <div class="powder-cluster"></div>
+                        <div class="powder-cluster"></div>
+                    </div>
+                    
+                    <!-- Interactive Coffee Cup -->
+                    <div class="coffee-cup" onclick="revealQRCode()">
+                        <div class="flash-overlay"></div>
+                        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                            <!-- SVG Definitions -->
+                            <defs>
+                                <linearGradient id="cupGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+                                    <stop offset="30%" style="stop-color:#A0522D;stop-opacity:1" />
+                                    <stop offset="70%" style="stop-color:#D2B48C;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#F5DEB3;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="coffeeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#3E2723;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#5D4037;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#6D4C41;stop-opacity:1" />
+                                </linearGradient>
+                                <radialGradient id="foamGradient" cx="50%" cy="30%" r="60%">
+                                    <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+                                    <stop offset="70%" style="stop-color:#F5F5DC;stop-opacity:0.7" />
+                                    <stop offset="100%" style="stop-color:#DEB887;stop-opacity:0.5" />
+                                </radialGradient>
+                            </defs>
+                            
+                            <!-- Cup Shadow -->
+                            <ellipse cx="155" cy="280" rx="45" ry="8" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- Cup Body -->
+                            <path d="M80 120 L80 240 Q80 260 100 260 L200 260 Q220 260 220 240 L220 120 Z" 
+                                  fill="url(#cupGradient)" stroke="#654321" stroke-width="2"/>
+                            
+                            <!-- Cup Handle -->
+                            <path d="M220 160 Q250 160 250 190 Q250 220 220 220" 
+                                  fill="none" stroke="url(#cupGradient)" stroke-width="8" stroke-linecap="round"/>
+                            
+                            <!-- Coffee Surface -->
+                            <ellipse cx="150" cy="125" rx="65" ry="12" fill="url(#coffeeGradient)"/>
+                            
+                            <!-- Coffee Foam -->
+                            <ellipse cx="150" cy="120" rx="60" ry="10" fill="url(#foamGradient)"/>
+                            
+                            <!-- Steam -->
+                            <g class="steam-path">
+                                <path d="M130 110 Q135 90 130 70 Q125 50 130 30" 
+                                      fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M150 105 Q155 85 150 65 Q145 45 150 25" 
+                                      fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M170 110 Q175 90 170 70 Q165 50 170 30" 
+                                      fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-linecap="round"/>
+                            </g>
+                            
+                            <!-- Studio Text -->
+                            <text x="150" y="200" class="cup-text">PIKA</text>
+                            <text x="150" y="220" class="cup-text" font-size="12">STUDIO</text>
+                        </svg>
+                    </div>
+                    
+                    <!-- Click Instruction -->
+                    <p class="click-instruction">Click the coffee cup to reveal the QR code!</p>
+                    
+                    <!-- QR Code Container -->
+                    <div class="qr-container" id="qrContainer">
+                        <div class="qr-image">
+                            <img src="images/qr_code.png" 
+                                 alt="PayPal QR Code" 
+                                 onerror="this.style.display='none';">
+                        </div>
+                        <p class="qr-instructions">
+                            Scan this QR code with your phone camera to quickly donate via PayPal 
+                            and support our game development journey!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donation Section -->
+            <div class="donation-section">
+                <h3 class="donation-title">Choose Your Support Level</h3>
+                
+                <!-- Donation Amount Cards -->
+                <div class="donation-amounts">
+                    <div class="donation-card" onclick="donatePayPal(420)">
+                        <div class="donation-amount">₹420</div>
+                        <div class="donation-description">Buy us a coffee ☕</div>
+                        <button class="paypal-button">Donate ₹420</button>
+                    </div>
+                    
+                    <div class="donation-card" onclick="donatePayPal(1250)">
+                        <div class="donation-amount">₹1,250</div>
+                        <div class="donation-description">Fuel a coding session 🚀</div>
+                        <button class="paypal-button">Donate ₹1,250</button>
+                    </div>
+                    
+                    <div class="donation-card" onclick="donatePayPal(2100)">
+                        <div class="donation-amount">₹2,100</div>
+                        <div class="donation-description">Support a game feature 🎮</div>
+                        <button class="paypal-button">Donate ₹2,100</button>
+                    </div>
+                    
+                    <div class="donation-card" onclick="donatePayPal(4200)">
+                        <div class="donation-amount">₹4,200</div>
+                        <div class="donation-description">Sponsor development 💎</div>
+                        <button class="paypal-button">Donate ₹4,200</button>
+                    </div>
+                </div>
+                
+                <!-- Custom Amount Section -->
+                <div class="custom-amount-section">
+                    <h4 class="custom-amount-title">Custom Amount</h4>
+                    <div class="custom-amount-form">
+                        <span class="currency-symbol">₹</span>
+                        <input type="number" class="amount-input" id="customAmount" placeholder="2100" min="50" max="500000">
+                        <button class="paypal-button" onclick="donateCustomAmount()">Donate Custom Amount</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alternative Payment Methods -->
+            <div class="alternative-methods">
+                <h3 class="alternative-title">Alternative Payment Methods</h3>
+                
+                <!-- Bank Transfer Section -->
+                <div class="bank-transfer-section">
+                    <h4 class="bank-transfer-title">
+                        🏦 Bank Transfer - Net Banking
+                    </h4>
+                    
+                    <!-- Payment Details Box -->
+                    <div class="payment-details-box">
+                        <h5 class="payment-details-title">💳 Payment Details</h5>
+                        
+                        <!-- Payment Details Grid -->
+                        <div class="payment-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Account Number:</span>
+                                <div class="detail-value-container">
+                                    <span class="detail-value" id="accountNumber">44218172171</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('44218172171', 'Account Number')">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <span class="detail-label">IFSC Code:</span>
+                                <div class="detail-value-container">
+                                    <span class="detail-value" id="ifscCode">SBIN0003560</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('SBIN0003560', 'IFSC Code')">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <span class="detail-label">Account Name:</span>
+                                <div class="detail-value-container">
+                                    <span class="detail-value" id="accountName">Pratik Tomar</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('Pratik Tomar', 'Account Name')">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <span class="detail-label">Bank Name:</span>
+                                <div class="detail-value-container">
+                                    <span class="detail-value" id="bankName">State Bank of India</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('State Bank of India', 'Bank Name')">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <span class="detail-label">Account Type:</span>
+                                <div class="detail-value-container">
+                                    <span class="detail-value" id="accountType">Savings Account</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('Savings Account', 'Account Type')">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item full-width">
+                                <span class="detail-label">Transfer Purpose:</span>
+                                <div class="detail-value-container">
+                                    <span class="detail-value" id="purpose">Game Development Support - Coffee Fund</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('Game Development Support - Coffee Fund', 'Transfer Purpose')">📋</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Copy All Section -->
+                        <div class="copy-all-section">
+                            <button class="copy-all-btn" onclick="copyAllDetails()">
+                                📄 Copy All Details
+                            </button>
+                            <p class="payment-note">
+                                💡 <strong>Note:</strong> After transfer, please send us a screenshot at 
+                                <a href="mailto:pika.gamedevstudio@gmail.com" style="color: #d4af37;">pika.gamedevstudio@gmail.com</a> 
+                                for confirmation. Thank you for your support! 🙏
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bank Grid -->
+                    <div class="bank-grid">
+                        <div class="bank-card sbi" onclick="openNetBanking('https://retail.onlinesbi.sbi/retail/login.htm')">
+                            <div class="bank-logo">SBI</div>
+                            <div class="bank-name">State Bank of India</div>
+                            <div class="bank-subtitle">SBI Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card hdfc" onclick="openNetBanking('https://netbanking.hdfcbank.com/netbanking/')">
+                            <div class="bank-logo">HDFC</div>
+                            <div class="bank-name">HDFC Bank</div>
+                            <div class="bank-subtitle">HDFC Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card icici" onclick="openNetBanking('https://infinity.icicibank.com/corp/Login.jsp')">
+                            <div class="bank-logo">ICICI</div>
+                            <div class="bank-name">ICICI Bank</div>
+                            <div class="bank-subtitle">ICICI Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card axis" onclick="openNetBanking('https://www.axisbank.com/retail/online-services/axis-bank-internet-banking')">
+                            <div class="bank-logo">AXIS</div>
+                            <div class="bank-name">Axis Bank</div>
+                            <div class="bank-subtitle">Axis Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card pnb" onclick="openNetBanking('https://netpnb.com/')">
+                            <div class="bank-logo">PNB</div>
+                            <div class="bank-name">Punjab National Bank</div>
+                            <div class="bank-subtitle">PNB Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card bob" onclick="openNetBanking('https://www.bankofbaroda.in/personal-banking/digital-products/internet-banking')">
+                            <div class="bank-logo">BOB</div>
+                            <div class="bank-name">Bank of Baroda</div>
+                            <div class="bank-subtitle">BOB Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card union" onclick="openNetBanking('https://www.unionbankofindia.co.in/english/internet-banking.aspx')">
+                            <div class="bank-logo">UBI</div>
+                            <div class="bank-name">Union Bank of India</div>
+                            <div class="bank-subtitle">Union Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card canara" onclick="openNetBanking('https://netbanking.canarabank.com/entry/ENULogin.jsp')">
+                            <div class="bank-logo">CNB</div>
+                            <div class="bank-name">Canara Bank</div>
+                            <div class="bank-subtitle">Canara Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card iob" onclick="openNetBanking('https://www.iob.in/Retail_IB/retail_login.jsp')">
+                            <div class="bank-logo">IOB</div>
+                            <div class="bank-name">Indian Overseas Bank</div>
+                            <div class="bank-subtitle">IOB Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card central" onclick="openNetBanking('https://netbanking.centralbankofindia.co.in/corp/BANKAWAY')">
+                            <div class="bank-logo">CBI</div>
+                            <div class="bank-name">Central Bank of India</div>
+                            <div class="bank-subtitle">Central Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card uco" onclick="openNetBanking('https://www.ucobank.com/english/internet-banking.aspx')">
+                            <div class="bank-logo">UCO</div>
+                            <div class="bank-name">UCO Bank</div>
+                            <div class="bank-subtitle">UCO Net Banking</div>
+                        </div>
+                        
+                        <div class="bank-card indian" onclick="openNetBanking('https://www.indianbank.in/departments/it-department/internet-banking/')">
+                            <div class="bank-logo">IB</div>
+                            <div class="bank-name">Indian Bank</div>
+                            <div class="bank-subtitle">Indian Net Banking</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Flip Animation Container -->
-    <div class="flip-container" id="flipContainer">
-        <div class="flip-card">
-            <div class="flip-front"></div>
-            <div class="flip-back">
-                <div class="qr-popup">
-                    <div class="popup-steam"></div>
-                    <div class="popup-steam"></div>
-                    <div class="popup-steam"></div>
-                    <div class="popup-steam"></div>
-                    
-                    <button class="close-btn" onclick="hideQRCode()">&times;</button>
-                    
-                <div class="qr-code">
-                      <img src="./images/qr-code.jpg" alt="Buy us a Coffee QR Code" class="qr-code" />
-                </div>
 
-
-                    
-                    <p class="gratitude-quote">
-                        "Your coffee fuels our code! Thank you for supporting Pika Dev Studio."
-                    </p>
-                    <p class="quote-author">- The Pika Team ☕</p>
-                </div>
-            </div>
-        </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                Made with <span class="heart">❤️</span> by Pika Game Dev Studio<br>
+                Every contribution helps us create better games for everyone!
+            </p>
+        </footer>
     </div>
 
+    <!-- JavaScript -->
     <script>
-        function showQRCode() {
-            const flipContainer = document.getElementById('flipContainer');
-            const body = document.body;
+        // Configuration - PayPal Username
+        const PAYPAL_USERNAME = 'pikagamedev'; // Change this to your PayPal.me username
+        
+        // Mobile detection and optimization
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        // Performance optimization for mobile
+        if (isMobile) {
+            // Reduce animation complexity on mobile
+            document.documentElement.style.setProperty('--animation-duration', '20s');
             
-            // Add rumble effect
-            body.style.animation = 'rumble 0.3s ease-in-out';
-            
-            setTimeout(() => {
-                flipContainer.classList.add('active');
-                body.style.animation = '';
-            }, 300);
-            
-            // Play crack sound effect (placeholder)
-            // In a real implementation, you would add: new Audio('crack-sound.mp3').play();
+            // Add mobile-specific class
+            document.body.classList.add('mobile-device');
         }
         
-        function hideQRCode() {
-            const flipContainer = document.getElementById('flipContainer');
-            flipContainer.classList.remove('active');
-        }
-        
-        // Close popup when clicking outside
-        document.getElementById('flipContainer').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideQRCode();
+        // Function to reveal QR code with flash effect - Mobile Optimized
+        function revealQRCode() {
+            const flashOverlay = document.querySelector('.flash-overlay');
+            const qrContainer = document.getElementById('qrContainer');
+            const coffeeCup = document.querySelector('.coffee-cup');
+            const clickInstruction = document.querySelector('.click-instruction');
+            
+            // Add haptic feedback for mobile devices
+            if (navigator.vibrate && isMobile) {
+                navigator.vibrate(50);
             }
-        });
+            
+            // Trigger flash effect
+            flashOverlay.classList.add('active');
+            
+            // Hide coffee cup and show QR code after flash
+            setTimeout(() => {
+                coffeeCup.style.display = 'none';
+                clickInstruction.style.display = 'none';
+                qrContainer.classList.add('show');
+                
+                // Remove flash effect
+                setTimeout(() => {
+                    flashOverlay.classList.remove('active');
+                }, 200);
+            }, 400);
+        }
         
-        // Add rumble animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes rumble {
-                0%, 100% { transform: translateX(0); }
-                25% { transform: translateX(-2px) translateY(-1px); }
-                50% { transform: translateX(2px) translateY(1px); }
-                75% { transform: translateX(-1px) translateY(-2px); }
+        // Function to handle PayPal donations with specific amounts - Mobile Enhanced
+        function donatePayPal(inrAmount) {
+            // Convert INR to USD for PayPal (approximate conversion rate)
+            const usdAmount = Math.round(inrAmount / 83); // Approximate INR to USD conversion
+            const paypalUrl = `https://paypal.me/${PAYPAL_USERNAME}/${usdAmount}`;
+            
+            // Add haptic feedback for mobile devices
+            if (navigator.vibrate && isMobile) {
+                navigator.vibrate(30);
+            }
+            
+            // Add click effect to the card
+            const currentTarget = event.currentTarget;
+            currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                currentTarget.style.transform = '';
+            }, 150);
+            
+            // Show loading state for better UX
+            showNotification(`Opening PayPal for ₹${inrAmount.toLocaleString('en-IN')} donation...`, 'success');
+            
+            // Open PayPal in new window with mobile-optimized parameters
+            setTimeout(() => {
+                if (isMobile) {
+                    // On mobile, open in same tab for better UX
+                    window.open(paypalUrl, '_blank');
+                } else {
+                    // On desktop, open in new window
+                    window.open(paypalUrl, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+                }
+            }, 500);
+        }
+        
+        // Function to handle custom amount donations - Mobile Enhanced
+        function donateCustomAmount() {
+            const customAmountInput = document.getElementById('customAmount');
+            const amount = parseFloat(customAmountInput.value);
+            
+            if (!amount || amount < 50) {
+                // Create custom notification instead of alert
+                showNotification('Please enter a valid amount (minimum ₹50)', 'error');
+                customAmountInput.focus();
+                
+                // Add haptic feedback for error
+                if (navigator.vibrate && isMobile) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+                return;
+            }
+            
+            if (amount > 500000) {
+                showNotification('Maximum donation amount is ₹5,00,000', 'error');
+                customAmountInput.focus();
+                
+                // Add haptic feedback for error
+                if (navigator.vibrate && isMobile) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+                return;
+            }
+            
+            // Add haptic feedback for success
+            if (navigator.vibrate && isMobile) {
+                navigator.vibrate(50);
+            }
+            
+            // Convert INR to USD for PayPal (approximate conversion rate)
+            const usdAmount = Math.round(amount / 83); // Approximate INR to USD conversion
+            const paypalUrl = `https://paypal.me/${PAYPAL_USERNAME}/${usdAmount}`;
+            
+            // Add success feedback
+            showNotification(`Opening PayPal for ₹${amount.toLocaleString('en-IN')} donation...`, 'success');
+            
+            // Open PayPal in new window with mobile-optimized parameters
+            setTimeout(() => {
+                if (isMobile) {
+                    // On mobile, open in same tab for better UX
+                    window.open(paypalUrl, '_blank');
+                } else {
+                    // On desktop, open in new window
+                    window.open(paypalUrl, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+                }
+            }, 1000);
+        }
+        
+        // Function to open net banking sites - Mobile Enhanced
+        function openNetBanking(bankUrl) {
+            // Add haptic feedback for mobile devices
+            if (navigator.vibrate && isMobile) {
+                navigator.vibrate(30);
+            }
+            
+            // Add click effect to the card
+            const currentTarget = event.currentTarget;
+            currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                currentTarget.style.transform = '';
+            }, 150);
+            
+            // Show notification
+            const bankName = currentTarget.querySelector('.bank-name').textContent;
+            showNotification(`Opening ${bankName} Net Banking...`, 'success');
+            
+            // Open bank's net banking site with mobile-optimized parameters
+            setTimeout(() => {
+                if (isMobile) {
+                    // On mobile, open in same tab for better UX
+                    window.open(bankUrl, '_blank');
+                } else {
+                    // On desktop, open in new window
+                    window.open(bankUrl, '_blank', 'width=1000,height=700,scrollbars=yes,resizable=yes');
+                }
+            }, 500);
+        }
+        
+        // Function to copy individual details to clipboard - Mobile Enhanced
+        function copyToClipboard(text, label) {
+            // Add haptic feedback for mobile devices
+            if (navigator.vibrate && isMobile) {
+                navigator.vibrate(25);
+            }
+            
+            // Use the modern clipboard API if available
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification(`${label} copied to clipboard! 📋`, 'success');
+                }).catch(() => {
+                    // Fallback for clipboard API failure
+                    fallbackCopyToClipboard(text, label);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyToClipboard(text, label);
+            }
+        }
+        
+        // Fallback copy function for older browsers - Mobile Enhanced
+        function fallbackCopyToClipboard(text, label) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            textArea.style.opacity = '0';
+            textArea.setAttribute('readonly', '');
+            document.body.appendChild(textArea);
+            
+            // For mobile devices, ensure the textarea is focusable
+            if (isMobile) {
+                textArea.style.fontSize = '16px'; // Prevent zoom on iOS
+                textArea.style.border = 'none';
+                textArea.style.outline = 'none';
+            }
+            
+            textArea.focus();
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showNotification(`${label} copied to clipboard! 📋`, 'success');
+                } else {
+                    throw new Error('Copy command failed');
+                }
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+                showNotification(`Unable to copy ${label}. Please copy manually.`, 'error');
+                
+                // For mobile, show the text in a modal for manual copying
+                if (isMobile) {
+                    showManualCopyModal(text, label);
+                }
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        // Function to show manual copy modal for mobile devices
+        function showManualCopyModal(text, label) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10001;
+                padding: 1rem;
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    border-radius: 15px;
+                    padding: 2rem;
+                    max-width: 90%;
+                    text-align: center;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                ">
+                    <h3 style="color: #3d2817; margin-bottom: 1rem; font-family: 'Orbitron', monospace;">
+                        Copy ${label}
+                    </h3>
+                    <div style="
+                        background: #f5f5f5;
+                        border: 2px solid #ddd;
+                        border-radius: 8px;
+                        padding: 1rem;
+                        margin: 1rem 0;
+                        font-family: 'Courier New', monospace;
+                        font-weight: bold;
+                        color: #2c1810;
+                        word-break: break-all;
+                        user-select: all;
+                        -webkit-user-select: all;
+                    " onclick="this.select()">
+                        ${text}
+                    </div>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.9rem;">
+                        Tap the text above to select it, then copy manually
+                    </p>
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        background: linear-gradient(135deg, #d4af37, #b8941f);
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        padding: 12px 24px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        min-height: 44px;
+                    ">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Auto remove after 10 seconds
+            setTimeout(() => {
+                if (modal.parentElement) {
+                    modal.remove();
+                }
+            }, 10000);
+        }
+        
+        // Function to copy all payment details - Mobile Enhanced
+        function copyAllDetails() {
+            // Add haptic feedback for mobile devices
+            if (navigator.vibrate && isMobile) {
+                navigator.vibrate(50);
+            }
+            
+            const allDetails = `
+PIKA GAME DEV STUDIO - Payment Details
+=====================================
+
+Account Number: 44218172171
+IFSC Code: SBIN0003560
+Account Name: Pratik Tomar
+Bank Name: State Bank of India
+Account Type: Savings Account
+Transfer Purpose: Game Development Support - Coffee Fund
+
+Note: After transfer, please send screenshot to pika.gamedevstudio@gmail.com
+
+Thank you for supporting our game development journey! 🎮☕
+            `.trim();
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(allDetails).then(() => {
+                    showNotification('All payment details copied to clipboard! 📄✨', 'success');
+                }).catch(() => {
+                    fallbackCopyToClipboard(allDetails, 'All Details');
+                });
+            } else {
+                fallbackCopyToClipboard(allDetails, 'All Details');
+            }
+        }
+        
+        // Custom notification system (replaces alert) - Mobile Enhanced
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.custom-notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `custom-notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${type === 'error' ? '⚠️' : '✅'}</span>
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+            
+            // Mobile-optimized notification styles
+            const notificationStyles = `
+                position: fixed;
+                top: ${isMobile ? '10px' : '20px'};
+                right: ${isMobile ? '10px' : '20px'};
+                left: ${isMobile ? '10px' : 'auto'};
+                background: ${type === 'error' ? 'linear-gradient(135deg, #ff4444, #cc0000)' : 'linear-gradient(135deg, #00aa00, #008800)'};
+                color: white;
+                padding: ${isMobile ? '1rem' : '1rem 1.5rem'};
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 10000;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                max-width: ${isMobile ? 'calc(100% - 20px)' : '400px'};
+                animation: slideInRight 0.5s ease-out;
+                font-size: ${isMobile ? '0.9rem' : '1rem'};
+            `;
+            
+            notification.style.cssText = notificationStyles;
+            
+            // Add to document
+            document.body.appendChild(notification);
+            
+            // Auto remove after 4 seconds (longer on mobile for better readability)
+            const autoRemoveTime = isMobile ? 5000 : 4000;
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideOutRight 0.5s ease-in forwards';
+                    setTimeout(() => notification.remove(), 500);
+                }
+            }, autoRemoveTime);
+        }
+        
+        // Add notification animations to head - Mobile Enhanced
+        const notificationStyles = document.createElement('style');
+        notificationStyles.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            .notification-content {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .notification-close {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.2rem;
+                cursor: pointer;
+                margin-left: auto;
+                padding: 0 0.5rem;
+                border-radius: 50%;
+                transition: background 0.3s ease;
+                min-width: 32px;
+                min-height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .notification-close:hover,
+            .notification-close:active {
+                background: rgba(255,255,255,0.2);
             }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(notificationStyles);
         
-        // Add keyboard support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                hideQRCode();
+        // Enhanced input validation for custom amount - Mobile Enhanced
+        document.getElementById('customAmount').addEventListener('input', function(e) {
+            let value = parseFloat(e.target.value);
+            
+            // Visual feedback for input validation
+            if (value && value >= 50 && value <= 500000) {
+                e.target.style.borderColor = '#00aa00';
+                e.target.style.boxShadow = '0 0 10px rgba(0,170,0,0.3)';
+            } else if (value) {
+                e.target.style.borderColor = '#ff4444';
+                e.target.style.boxShadow = '0 0 10px rgba(255,68,68,0.3)';
+            } else {
+                e.target.style.borderColor = 'rgba(139, 69, 19, 0.3)';
+                e.target.style.boxShadow = 'none';
             }
         });
         
+        // Allow Enter key to submit custom amount - Mobile Enhanced
+        document.getElementById('customAmount').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission
+                donateCustomAmount();
+            }
+        });
+        
+        // Mobile-specific input handling
+        if (isMobile) {
+            const customAmountInput = document.getElementById('customAmount');
+            
+            // Prevent zoom on focus for iOS
+            customAmountInput.addEventListener('focus', function() {
+                this.style.fontSize = '16px';
+            });
+            
+            // Handle virtual keyboard
+            customAmountInput.addEventListener('blur', function() {
+                // Scroll back to top on mobile when keyboard closes
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100);
+            });
+        }
+        
+        // Add touch feedback for interactive elements - Mobile Enhanced
+        if (isTouch) {
+            const interactiveElements = document.querySelectorAll('.donation-card, .paypal-button, .coffee-cup, .bank-card, .copy-btn, .copy-all-btn');
+            
+            interactiveElements.forEach(element => {
+                // Add touch start feedback
+                element.addEventListener('touchstart', function() {
+                    this.style.transition = 'all 0.1s ease';
+                    this.style.transform = 'scale(0.98)';
+                }, { passive: true });
+                
+                // Remove touch feedback
+                element.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        this.style.transform = '';
+                    }, 100);
+                }, { passive: true });
+                
+                // Handle touch cancel
+                element.addEventListener('touchcancel', function() {
+                    this.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    this.style.transform = '';
+                }, { passive: true });
+            });
+        }
+        
+        // Optimize scroll performance on mobile
+        let ticking = false;
+        function updateScrollPosition() {
+            // Add scroll-based optimizations here if needed
+            ticking = false;
+        }
+        
+        function requestScrollUpdate() {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollPosition);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+        
+        // Initialize page - Mobile Enhanced
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add subtle entrance animation to main elements
+            const mainElements = document.querySelectorAll('.coffee-card, .donation-section, .alternative-methods');
+            mainElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'all 0.8s ease-out';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * (isMobile ? 100 : 200)); // Faster on mobile
+            });
+            
+            // Show welcome message with mobile-optimized delay
+            setTimeout(() => {
+                const welcomeMessage = isMobile ? 
+                    'Welcome to Pika Game Dev Studio! Tap the coffee cup to get started! ☕' :
+                    'Welcome to Pika Game Dev Studio! Click the coffee cup to get started! ☕';
+                showNotification(welcomeMessage, 'success');
+            }, isMobile ? 1000 : 1500);
+            
+            // Mobile-specific optimizations
+            if (isMobile) {
+                // Prevent double-tap zoom on buttons
+                const buttons = document.querySelectorAll('button, .donation-card, .bank-card');
+                buttons.forEach(button => {
+                    button.addEventListener('touchend', function(e) {
+                        e.preventDefault();
+                    });
+                });
+                
+                // Add mobile-specific meta tags if not present
+                if (!document.querySelector('meta[name="theme-color"]')) {
+                    const themeColorMeta = document.createElement('meta');
+                    themeColorMeta.name = 'theme-color';
+                    themeColorMeta.content = '#3d2817';
+                    document.head.appendChild(themeColorMeta);
+                }
+                
+                // Optimize viewport for mobile
+                const viewportMeta = document.querySelector('meta[name="viewport"]');
+                if (viewportMeta) {
+                    viewportMeta.content = 'width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5, viewport-fit=cover';
+                }
+            }
+        });
+        
+        // Handle orientation change on mobile
+        if (isMobile) {
+            window.addEventListener('orientationchange', function() {
+                // Delay to allow for orientation change to complete
+                setTimeout(() => {
+                    // Recalculate viewport height for mobile browsers
+                    const vh = window.innerHeight * 0.01;
+                    document.documentElement.style.setProperty('--vh', `${vh}px`);
+                    
+                    // Scroll to top to reset any scroll issues
+                    window.scrollTo(0, 0);
+                }, 500);
+            });
+            
+            // Initial viewport height calculation
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        // Performance monitoring for mobile
+        if (isMobile && 'performance' in window) {
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    if (perfData && perfData.loadEventEnd > 3000) {
+                        console.log('Slow loading detected on mobile, consider optimizations');
+                    }
+                }, 1000);
+            });
+        }
+        
+        // Service Worker registration for mobile PWA capabilities (optional)
+        if ('serviceWorker' in navigator && isMobile) {
+            window.addEventListener('load', function() {
+                // Uncomment if you have a service worker
+                // navigator.serviceWorker.register('/sw.js')
+                //     .then(registration => console.log('SW registered'))
+                //     .catch(error => console.log('SW registration failed'));
+            });
+        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'969835c745b37a22',t:'MTc1NDI0OTIyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
-</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96eaf7f931d793c1',t:'MTc1NTExNzAwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
-
-
