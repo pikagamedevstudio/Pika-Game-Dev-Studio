@@ -2,11 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5, viewport-fit=cover">
+    <meta name="theme-color" content="#3d2817">
+    <meta name="description" content="Support Pika Game Dev Studio - Buy us a coffee to fuel our game development journey">
+    <meta name="keywords" content="game development, indie games, coffee donation, support developers">
     <title>Buy Us a Coffee - Pika Game Dev Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* Global Reset and Base Styles */
+        /* ===== GLOBAL RESET AND BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -17,6 +23,7 @@
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
+            font-size: 16px;
         }
 
         body {
@@ -29,9 +36,10 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             touch-action: manipulation;
+            line-height: 1.6;
         }
 
-        /* Rich Coffee Background with Multiple Layers */
+        /* ===== RICH COFFEE BACKGROUND WITH MULTIPLE LAYERS ===== */
         .coffee-background {
             position: fixed;
             top: 0;
@@ -156,21 +164,22 @@
             }
         }
 
-        /* Main Container - Mobile Optimized */
+        /* ===== MAIN CONTAINER - MOBILE OPTIMIZED ===== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: clamp(0.5rem, 2vw, 1rem);
             position: relative;
             z-index: 1;
+            width: 100%;
         }
 
-        /* Header Section */
+        /* ===== HEADER SECTION ===== */
         .header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
             position: relative;
-            padding: 1rem 0;
+            padding: clamp(0.5rem, 2vw, 1rem) 0;
         }
 
         /* Studio Name with Gradient Text - Mobile Responsive */
@@ -183,9 +192,10 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.5rem, 2vw, 1rem);
             animation: glow 3s ease-in-out infinite alternate;
             line-height: 1.2;
+            letter-spacing: 1px;
         }
 
         /* Glowing Text Animation */
@@ -199,17 +209,18 @@
             font-size: clamp(0.9rem, 3vw, 1.2rem);
             color: #d4af37;
             font-weight: 300;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
             line-height: 1.4;
-            padding: 0 1rem;
+            padding: 0 clamp(0.5rem, 2vw, 1rem);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
-        /* Main Coffee Card Container - Mobile Optimized */
+        /* ===== MAIN COFFEE CARD CONTAINER - MOBILE OPTIMIZED ===== */
         .coffee-card {
             background: rgba(139, 69, 19, 0.15);
             backdrop-filter: blur(15px);
             border: 2px solid rgba(210, 180, 140, 0.3);
-            border-radius: 20px;
+            border-radius: clamp(15px, 4vw, 20px);
             padding: clamp(1.5rem, 4vw, 3rem);
             text-align: center;
             box-shadow: 
@@ -251,10 +262,11 @@
         /* Coffee Emoji with Bounce - Mobile Optimized */
         .coffee-emoji {
             font-size: clamp(2.5rem, 8vw, 4rem);
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
             display: block;
             animation: bounce 2s ease-in-out infinite;
             user-select: none;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
         /* Bouncing Animation */
@@ -270,9 +282,10 @@
             font-size: clamp(1.3rem, 5vw, 2rem);
             font-weight: 700;
             color: #d4af37;
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.5rem, 2vw, 1rem);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             line-height: 1.2;
+            letter-spacing: 0.5px;
         }
 
         /* Description Text - Mobile Optimized */
@@ -280,17 +293,18 @@
             font-size: clamp(0.9rem, 3vw, 1.1rem);
             line-height: 1.6;
             color: #b8b8b8;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
             opacity: 0.9;
-            padding: 0 0.5rem;
+            padding: 0 clamp(0.5rem, 2vw, 0.5rem);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
-        /* Interactive QR Section - Mobile Enhanced */
+        /* ===== INTERACTIVE QR SECTION - MOBILE ENHANCED ===== */
         .interactive-section {
-            margin: 2rem 0;
+            margin: clamp(1.5rem, 4vw, 2rem) 0;
             padding: clamp(1rem, 4vw, 2rem);
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: clamp(15px, 4vw, 20px);
             box-shadow: 
                 0 15px 40px rgba(0, 0, 0, 0.4),
                 inset 0 2px 0 rgba(255, 255, 255, 0.9);
@@ -316,15 +330,15 @@
 
         /* Section Title - Mobile Responsive */
         .section-title {
-            color: #3d2817;
+            color: #2c1810;
             font-family: 'Orbitron', monospace;
             font-size: clamp(1rem, 4vw, 1.4rem);
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
             text-align: center;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             line-height: 1.3;
-            padding: 0 0.5rem;
+            padding: 0 clamp(0.5rem, 2vw, 0.5rem);
         }
 
         /* Coffee Cup Container - Mobile Optimized */
@@ -332,12 +346,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            gap: clamp(1rem, 3vw, 1.5rem);
             position: relative;
             padding: clamp(1rem, 4vw, 2rem);
         }
 
-        /* Realistic Coffee Seeds Container */
+        /* ===== REALISTIC COFFEE SEEDS CONTAINER ===== */
         .coffee-seeds {
             position: absolute;
             width: 100%;
@@ -445,7 +459,7 @@
             }
         }
 
-        /* Coffee Powder Container */
+        /* ===== COFFEE POWDER CONTAINER ===== */
         .coffee-powder {
             position: absolute;
             width: 100%;
@@ -485,66 +499,21 @@
         }
 
         /* Powder Particle Positions with Animation Delays */
-        .powder-particle:nth-child(1) { 
-            top: 18%; left: 15%; 
-            animation-delay: 0s;
-        }
-        .powder-particle:nth-child(2) { 
-            top: 22%; left: 18%; 
-            animation-delay: -0.5s;
-        }
-        .powder-particle:nth-child(3) { 
-            top: 28%; right: 12%; 
-            animation-delay: -1s;
-        }
-        .powder-particle:nth-child(4) { 
-            top: 32%; right: 16%; 
-            animation-delay: -1.5s;
-        }
-        .powder-particle:nth-child(5) { 
-            bottom: 25%; left: 20%; 
-            animation-delay: -2s;
-        }
-        .powder-particle:nth-child(6) { 
-            bottom: 28%; left: 16%; 
-            animation-delay: -2.5s;
-        }
-        .powder-particle:nth-child(7) { 
-            bottom: 22%; right: 18%; 
-            animation-delay: -3s;
-        }
-        .powder-particle:nth-child(8) { 
-            bottom: 30%; right: 22%; 
-            animation-delay: -3.5s;
-        }
-        .powder-particle:nth-child(9) { 
-            top: 45%; left: 8%; 
-            animation-delay: -4s;
-        }
-        .powder-particle:nth-child(10) { 
-            top: 48%; right: 6%; 
-            animation-delay: -4.5s;
-        }
-        .powder-particle:nth-child(11) { 
-            bottom: 40%; left: 14%; 
-            animation-delay: -5s;
-        }
-        .powder-particle:nth-child(12) { 
-            bottom: 38%; right: 12%; 
-            animation-delay: -5.5s;
-        }
-        .powder-particle:nth-child(13) { 
-            top: 35%; left: 22%; 
-            animation-delay: -6s;
-        }
-        .powder-particle:nth-child(14) { 
-            top: 38%; right: 24%; 
-            animation-delay: -6.5s;
-        }
-        .powder-particle:nth-child(15) { 
-            bottom: 50%; left: 18%; 
-            animation-delay: -7s;
-        }
+        .powder-particle:nth-child(1) { top: 18%; left: 15%; animation-delay: 0s; }
+        .powder-particle:nth-child(2) { top: 22%; left: 18%; animation-delay: -0.5s; }
+        .powder-particle:nth-child(3) { top: 28%; right: 12%; animation-delay: -1s; }
+        .powder-particle:nth-child(4) { top: 32%; right: 16%; animation-delay: -1.5s; }
+        .powder-particle:nth-child(5) { bottom: 25%; left: 20%; animation-delay: -2s; }
+        .powder-particle:nth-child(6) { bottom: 28%; left: 16%; animation-delay: -2.5s; }
+        .powder-particle:nth-child(7) { bottom: 22%; right: 18%; animation-delay: -3s; }
+        .powder-particle:nth-child(8) { bottom: 30%; right: 22%; animation-delay: -3.5s; }
+        .powder-particle:nth-child(9) { top: 45%; left: 8%; animation-delay: -4s; }
+        .powder-particle:nth-child(10) { top: 48%; right: 6%; animation-delay: -4.5s; }
+        .powder-particle:nth-child(11) { bottom: 40%; left: 14%; animation-delay: -5s; }
+        .powder-particle:nth-child(12) { bottom: 38%; right: 12%; animation-delay: -5.5s; }
+        .powder-particle:nth-child(13) { top: 35%; left: 22%; animation-delay: -6s; }
+        .powder-particle:nth-child(14) { top: 38%; right: 24%; animation-delay: -6.5s; }
+        .powder-particle:nth-child(15) { bottom: 50%; left: 18%; animation-delay: -7s; }
 
         /* Powder Floating Animation */
         @keyframes powderFloat {
@@ -589,28 +558,13 @@
         }
 
         /* Powder Cluster Positions */
-        .powder-cluster:nth-child(16) { 
-            top: 20%; left: 25%; 
-            transform: rotate(15deg);
-        }
-        .powder-cluster:nth-child(17) { 
-            top: 30%; right: 20%; 
-            transform: rotate(-25deg);
-        }
-        .powder-cluster:nth-child(18) { 
-            bottom: 35%; left: 15%; 
-            transform: rotate(45deg);
-        }
-        .powder-cluster:nth-child(19) { 
-            bottom: 25%; right: 28%; 
-            transform: rotate(-35deg);
-        }
-        .powder-cluster:nth-child(20) { 
-            top: 42%; left: 12%; 
-            transform: rotate(25deg);
-        }
+        .powder-cluster:nth-child(16) { top: 20%; left: 25%; transform: rotate(15deg); }
+        .powder-cluster:nth-child(17) { top: 30%; right: 20%; transform: rotate(-25deg); }
+        .powder-cluster:nth-child(18) { bottom: 35%; left: 15%; transform: rotate(45deg); }
+        .powder-cluster:nth-child(19) { bottom: 25%; right: 28%; transform: rotate(-35deg); }
+        .powder-cluster:nth-child(20) { top: 42%; left: 12%; transform: rotate(25deg); }
 
-        /* Interactive Coffee Cup - Mobile Enhanced */
+        /* ===== INTERACTIVE COFFEE CUP - MOBILE ENHANCED ===== */
         .coffee-cup {
             width: clamp(180px, 40vw, 250px);
             height: clamp(180px, 40vw, 250px);
@@ -706,12 +660,12 @@
             }
         }
 
-        /* QR Code Container - Mobile Optimized */
+        /* ===== QR CODE CONTAINER - MOBILE OPTIMIZED ===== */
         .qr-container {
             display: none;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            gap: clamp(1rem, 3vw, 1.5rem);
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
@@ -778,13 +732,14 @@
 
         /* QR Instructions Text - Mobile Responsive */
         .qr-instructions {
-            color: #3d2817;
+            color: #2c1810;
             font-size: clamp(0.85rem, 3vw, 1rem);
             line-height: 1.6;
             max-width: 350px;
             text-align: center;
             font-weight: 500;
-            padding: 0 1rem;
+            padding: 0 clamp(0.5rem, 2vw, 1rem);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         /* Click Instruction Text - Mobile Responsive */
@@ -793,9 +748,10 @@
             font-size: clamp(0.9rem, 3vw, 1.1rem);
             font-weight: 600;
             text-align: center;
-            margin-top: 1rem;
+            margin-top: clamp(0.5rem, 2vw, 1rem);
             animation: pulse 2s ease-in-out infinite;
-            padding: 0 1rem;
+            padding: 0 clamp(0.5rem, 2vw, 1rem);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         /* Pulse Animation */
@@ -804,12 +760,12 @@
             50% { opacity: 1; }
         }
 
-        /* Donation Section Container - Mobile Optimized */
+        /* ===== DONATION SECTION CONTAINER - MOBILE OPTIMIZED ===== */
         .donation-section {
-            margin-top: 3rem;
+            margin-top: clamp(2rem, 5vw, 3rem);
             padding: clamp(1rem, 4vw, 2rem);
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
+            border-radius: clamp(15px, 4vw, 20px);
             border: 2px solid rgba(210, 180, 140, 0.3);
         }
 
@@ -820,9 +776,10 @@
             font-weight: 700;
             color: #d4af37;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             line-height: 1.2;
+            letter-spacing: 0.5px;
         }
 
         /* Donation Amount Grid - Mobile Enhanced */
@@ -830,7 +787,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(clamp(150px, 40vw, 200px), 1fr));
             gap: clamp(1rem, 3vw, 1.5rem);
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
         }
 
         /* Individual Donation Card - Mobile Enhanced */
@@ -848,6 +805,7 @@
             overflow: hidden;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            min-height: clamp(120px, 25vw, 160px);
         }
 
         /* Donation Card Shine Effect */
@@ -887,17 +845,19 @@
             font-size: clamp(1.5rem, 6vw, 2.5rem);
             font-weight: 900;
             color: #d4af37;
-            margin-bottom: 0.5rem;
+            margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             line-height: 1;
+            letter-spacing: 0.5px;
         }
 
         /* Donation Description - Mobile Responsive */
         .donation-description {
             font-size: clamp(0.8rem, 3vw, 1rem);
             color: #b8b8b8;
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
             line-height: 1.4;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         /* PayPal Button Styling - Mobile Enhanced */
@@ -955,13 +915,13 @@
             box-shadow: 0 2px 10px rgba(0, 112, 186, 0.3);
         }
 
-        /* Custom Amount Section - Mobile Optimized */
+        /* ===== CUSTOM AMOUNT SECTION - MOBILE OPTIMIZED ===== */
         .custom-amount-section {
             background: rgba(210, 180, 140, 0.1);
             border: 2px solid rgba(210, 180, 140, 0.3);
             border-radius: 15px;
             padding: clamp(1rem, 4vw, 2rem);
-            margin-top: 2rem;
+            margin-top: clamp(1.5rem, 4vw, 2rem);
         }
 
         /* Custom Amount Title - Mobile Responsive */
@@ -971,8 +931,9 @@
             font-weight: 700;
             color: #d4af37;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
             line-height: 1.2;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         /* Custom Amount Form - Mobile Enhanced */
@@ -986,13 +947,13 @@
 
         /* Amount Input Field - Mobile Enhanced */
         .amount-input {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border: 2px solid rgba(139, 69, 19, 0.3);
             border-radius: 10px;
             padding: clamp(8px 12px, 3vw, 12px 16px);
             font-size: clamp(0.9rem, 3vw, 1.1rem);
             font-weight: 600;
-            color: #3d2817;
+            color: #2c1810;
             width: clamp(100px, 25vw, 120px);
             text-align: center;
             transition: all 0.3s ease;
@@ -1021,14 +982,15 @@
             font-size: clamp(1.2rem, 4vw, 1.5rem);
             font-weight: 700;
             color: #d4af37;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
-        /* Alternative Methods Section - Mobile Optimized */
+        /* ===== ALTERNATIVE METHODS SECTION - MOBILE OPTIMIZED ===== */
         .alternative-methods {
-            margin-top: 3rem;
+            margin-top: clamp(2rem, 5vw, 3rem);
             padding: clamp(1rem, 4vw, 2rem);
             background: rgba(139, 69, 19, 0.1);
-            border-radius: 15px;
+            border-radius: clamp(15px, 4vw, 15px);
             border: 1px solid rgba(210, 180, 140, 0.2);
         }
 
@@ -1039,8 +1001,9 @@
             font-weight: 700;
             color: #d4af37;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
             line-height: 1.2;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         /* Bank Transfer Section - Mobile Optimized */
@@ -1049,7 +1012,7 @@
             border: 2px solid rgba(210, 180, 140, 0.3);
             border-radius: 15px;
             padding: clamp(1rem, 4vw, 2rem);
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
         }
 
         /* Bank Transfer Title - Mobile Responsive */
@@ -1059,16 +1022,240 @@
             font-weight: 700;
             color: #d4af37;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
             line-height: 1.2;
             flex-wrap: wrap;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
-        /* Bank Grid Layout - Mobile Enhanced */
+        /* ===== PAYMENT DETAILS BOX - MOBILE OPTIMIZED WITH ENHANCED VISIBILITY ===== */
+        .payment-details-box {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.99) 0%, 
+                rgba(252, 252, 252, 0.98) 100%);
+            border: 3px solid rgba(212, 175, 55, 0.6);
+            border-radius: 15px;
+            padding: clamp(1rem, 4vw, 2rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Payment Details Box Top Border */
+        .payment-details-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #ff6b35, #d4af37);
+            animation: shimmer 3s ease-in-out infinite;
+            will-change: opacity;
+        }
+
+        /* Shimmer Animation */
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Payment Details Title - Mobile Responsive with Enhanced Visibility */
+        .payment-details-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            font-weight: 800;
+            color: #1a0f0a;
+            text-align: center;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            line-height: 1.2;
+            flex-wrap: wrap;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        /* Payment Details Grid - Mobile Enhanced */
+        .payment-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 60vw, 280px), 1fr));
+            gap: clamp(0.5rem, 2vw, 1rem);
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+        }
+
+        /* Individual Detail Item - Mobile Enhanced with Better Visibility */
+        .detail-item {
+            background: rgba(248, 248, 248, 0.95);
+            border: 2px solid rgba(139, 69, 19, 0.2);
+            border-radius: 10px;
+            padding: clamp(0.8rem, 3vw, 1rem);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Detail Item Hover/Touch State */
+        .detail-item:hover,
+        .detail-item:active {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Full Width Detail Item */
+        .detail-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Detail Label - Mobile Responsive with Enhanced Visibility */
+        .detail-label {
+            display: block;
+            font-weight: 800;
+            color: #0d0808;
+            margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.3px;
+        }
+
+        /* Detail Value Container - Mobile Enhanced with Better Contrast */
+        .detail-value-container {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 1vw, 0.5rem);
+            background: rgba(255, 255, 255, 1);
+            border: 2px solid rgba(139, 69, 19, 0.4);
+            border-radius: 8px;
+            padding: clamp(0.5rem, 2vw, 0.75rem);
+            box-shadow: 
+                inset 0 1px 3px rgba(0, 0, 0, 0.1),
+                0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Detail Value Text - Mobile Responsive with Maximum Visibility */
+        .detail-value {
+            flex: 1;
+            font-family: 'Courier New', monospace;
+            font-weight: 900;
+            color: #0a0605;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            letter-spacing: 0.5px;
+            word-break: break-all;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            line-height: 1.3;
+        }
+
+        /* Copy Button - Mobile Enhanced */
+        .copy-btn {
+            background: linear-gradient(135deg, #d4af37, #b8941f);
+            border: none;
+            border-radius: 6px;
+            padding: clamp(0.4rem, 2vw, 0.5rem);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            min-width: 32px;
+            min-height: 32px;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Copy Button Hover/Touch State */
+        .copy-btn:hover,
+        .copy-btn:active {
+            background: linear-gradient(135deg, #e6c547, #d4af37);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Copy Button Active State */
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Copy All Section - Mobile Optimized */
+        .copy-all-section {
+            text-align: center;
+            padding-top: clamp(1rem, 3vw, 1.5rem);
+            border-top: 2px solid rgba(139, 69, 19, 0.2);
+        }
+
+        /* Copy All Button - Mobile Enhanced */
+        .copy-all-btn {
+            background: linear-gradient(135deg, #ff6b35, #e55a2b);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: clamp(8px 16px, 3vw, 12px 24px);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            margin-bottom: clamp(0.5rem, 2vw, 1rem);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 44px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Copy All Button Hover/Touch State */
+        .copy-all-btn:hover,
+        .copy-all-btn:active {
+            background: linear-gradient(135deg, #ff7a47, #ff6b35);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Copy All Button Active State */
+        .copy-all-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Payment Note - Mobile Responsive with Better Visibility */
+        .payment-note {
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+            color: #444;
+            line-height: 1.6;
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: clamp(0.8rem, 3vw, 1rem);
+            margin: 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Payment Note Links */
+        .payment-note a {
+            color: #d4af37 !important;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            word-break: break-word;
+        }
+
+        /* Payment Note Link Hover/Touch */
+        .payment-note a:hover,
+        .payment-note a:active {
+            text-decoration: underline;
+            color: #ff6b35 !important;
+        }
+
+        /* ===== BANK GRID LAYOUT - MOBILE ENHANCED ===== */
         .bank-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(clamp(140px, 35vw, 200px), 1fr));
@@ -1078,8 +1265,8 @@
         /* Individual Bank Card - Mobile Enhanced */
         .bank-card {
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%, 
-                rgba(240, 240, 240, 0.9) 100%);
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(248, 248, 248, 0.95) 100%);
             border: 2px solid rgba(139, 69, 19, 0.2);
             border-radius: 12px;
             padding: clamp(0.8rem, 3vw, 1.5rem);
@@ -1120,7 +1307,7 @@
         .bank-card:active {
             background: linear-gradient(135deg, 
                 rgba(255, 255, 255, 1) 0%, 
-                rgba(248, 248, 248, 0.95) 100%);
+                rgba(250, 250, 250, 0.98) 100%);
             border-color: rgba(212, 175, 55, 0.6);
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
@@ -1138,7 +1325,7 @@
             font-weight: 900;
             font-family: 'Orbitron', monospace;
             letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
+            margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
             display: block;
             width: clamp(40px, 12vw, 60px);
             height: clamp(25px, 8vw, 40px);
@@ -1148,7 +1335,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 0.5rem auto;
+            margin: 0 auto clamp(0.3rem, 1vw, 0.5rem) auto;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
@@ -1250,18 +1437,20 @@
         /* Bank Name Styling - Mobile Responsive */
         .bank-name {
             font-weight: 700;
-            color: #3d2817;
-            margin-bottom: 0.3rem;
+            color: #2c1810;
+            margin-bottom: clamp(0.2rem, 0.5vw, 0.3rem);
             font-size: clamp(0.7rem, 2.5vw, 0.95rem);
             line-height: 1.2;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         /* Bank Subtitle - Mobile Responsive */
         .bank-subtitle {
             font-size: clamp(0.6rem, 2vw, 0.8rem);
-            color: #666;
+            color: #555;
             opacity: 0.8;
             line-height: 1.2;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         }
 
         /* Bank Card Hover Border Colors */
@@ -1278,217 +1467,10 @@
         .bank-card.uco:hover, .bank-card.uco:active { border-color: #ff1493; }
         .bank-card.indian:hover, .bank-card.indian:active { border-color: #32cd32; }
 
-        /* Payment Details Box - Mobile Optimized */
-        .payment-details-box {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.98) 0%, 
-                rgba(248, 248, 248, 0.95) 100%);
-            border: 3px solid rgba(212, 175, 55, 0.4);
-            border-radius: 15px;
-            padding: clamp(1rem, 4vw, 2rem);
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Payment Details Box Top Border */
-        .payment-details-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #d4af37, #ff6b35, #d4af37);
-            animation: shimmer 3s ease-in-out infinite;
-            will-change: opacity;
-        }
-
-        /* Shimmer Animation */
-        @keyframes shimmer {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        /* Payment Details Title - Mobile Responsive */
-        .payment-details-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1rem, 4vw, 1.4rem);
-            font-weight: 700;
-            color: #3d2817;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            line-height: 1.2;
-            flex-wrap: wrap;
-        }
-
-        /* Payment Details Grid - Mobile Enhanced */
-        .payment-details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 60vw, 280px), 1fr));
-            gap: clamp(0.5rem, 2vw, 1rem);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Individual Detail Item - Mobile Enhanced */
-        .detail-item {
-            background: rgba(139, 69, 19, 0.05);
-            border: 2px solid rgba(139, 69, 19, 0.1);
-            border-radius: 10px;
-            padding: clamp(0.8rem, 3vw, 1rem);
-            transition: all 0.3s ease;
-        }
-
-        /* Detail Item Hover/Touch State */
-        .detail-item:hover,
-        .detail-item:active {
-            background: rgba(139, 69, 19, 0.08);
-            border-color: rgba(212, 175, 55, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Full Width Detail Item */
-        .detail-item.full-width {
-            grid-column: 1 / -1;
-        }
-
-        /* Detail Label - Mobile Responsive */
-        .detail-label {
-            display: block;
-            font-weight: 600;
-            color: #3d2817;
-            margin-bottom: 0.5rem;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-        }
-
-        /* Detail Value Container - Mobile Enhanced */
-        .detail-value-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: white;
-            border: 1px solid rgba(139, 69, 19, 0.2);
-            border-radius: 8px;
-            padding: clamp(0.5rem, 2vw, 0.75rem);
-        }
-
-        /* Detail Value Text - Mobile Responsive */
-        .detail-value {
-            flex: 1;
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            color: #2c1810;
-            font-size: clamp(0.8rem, 2.5vw, 1rem);
-            letter-spacing: 0.5px;
-            word-break: break-all;
-        }
-
-        /* Copy Button - Mobile Enhanced */
-        .copy-btn {
-            background: linear-gradient(135deg, #d4af37, #b8941f);
-            border: none;
-            border-radius: 6px;
-            padding: clamp(0.4rem, 2vw, 0.5rem);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: clamp(0.7rem, 2vw, 0.9rem);
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            min-width: 32px;
-            min-height: 32px;
-        }
-
-        /* Copy Button Hover/Touch State */
-        .copy-btn:hover,
-        .copy-btn:active {
-            background: linear-gradient(135deg, #e6c547, #d4af37);
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
-        }
-
-        /* Copy Button Active State */
-        .copy-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Copy All Section - Mobile Optimized */
-        .copy-all-section {
-            text-align: center;
-            padding-top: 1.5rem;
-            border-top: 2px solid rgba(139, 69, 19, 0.1);
-        }
-
-        /* Copy All Button - Mobile Enhanced */
-        .copy-all-btn {
-            background: linear-gradient(135deg, #ff6b35, #e55a2b);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: clamp(8px 16px, 3vw, 12px 24px);
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-            margin-bottom: 1rem;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            min-height: 44px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        /* Copy All Button Hover/Touch State */
-        .copy-all-btn:hover,
-        .copy-all-btn:active {
-            background: linear-gradient(135deg, #ff7a47, #ff6b35);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
-        }
-
-        /* Copy All Button Active State */
-        .copy-all-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Payment Note - Mobile Responsive */
-        .payment-note {
-            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
-            color: #666;
-            line-height: 1.6;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
-            padding: clamp(0.8rem, 3vw, 1rem);
-            margin: 0;
-        }
-
-        /* Payment Note Links */
-        .payment-note a {
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            word-break: break-word;
-        }
-
-        /* Payment Note Link Hover/Touch */
-        .payment-note a:hover,
-        .payment-note a:active {
-            text-decoration: underline;
-            color: #ff6b35 !important;
-        }
-
-        /* Footer Section - Mobile Optimized */
+        /* ===== FOOTER SECTION - MOBILE OPTIMIZED ===== */
         .footer {
             text-align: center;
-            margin-top: 3rem;
+            margin-top: clamp(2rem, 5vw, 3rem);
             padding: clamp(1rem, 4vw, 2rem) 0;
             border-top: 1px solid rgba(210, 180, 140, 0.3);
         }
@@ -1498,6 +1480,7 @@
             color: #888;
             font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             line-height: 1.6;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         /* Heart Icon Animation */
@@ -1512,7 +1495,7 @@
             50% { transform: scale(1.1); }
         }
 
-        /* Mobile Specific Optimizations */
+        /* ===== MOBILE SPECIFIC OPTIMIZATIONS ===== */
         @media (max-width: 768px) {
             /* Reduce animation complexity on mobile for better performance */
             .coffee-background {
@@ -1694,6 +1677,59 @@
                 background: rgba(139, 69, 19, 0.2);
                 color: #b0b0b0;
             }
+        }
+
+        /* ===== NOTIFICATION SYSTEM STYLES ===== */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: auto;
+            padding: 0 0.5rem;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+            min-width: 32px;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .notification-close:hover,
+        .notification-close:active {
+            background: rgba(255,255,255,0.2);
         }
     </style>
 </head>
@@ -2049,7 +2085,7 @@
 
     <!-- JavaScript -->
     <script>
-        // Configuration - PayPal Username
+        // ===== CONFIGURATION AND GLOBAL VARIABLES =====
         const PAYPAL_USERNAME = 'pikagamedev'; // Change this to your PayPal.me username
         
         // Mobile detection and optimization
@@ -2064,6 +2100,8 @@
             // Add mobile-specific class
             document.body.classList.add('mobile-device');
         }
+        
+        // ===== MAIN INTERACTIVE FUNCTIONS =====
         
         // Function to reveal QR code with flash effect - Mobile Optimized
         function revealQRCode() {
@@ -2207,6 +2245,8 @@
                 }
             }, 500);
         }
+        
+        // ===== CLIPBOARD FUNCTIONALITY =====
         
         // Function to copy individual details to clipboard - Mobile Enhanced
         function copyToClipboard(text, label) {
@@ -2378,6 +2418,8 @@ Thank you for supporting our game development journey! 🎮☕
             }
         }
         
+        // ===== NOTIFICATION SYSTEM =====
+        
         // Custom notification system (replaces alert) - Mobile Enhanced
         function showNotification(message, type = 'info') {
             // Remove existing notifications
@@ -2429,62 +2471,7 @@ Thank you for supporting our game development journey! 🎮☕
             }, autoRemoveTime);
         }
         
-        // Add notification animations to head - Mobile Enhanced
-        const notificationStyles = document.createElement('style');
-        notificationStyles.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-            
-            .notification-content {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-            
-            .notification-close {
-                background: none;
-                border: none;
-                color: white;
-                font-size: 1.2rem;
-                cursor: pointer;
-                margin-left: auto;
-                padding: 0 0.5rem;
-                border-radius: 50%;
-                transition: background 0.3s ease;
-                min-width: 32px;
-                min-height: 32px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
-            }
-            
-            .notification-close:hover,
-            .notification-close:active {
-                background: rgba(255,255,255,0.2);
-            }
-        `;
-        document.head.appendChild(notificationStyles);
+        // ===== INPUT VALIDATION AND ENHANCEMENT =====
         
         // Enhanced input validation for custom amount - Mobile Enhanced
         document.getElementById('customAmount').addEventListener('input', function(e) {
@@ -2529,6 +2516,8 @@ Thank you for supporting our game development journey! 🎮☕
             });
         }
         
+        // ===== TOUCH FEEDBACK AND INTERACTIONS =====
+        
         // Add touch feedback for interactive elements - Mobile Enhanced
         if (isTouch) {
             const interactiveElements = document.querySelectorAll('.donation-card, .paypal-button, .coffee-cup, .bank-card, .copy-btn, .copy-all-btn');
@@ -2556,6 +2545,8 @@ Thank you for supporting our game development journey! 🎮☕
             });
         }
         
+        // ===== PERFORMANCE OPTIMIZATIONS =====
+        
         // Optimize scroll performance on mobile
         let ticking = false;
         function updateScrollPosition() {
@@ -2571,6 +2562,8 @@ Thank you for supporting our game development journey! 🎮☕
         }
         
         window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+        
+        // ===== INITIALIZATION AND SETUP =====
         
         // Initialize page - Mobile Enhanced
         document.addEventListener('DOMContentLoaded', function() {
@@ -2626,41 +2619,4 @@ Thank you for supporting our game development journey! 🎮☕
             window.addEventListener('orientationchange', function() {
                 // Delay to allow for orientation change to complete
                 setTimeout(() => {
-                    // Recalculate viewport height for mobile browsers
-                    const vh = window.innerHeight * 0.01;
-                    document.documentElement.style.setProperty('--vh', `${vh}px`);
-                    
-                    // Scroll to top to reset any scroll issues
-                    window.scrollTo(0, 0);
-                }, 500);
-            });
-            
-            // Initial viewport height calculation
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }
-        
-        // Performance monitoring for mobile
-        if (isMobile && 'performance' in window) {
-            window.addEventListener('load', function() {
-                setTimeout(() => {
-                    const perfData = performance.getEntriesByType('navigation')[0];
-                    if (perfData && perfData.loadEventEnd > 3000) {
-                        console.log('Slow loading detected on mobile, consider optimizations');
-                    }
-                }, 1000);
-            });
-        }
-        
-        // Service Worker registration for mobile PWA capabilities (optional)
-        if ('serviceWorker' in navigator && isMobile) {
-            window.addEventListener('load', function() {
-                // Uncomment if you have a service worker
-                // navigator.serviceWorker.register('/sw.js')
-                //     .then(registration => console.log('SW registered'))
-                //     .catch(error => console.log('SW registration failed'));
-            });
-        }
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96eaf7f931d793c1',t:'MTc1NTExNzAwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+                    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96eb104e51147a06',t:'MTc1NTExODAwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
