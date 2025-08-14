@@ -102,10 +102,20 @@ function loadCities() {
 // MOBILE MENU TOGGLE //
 //====================//
 function toggleMobileMenu() {
-  const navLinks = document.querySelector('.nav-links');
-  const menuToggle = document.getElementById('menuToggle');
-  navLinks.classList.toggle('active');
+  const navLinks = document.getElementById('mobileMenu'); // Mobile menu div
+  const menuToggle = document.getElementById('menuToggle'); // Hamburger button
+
+  // Show/hide menu
+  navLinks.classList.toggle('hidden');
   menuToggle.classList.toggle('open');
+}
+
+// Ensure listener is active after page load
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.getElementById("menuToggle");
+  if (menuToggle) {
+    menuToggle.addEventListener("click", toggleMobileMenu);
+  }
 }
 
 //====================//
@@ -338,4 +348,5 @@ function loadBranchContent(file, elementId) {
       document.getElementById(elementId).innerText = "Failed to load.";
     });
 }
+
 
