@@ -834,20 +834,15 @@ body {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transform-origin: center center; /* Center fix */
-    animation: rotateSlider 28s linear infinite;
 }
 
-/* Curve placement */
+/* Stable placement, individual rotation */
 .slider .item {
     position: absolute;
     top: 50%;
     left: 50%;
     transform-style: preserve-3d;
-    transform: 
-        rotateY(calc((360deg / var(--quantity)) * (var(--position) - 1)))
-        translateZ(580px)
-        translateY(-70px);
+    animation: spinItem 28s linear infinite;
 }
 
 .slider .item img {
@@ -860,20 +855,22 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Hover zoom */
 .slider .item img:hover {
     transform: scale(1.08);
     box-shadow: 0 15px 32px rgba(0, 0, 0, 0.6);
 }
 
-/* Smooth stable rotation */
-@keyframes rotateSlider {
-    from {
-        transform: rotateY(0deg);
+/* Animation for each item */
+@keyframes spinItem {
+    0% {
+        transform: rotateY(0deg) translateZ(580px) translateY(-70px);
     }
-    to {
-        transform: rotateY(-360deg);
+    100% {
+        transform: rotateY(-360deg) translateZ(580px) translateY(-70px);
     }
 }
+
 
 /*====================*/
 /* DEMO SECTION       */
@@ -1355,6 +1352,7 @@ body {
   transform: scale(1.03);
   box-shadow: 0 0 25px rgba(0,255,255,0.3);
 }
+
 
 
 
