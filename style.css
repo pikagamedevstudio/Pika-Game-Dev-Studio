@@ -818,7 +818,7 @@ body {
 }   
 
 /*====================*/
-/* GALLERY SECTION — Updated for new HTML */
+/* GALLERY SECTION — Updated for new HTML + 3D slider helpers */
 /*====================*/
 .gallery {
   background: linear-gradient(to bottom, #0a0a23, #1a1a40);
@@ -832,14 +832,12 @@ body {
 }
 
 /* ===== Fallback Grid (when 3D slider hidden/disabled) ===== */
-/* Container: replace old `.grid` with Elementor gallery wrapper */
 .gallery .elementor-widget-image-gallery {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem; /* ~24px */
 }
 
-/* Responsive columns */
 @media (min-width: 640px) {
   .gallery .elementor-widget-image-gallery {
     grid-template-columns: repeat(2, 1fr);
@@ -851,7 +849,6 @@ body {
   }
 }
 
-/* Card: replace old `.grid > div` with `.gallery-item` */
 .gallery .elementor-widget-image-gallery .gallery-item {
   background-color: #111827;
   padding: 1.25rem;            /* 20px */
@@ -861,13 +858,11 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
-/* Hover effect (same vibe) */
 .gallery .elementor-widget-image-gallery .gallery-item:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
 }
 
-/* Images inside cards */
 .gallery .elementor-widget-image-gallery img {
   width: 100%;
   height: 16rem;               /* approx h-64 */
@@ -877,7 +872,6 @@ body {
   margin-bottom: 1rem;
 }
 
-/* Optional titles/descriptions if you add them later */
 .gallery h4 {
   font-size: 1.25rem;
   font-weight: bold;
@@ -893,6 +887,41 @@ body {
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== */
+/* 3D CURVED SLIDER HELPERS (do not remove) */
+/* ==================== */
+/* Required rules you provided (kept exact-ish) */
+[class^='mdw-curved-slider'],
+[class*=' mdw-curved-slider']{
+  height: var(--min-height, 100vh);
+}
+[class^='mdw-curved-slider'] canvas,
+[class*=' mdw-curved-slider'] canvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Safe additions so slider behaves well */
+[class^='mdw-curved-slider'],
+[class*=' mdw-curved-slider']{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+[class^='mdw-curved-slider'] canvas,
+[class*=' mdw-curved-slider'] canvas{
+  display: block;
+}
+
+/* By default hide the flat fallback when 3D slider is active.
+   If you want the grid fallback visible (e.g., for older browsers),
+   remove/comment the following rule. */
+[class^='mdw-curved-slider'] .elementor-widget-image-gallery,
+[class*=' mdw-curved-slider'] .elementor-widget-image-gallery{
+  display: none;
 }
 
 /*====================*/
@@ -1375,4 +1404,5 @@ body {
   transform: scale(1.03);
   box-shadow: 0 0 25px rgba(0,255,255,0.3);
 }
+
 
