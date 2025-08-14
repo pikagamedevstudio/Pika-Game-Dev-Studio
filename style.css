@@ -820,12 +820,13 @@ body {
 .banner {
     position: relative;
     width: 100%;
-    height: 500px; /* adjust height */
+    height: 460px; /* Thoda kam height taaki upar aaye */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    perspective: 1000px;
+    perspective: 1200px;
+    margin-top: -40px; /* Thoda upar shift */
 }
 
 .slider {
@@ -833,9 +834,10 @@ body {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    animation: rotateSlider 20s linear infinite;
+    animation: rotateSlider 25s linear infinite;
 }
 
+/* Stable rotation effect */
 .slider .item {
     position: absolute;
     top: 50%;
@@ -843,25 +845,26 @@ body {
     transform-style: preserve-3d;
     transform: 
         rotateY(calc((360deg / var(--quantity)) * (var(--position) - 1)))
-        translateZ(400px);
+        translateZ(500px) /* z-depth thoda bada kiya */
+        translateY(-30px); /* thoda upar shift for perfect centering */
 }
 
 .slider .item img {
-    width: 260px;
-    height: 180px;
+    width: 320px;  /* Bada size */
+    height: 210px; /* Thoda wide */
     object-fit: cover;
-    border-radius: 15px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 18px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .slider .item img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    transform: scale(1.07);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
 }
 
-/* Animation for curve rotation */
+/* Smooth stable rotation */
 @keyframes rotateSlider {
     from {
         transform: rotateY(0deg);
@@ -870,7 +873,6 @@ body {
         transform: rotateY(-360deg);
     }
 }
-
 /*====================*/
 /* DEMO SECTION       */
 /*====================*/
@@ -1351,6 +1353,7 @@ body {
   transform: scale(1.03);
   box-shadow: 0 0 25px rgba(0,255,255,0.3);
 }
+
 
 
 
