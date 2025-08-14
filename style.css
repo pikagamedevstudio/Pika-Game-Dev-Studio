@@ -820,13 +820,13 @@ body {
 .banner {
     position: relative;
     width: 100%;
-    height: 460px; /* Thoda kam height taaki upar aaye */
+    height: 440px; /* Thoda kam taaki upar aaye */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    perspective: 1200px;
-    margin-top: -40px; /* Thoda upar shift */
+    perspective: 1400px; /* Z-depth badhaya */
+    margin-top: -70px; /* Aur upar shift */
 }
 
 .slider {
@@ -834,7 +834,7 @@ body {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    animation: rotateSlider 25s linear infinite;
+    animation: rotateSlider 28s linear infinite; /* Thoda slow kiya */
 }
 
 /* Stable rotation effect */
@@ -845,23 +845,23 @@ body {
     transform-style: preserve-3d;
     transform: 
         rotateY(calc((360deg / var(--quantity)) * (var(--position) - 1)))
-        translateZ(500px) /* z-depth thoda bada kiya */
-        translateY(-30px); /* thoda upar shift for perfect centering */
+        translateZ(580px) /* Arc zyada wide kiya */
+        translateY(-50px); /* Images thoda upar */
 }
 
 .slider .item img {
-    width: 320px;  /* Bada size */
-    height: 210px; /* Thoda wide */
+    width: 360px;  /* Bada size */
+    height: 240px; /* Thoda wide */
     object-fit: cover;
-    border-radius: 18px;
+    border-radius: 20px;
     border: 4px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .slider .item img:hover {
-    transform: scale(1.07);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+    transform: scale(1.08);
+    box-shadow: 0 15px 32px rgba(0, 0, 0, 0.6);
 }
 
 /* Smooth stable rotation */
@@ -873,6 +873,7 @@ body {
         transform: rotateY(-360deg);
     }
 }
+
 /*====================*/
 /* DEMO SECTION       */
 /*====================*/
@@ -1353,6 +1354,7 @@ body {
   transform: scale(1.03);
   box-shadow: 0 0 25px rgba(0,255,255,0.3);
 }
+
 
 
 
