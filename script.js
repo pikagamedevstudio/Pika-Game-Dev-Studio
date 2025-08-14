@@ -348,6 +348,14 @@ function loadBranchContent(file, elementId) {
       document.getElementById(elementId).innerText = "Failed to load.";
     });
 }
+// BG Music play on first click
+  const music = document.getElementById('bgMusic');
+  document.addEventListener('click', () => {
+    if (music && music.paused) {
+      music.play().catch(err => console.log("Music play blocked:", err));
+    }
+  }, { once: true });
+});
 
 
 
