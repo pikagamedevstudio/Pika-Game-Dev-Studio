@@ -356,3 +356,4 @@ function loadBranchContent(file, elementId) {
     }
   }, { once: true });
 });
+}
