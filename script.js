@@ -357,5 +357,208 @@ function loadBranchContent(file, elementId) {
   }, { once: true });
 });
 
+;(function() {
+  // Prevent double-injection
+  if (window.MDWCurvedSliderInjected) return;
+  window.MDWCurvedSliderInjected = true;
+
+  function attachCurvedSlider() {
+    var selector = "[class^='mdw-curved-slider'], [class*=' mdw-curved-slider']",
+        scene = [],
+        renderer = [],
+        options = [],
+        time = [],
+        camera = [],
+        slideAmount = [],
+        currentContainerHeight = [],
+        previousContainerHeight = [],
+        planes = [];
+
+    addEventListener('DOMContentLoaded', function(){
+
+      function getWidth(gap){ return 1 + gap/100; }
+
+      function getPlaneWidth(el, camera){
+        var vFov = camera.fov * Math.PI / 180,
+            height = 2 * Math.tan(vFov/2) * camera.position.z,
+            aspect = el.clientWidth / el.clientHeight,
+            width = height * aspect;
+        return el.clientWidth / width;
+      }
+
+      function init(e = 'none'){
+        Array.from(document.querySelectorAll(selector)).forEach(function(el, index){
+
+          if( e == 'none' ){
+              currentContainerHeight[index] = previousContainerHeight[index] = el.clientHeight;
+          } else {
+              currentContainerHeight[index] = el.clientHeight;
+              if( mobileHeightChage && currentContainerHeight[index] == previousContainerHeight[index] ) return;
+          }
+
+          previousContainerHeight[index] = currentContainerHeight[index];
+
+          var className = el.getAttribute('class') || '';
+          var classNameIndex = className.indexOf('mdw-curved-slider');
+          if (classNameIndex === -1) return; // no matching class, skip
+          // find end of that short class safely (if no trailing space, use length)
+          var spaceIndex = className.indexOf(' ', classNameIndex);
+          if (spaceIndex === -1) spaceIndex = className.length;
+          var shortClass = className.substring(classNameIndex, spaceIndex);
+          var values = shortClass.split('-');
+
+          options[index] = {
+              speed: 30,
+              gap: 10,
+              curve: 12,
+              direction: -1
+          };
+
+          values.forEach(function(value, i){
+              if(value=='speed' && values[i+1] && !isNaN(values[i+1])){
+                  options[index].speed = values[i+1];
+              }
+              if(value=='gap' && values[i+1] && !isNaN(values[i+1])){
+                  options[index].gap = values[i+1];
+              }
+              if(value=='curve' && values[i+1] && !isNaN(values[i+1])){
+                  options[index].curve = values[i+1];
+              }
+              if(value=='reverse'){ options[index].direction = 1; }
+          });
+
+          var images = [], allImages = [];
+          time[index] = 0;
+
+          Array.from(el.querySelectorAll('.elementor-widget-image-gallery .gallery-item')).forEach(function(gEl){
+            var img = gEl.querySelector('img');
+            if(img && img.getAttribute('src')) images.push(img.getAttribute('src'));
+          });
+
+          if (images.length === 0) {
+            // nothing to render, skip this container
+            return;
+          }
+
+          allImages = images.slice();
+          slideAmount[index] = images.length;
+
+          scene[index] = new THREE.Scene();
+          camera[index] = new THREE.PerspectiveCamera(75, el.clientWidth / el.clientHeight, 0.1, 20);
+          camera[index].position.z = 2;
+
+          renderer[index] = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+          renderer[index].setSize(el.clientWidth, el.clientHeight);
+          renderer[index].setPixelRatio(window.devicePixelRatio);
+
+          var previousCanvas = el.querySelector('canvas');
+          if(previousCanvas) { el.removeChild(previousCanvas); }
+          el.appendChild(renderer[index].domElement);
+
+          var geometry = new THREE.PlaneGeometry(1, 1, 20, 20),
+              planeSpace = getPlaneWidth(el, camera[index]) * getWidth(options[index].gap),
+              ratio = Math.ceil(el.clientWidth / (planeSpace * images.length)),
+              totalImage = Math.ceil(el.clientWidth / planeSpace) + 1 + images.length,
+              initialOffset = Math.ceil(el.clientWidth / (2 * planeSpace) - 0.5);
+
+          for(var i = slideAmount[index]; i < totalImage; i++){
+            allImages.push(images[i % slideAmount[index]]);
+          }
+
+          planes[index] = [];
+
+          allImages.forEach(function (image, i) {
+            var loader = new THREE.TextureLoader();
+            loader.load(
+              image,
+              function ( texture ) {
+                var material = new THREE.ShaderMaterial({
+                  uniforms: {
+                    tex: { value: texture },
+                    curve: { value: options[index].curve }
+                  },
+                  vertexShader: `
+                    uniform float curve;
+                    varying vec2 vertexUV;
+                    void main(){
+                      vertexUV = uv;
+                      vec3 newPosition = position;
+                      float distanceFromCenter = abs(modelMatrix*vec4(position, 1.0)).x;
+                      newPosition.y *= 1.0 + (curve/100.0)*pow(distanceFromCenter,2.0);
+                      
+                      gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+                    }
+                  `,
+                  fragmentShader: `
+                    uniform sampler2D tex;
+                    varying vec2 vertexUV;
+                    void main(){
+                      gl_FragColor = texture2D(tex, vertexUV);
+                    }
+                  `
+                });
+
+                var mesh = new THREE.Mesh( geometry, material );
+                mesh.position.x = -1 * options[index].direction * (i - initialOffset) * getWidth(options[index].gap);
+                planes[index][i] = mesh;
+                scene[index].add( mesh );
+              }
+            );
+          });
+
+        }); // end selector forEach
+      } // end init
+
+      init();
+
+      var currentWidth,
+          previousWidth = window.innerWidth,
+          mobileHeightChage = false;
+
+      function onResize(){
+        currentWidth = window.innerWidth;
+        mobileHeightChage = currentWidth < 768 && currentWidth == previousWidth;
+        init('resize');
+        previousWidth = currentWidth;
+      }
+
+      window.addEventListener('resize', function(){
+        onResize();
+        setTimeout(onResize, 100);
+      });
+
+      var previousTime = 0;
+
+      function animate(currentTime){
+        var timePassed = currentTime - previousTime;
+
+        Array.from(document.querySelectorAll(selector)).forEach(function(el, index){
+          if (!scene[index]) return;
+          if (Math.abs(scene[index].position.x) >= getWidth(options[index].gap) * slideAmount[index]){ time[index] = 0; }
+          time[index] += options[index].direction * timePassed * 0.00001;
+          scene[index].position.x = time[index] * options[index].speed;
+          renderer[index].render(scene[index], camera[index]);
+        });
+
+        previousTime = currentTime;
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+
+    }); // end DOMContentLoaded
+  } // end attachCurvedSlider
+
+  // If THREE is not loaded, load it dynamically, otherwise init immediately.
+  if (typeof THREE === 'undefined') {
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js';
+    s.onload = attachCurvedSlider;
+    s.onerror = function(){ console.error('Failed to load Three.js for curved slider.'); };
+    document.head.appendChild(s);
+  } else {
+    attachCurvedSlider();
+  }
+
+})();
 
 
