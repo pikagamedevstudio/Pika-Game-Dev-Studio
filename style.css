@@ -826,7 +826,7 @@ body {
     align-items: center;
     overflow: hidden;
     perspective: 1400px;
-    margin-top: -90px; /* Upar shift */
+    margin-top: -90px; /* Thoda upar shift */
 }
 
 .slider {
@@ -836,12 +836,12 @@ body {
     transform-style: preserve-3d;
 }
 
-/* Stable placement, individual rotation */
 .slider .item {
     position: absolute;
     top: 50%;
     left: 50%;
     transform-style: preserve-3d;
+    transform: rotateY(calc((360deg / var(--quantity)) * (var(--position) - 1))) translateZ(580px) translateY(-70px);
     animation: spinItem 28s linear infinite;
 }
 
@@ -855,19 +855,18 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover zoom */
 .slider .item img:hover {
     transform: scale(1.08);
     box-shadow: 0 15px 32px rgba(0, 0, 0, 0.6);
 }
 
-/* Animation for each item */
+/* Rotation of images around stable center */
 @keyframes spinItem {
     0% {
-        transform: rotateY(0deg) translateZ(580px) translateY(-70px);
+        transform: rotateY(calc((360deg / var(--quantity)) * (var(--position) - 1))) translateZ(580px) translateY(-70px) rotateY(0deg);
     }
     100% {
-        transform: rotateY(-360deg) translateZ(580px) translateY(-70px);
+        transform: rotateY(calc((360deg / var(--quantity)) * (var(--position) - 1))) translateZ(580px) translateY(-70px) rotateY(-360deg);
     }
 }
 
@@ -1351,6 +1350,7 @@ body {
   transform: scale(1.03);
   box-shadow: 0 0 25px rgba(0,255,255,0.3);
 }
+
 
 
 
