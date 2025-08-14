@@ -357,7 +357,7 @@ function loadBranchContent(file, elementId) {
   }, { once: true });
 });
 
-;(function() {
+function() {
   // Prevent double-injection
   if (window.MDWCurvedSliderInjected) return;
   window.MDWCurvedSliderInjected = true;
@@ -560,5 +560,6 @@ function loadBranchContent(file, elementId) {
   }
 
 })();
+
 
 
