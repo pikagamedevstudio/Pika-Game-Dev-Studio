@@ -321,39 +321,53 @@ if (feedbackForm) {
   }); 
 }
 });
-window.addEventListener('DOMContentLoaded', () => {
-  const music = document.getElementById('bgMusic');
-  music.play().catch(() => {
-    // If browser blocks autoplay, play on first user click
-    document.addEventListener('click', () => {
-      music.play();
-    }, { once: true });
-  });
-});
-
+// Load branch content and set up BG music — robust version
 window.addEventListener("DOMContentLoaded", () => {
-  loadBranchContent("pika-main.txt", "mainBranch");
-  loadBranchContent("pika-studio.txt", "branch1");
-  loadBranchContent("pika-tech.txt", "branch2");
-  loadBranchContent("pika-publishers.txt", "branch3");
+  // branch files to load
+  const branches = [
+    ["pika-main.txt", "mainBranch"],
+    ["pika-studio.txt", "branch1"],
+    ["pika-tech.txt", "branch2"],
+    ["pika-publishers.txt", "branch3"]
+  ];
+
+  branches.forEach(([file, id]) => loadBranchContent(file, id));
+
+  // BG Music: try autoplay, otherwise play on first user interaction
+  const music = document.getElementById('bgMusic');
+  if (music) {
+    // Try immediate play (may be blocked by browser)
+    music.play().catch(() => {
+      // If blocked, attempt on first user interaction
+      const playOnInteraction = () => {
+        music.play().catch(err => console.log("Music play blocked on interaction:", err));
+      };
+      document.addEventListener('click', playOnInteraction, { once: true });
+      document.addEventListener('keydown', playOnInteraction, { once: true });
+    });
+  } else {
+    console.warn("bgMusic element not found (#bgMusic).");
+  }
 });
 
 function loadBranchContent(file, elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) {
+    console.warn("loadBranchContent: element not found ->", elementId);
+    return;
+  }
+
   fetch(file)
-    .then(res => res.ok ? res.text() : "Unable to load content.")
-    .then(text => {
-      document.getElementById(elementId).innerText = text;
+    .then(res => {
+      if (!res.ok) throw new Error(`Failed to fetch ${file} (status ${res.status})`);
+      return res.text();
     })
-    .catch(() => {
-      document.getElementById(elementId).innerText = "Failed to load.";
+    .then(text => {
+      // use textContent to avoid layout quirks with innerText
+      el.textContent = text;
+    })
+    .catch(err => {
+      console.error("Error loading branch file:", file, err);
+      el.textContent = "Failed to load.";
     });
-}
-// BG Music play on first click
-  const music = document.getElementById('bgMusic');
-  document.addEventListener('click', () => {
-    if (music && music.paused) {
-      music.play().catch(err => console.log("Music play blocked:", err));
-    }
-  }, { once: true });
-});
 }
