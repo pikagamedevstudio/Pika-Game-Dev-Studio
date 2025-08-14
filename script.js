@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (menuToggle) {
     menuToggle.addEventListener("click", toggleMobileMenu);
   }
-}
+});
 
 //====================//
 // PAGE NAVIGATION    //
@@ -348,5 +348,6 @@ function loadBranchContent(file, elementId) {
       document.getElementById(elementId).innerText = "Failed to load.";
     });
 }
+
 
 
