@@ -323,7 +323,6 @@ if (feedbackForm) {
 });
 // Load branch content and set up BG music — robust version 
 window.addEventListener("DOMContentLoaded", () => {
-  // branch files to load
   const branches = [
     ["pika-main.txt", "mainBranch"],
     ["pika-studio.txt", "branch1"],
@@ -332,7 +331,6 @@ window.addEventListener("DOMContentLoaded", () => {
   ];
 
   branches.forEach(([file, id]) => loadBranchContent(file, id));
-
   // BG Music: try autoplay, otherwise play on first user interaction
 const music = document.getElementById('bgMusic');
 if (music) {
@@ -357,16 +355,18 @@ function loadBranchContent(file, elementId) {
     return;
   }
 
-  fetch(file)
-  .then(res => {
-    if (!res.ok) throw new Error(Failed to fetch ${file} (status ${res.status}));
-    return res.text();
-  })
-  .then(text => {
-    el.textContent = text;
-  })
-  .catch(err => {
-    console.error("Error loading branch file:", file, err);
-    el.textContent = "Failed to load.";
-  });
+  fetch(`${file}?v=${Date.now()}`, { cache: 'no-store' })
+    .then(res => {
+      if (!res.ok) throw new Error(`Failed to fetch ${file} (status ${res.status})`);
+      return res.text();
+    })
+    .then(text => {
+      el.textContent = text.trim();
+    })
+    .catch(err => {
+      console.error("Error loading branch file:", file, err);
+      el.textContent = "Failed to load.";
+    });
+}
+
 
