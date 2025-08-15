@@ -334,22 +334,22 @@ window.addEventListener("DOMContentLoaded", () => {
   branches.forEach(([file, id]) => loadBranchContent(file, id));
 
   // BG Music: try autoplay, otherwise play on first user interaction
-  const music = document.getElementById('bgMusic');
-  if (music) {
-    // Try immediate play (may be blocked by browser)
-    music.play().catch(() => {
-      // If blocked, attempt on first user interaction
-      const playOnInteraction = () => {
-        music.play().catch(err => console.log("Music play blocked on interaction:", err));
-      };
-      document.addEventListener('click', playOnInteraction, { once: true });
-      document.addEventListener('keydown', playOnInteraction, { once: true });
+const music = document.getElementById('bgMusic');
+if (music) {
+  // Immediate play attempt
+  music.play().catch(() => {
+    const playOnInteraction = () => {
+      music.play().catch(err => console.log("Music play blocked:", err));
+    };
+    // Allow on any user activity
+    ['click', 'keydown', 'scroll'].forEach(evt => {
+      document.addEventListener(evt, playOnInteraction, { once: true });
     });
-  } else {
-    console.warn("bgMusic element not found (#bgMusic).");
-  }
-});
-
+  });
+} else {
+  console.warn("bgMusic element not found (#bgMusic).");
+}
+  
 function loadBranchContent(file, elementId) {
   const el = document.getElementById(elementId);
   if (!el) {
@@ -358,16 +358,15 @@ function loadBranchContent(file, elementId) {
   }
 
   fetch(file)
-    .then(res => {
-      if (!res.ok) throw new Error(Failed to fetch ${file} (status ${res.status}));
-      return res.text();
-    })
-    .then(text => {
-      // use textContent to avoid layout quirks with innerText
-      el.textContent = text;
-    })
-    .catch(err => {
-      console.error("Error loading branch file:", file, err);
-      el.textContent = "Failed to load.";
-    });
-}
+  .then(res => {
+    if (!res.ok) throw new Error(Failed to fetch ${file} (status ${res.status}));
+    return res.text();
+  })
+  .then(text => {
+    el.textContent = text;
+  })
+  .catch(err => {
+    console.error("Error loading branch file:", file, err);
+    el.textContent = "Failed to load.";
+  });
+
