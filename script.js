@@ -347,7 +347,7 @@ if (music) {
 } else {
   console.warn("bgMusic element not found (#bgMusic).");
 }
-  
+
 function loadBranchContent(file, elementId) {
   const el = document.getElementById(elementId);
   if (!el) {
@@ -355,7 +355,7 @@ function loadBranchContent(file, elementId) {
     return;
   }
 
-  fetch(`${file}?v=${Date.now()}`, { cache: 'no-store' })
+  fetch(`${file}?v=${Date.now()}`)
     .then(res => {
       if (!res.ok) throw new Error(`Failed to fetch ${file} (status ${res.status})`);
       return res.text();
@@ -368,5 +368,3 @@ function loadBranchContent(file, elementId) {
       el.textContent = "Failed to load.";
     });
 }
-
-
