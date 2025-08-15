@@ -321,19 +321,24 @@ if (feedbackForm) {
   }); 
 }
 });
-// ==================== BRANCH FILE LOADING ====================
+// Load branch content and set up BG music — robust version 
+window.addEventListener("DOMContentLoaded", () => {
+  // branch files to load
   const branches = [
     ["pika-main.txt", "mainBranch"],
     ["pika-studio.txt", "branch1"],
     ["pika-tech.txt", "branch2"],
     ["pika-publishers.txt", "branch3"]
   ];
+
   branches.forEach(([file, id]) => loadBranchContent(file, id));
 
-  // ==================== BG MUSIC ====================
+  // BG Music: try autoplay, otherwise play on first user interaction
   const music = document.getElementById('bgMusic');
   if (music) {
+    // Try immediate play (may be blocked by browser)
     music.play().catch(() => {
+      // If blocked, attempt on first user interaction
       const playOnInteraction = () => {
         music.play().catch(err => console.log("Music play blocked on interaction:", err));
       };
@@ -354,10 +359,11 @@ function loadBranchContent(file, elementId) {
 
   fetch(file)
     .then(res => {
-      if (!res.ok) throw new Error(`Failed to fetch ${file} (status ${res.status})`);
+      if (!res.ok) throw new Error(Failed to fetch ${file} (status ${res.status}));
       return res.text();
     })
     .then(text => {
+      // use textContent to avoid layout quirks with innerText
       el.textContent = text;
     })
     .catch(err => {
