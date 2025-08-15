@@ -336,9 +336,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // BG Music: try autoplay, otherwise play on first user interaction
   const music = document.getElementById('bgMusic');
   if (music) {
-    // Try immediate play (may be blocked by browser)
     music.play().catch(() => {
-      // If blocked, attempt on first user interaction
       const playOnInteraction = () => {
         music.play().catch(err => console.log("Music play blocked on interaction:", err));
       };
@@ -359,11 +357,10 @@ function loadBranchContent(file, elementId) {
 
   fetch(file)
     .then(res => {
-      if (!res.ok) throw new Error(Failed to fetch ${file} (status ${res.status}));
+      if (!res.ok) throw new Error(`Failed to fetch ${file} (status ${res.status})`);
       return res.text();
     })
     .then(text => {
-      // use textContent to avoid layout quirks with innerText
       el.textContent = text;
     })
     .catch(err => {
