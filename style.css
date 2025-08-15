@@ -1,54 +1,53 @@
 /* ==========================================================================
-   PIKA GAME DEV STUDIO — FINAL PRODUCTION CSS
-   - Fully synced to provided index.html and script.js
-   - Professional spacing, thin navbar border, hero-video / About spacing fixed
-   - Smooth animations, accessible focus states, responsive rules
-   - Replace your existing style.css with this file (overwrite)
+   PIKA GAME DEV STUDIO — ULTIMATE POLISHED STYLE.CSS
+   - All pages: animated background + floating particles (site-wide)
+   - Home page: retains the background VIDEO (video element kept only on home)
+   - Contact and all forms: color scheme unified to match site; text color = white
+   - Navbar thin border, proper hero->about spacing, responsive, accessibility
+   - Micro-interactions: smooth, subtle, professional
+   - Exactly matched to provided index.html + script.js selectors/IDs
    ========================================================================== */
 
 /* =========================
    ROOT / VARIABLES
    ========================= */
-:root{
-  /* Colors */
-  --bg-0: #05060a;                      /* main page background */
-  --bg-1: linear-gradient(180deg,#000,#081019);
-  --glass-0: rgba(255,255,255,0.03);
-  --glass-1: rgba(255,255,255,0.06);
-  --glass-2: rgba(255,255,255,0.10);
-  --border-subtle: rgba(255,255,255,0.04); /* very thin border used for navbar */
+:root {
+  /* Primary palette */
+  --bg-0: #05060a;                      /* page base background */
+  --bg-grad: linear-gradient(180deg,#000,#081019);
+  --surface-glass: rgba(255,255,255,0.03);
+  --surface-glass-2: rgba(255,255,255,0.06);
+  --border-subtle: rgba(255,255,255,0.04);
   --accent-cyan: #00e5ff;
   --accent-cyan-2: #4fc3f7;
-  --accent-purple: #8b5cf6;
-  --accent-pink: #ff6bcb;
   --accent-gold: #ffd54f;
-  --text-main: #e6f7ff;
-  --text-dim: #a9b7c6;
-  --muted: #7e8b94;
+  --accent-purple: #8b5cf6;
 
-  /* Layout */
-  --site-max-width: 1400px;
+  /* Typography */
+  --font-head: 'Orbitron', sans-serif;
+  --font-body: 'Poppins', system-ui, sans-serif;
+  --text-default: #ffffff;   /* ALL fonts white per request */
+  --text-dim: rgba(255,255,255,0.72); /* slightly dimmer white for supporting text */
+
+  /* Sizes & spacing */
+  --max-width: 1400px;
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 18px;
+  --radius-lg: 16px;
 
   /* Effects */
   --glass-blur: 10px;
   --shadow-soft: 0 8px 30px rgba(0,0,0,0.6);
-  --shadow-glow: 0 0 34px rgba(0,229,255,0.06);
+  --shadow-glow: 0 0 36px rgba(0,229,255,0.06);
 
   /* Timing */
   --t-fast: 160ms;
   --t-med: 280ms;
-  --t-slow: 420ms;
-
-  /* Fonts */
-  --font-head: 'Orbitron', sans-serif;
-  --font-body: 'Poppins', system-ui, sans-serif;
+  --t-slow: 480ms;
 }
 
 /* =========================
-   RESET / BASE
+   RESET & BASE
    ========================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; width: 100%; }
@@ -56,16 +55,21 @@ html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-fo
 body {
   font-family: var(--font-body);
   background: var(--bg-0);
-  background-image: var(--bg-1);
-  color: var(--text-main);
+  background-image: var(--bg-grad);
+  color: var(--text-default);              /* ALL fonts white */
   line-height: 1.55;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Container helper */
-.container { max-width: var(--site-max-width); margin: 0 auto; padding: 0 1rem; }
+/* Ensure every text node defaults to white unless explicitly overridden */
+* { color: inherit; }
+h1,h2,h3,h4,h5,h6 { color: var(--text-default); }
 
-/* Utility helpers */
+/* Generic container */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1rem; }
+
+/* Simple utility helpers */
 .text-center { text-align: center; }
 .mb-1 { margin-bottom: .5rem; }
 .mb-2 { margin-bottom: 1rem; }
@@ -73,21 +77,72 @@ body {
 .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap; }
 
 /* =========================
+   SITE-WIDE ANIMATED BACKGROUND + PARTICLES
+   (Displayed on all pages)
+   ========================= */
+/* Animated gradient / rings behind content (subtle) */
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3; /* behind everything */
+  background:
+    radial-gradient(circle at 15% 25%, rgba(79,195,247,0.035) 0%, transparent 20%),
+    radial-gradient(circle at 85% 75%, rgba(255,213,79,0.02) 0%, transparent 18%),
+    var(--bg-grad);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.95;
+}
+
+/* Floating particles layer (site-wide) */
+.floating-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Generic particle */
+.floating-particles .particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--accent-cyan), var(--accent-cyan-2));
+  opacity: .9;
+  filter: drop-shadow(0 0 10px rgba(0,229,255,0.06));
+  animation: particleFloat linear infinite;
+}
+
+/* Stagger animations — users will create particles with inline style left/top & animation-delay */
+@keyframes particleFloat {
+  0% { transform: translateY(120vh) scale(.25); opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* =========================
    NAVBAR / HEADER
-   (thin subtle border, responsive)
+   (Thin border, subtle, responsive)
    ========================= */
 header.nav-blur {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 9999;
-  background: rgba(0,0,0,0.54);
+  background: rgba(0,0,0,0.56);
   backdrop-filter: blur(var(--glass-blur)) saturate(120%);
-  border-bottom: 1px solid var(--border-subtle); /* THIN, subtle border */
-  transition: all var(--t-med);
   -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--border-subtle); /* THIN border per request */
+  transition: all var(--t-med);
 }
 
-/* Header inner container */
+/* Header container alignment */
 header.nav-blur .container {
   display: flex;
   align-items: center;
@@ -97,26 +152,25 @@ header.nav-blur .container {
 }
 
 /* Logo group */
-.logo-group { display:flex; align-items:center; gap:.6rem; }
-.logo-group img { width:44px; height:44px; object-fit:cover; display:block; border-radius:8px; }
-.futuristic-font { font-family: var(--font-head); letter-spacing: .6px; color: var(--accent-gold); font-weight: 700; }
+.logo-group { display: flex; align-items: center; gap: .6rem; }
+.logo-group img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+.futuristic-font { font-family: var(--font-head); letter-spacing:.6px; color: var(--accent-gold); font-weight: 700; }
 
-/* Desktop links */
-nav.desktop-links { display:flex; gap: 1.2rem; align-items:center; }
+/* Desktop navigation links */
+nav.desktop-links { display: flex; gap: 1.2rem; align-items: center; }
 nav.desktop-links a {
-  color: var(--text-main);
+  color: var(--text-default);
   text-decoration: none;
   font-weight: 600;
   font-size: .95rem;
   padding: .35rem .5rem;
   border-radius: 8px;
-  transition: all var(--t-fast);
+  transition: transform var(--t-fast), color var(--t-fast);
   position: relative;
 }
 nav.desktop-links a:hover {
   color: var(--accent-cyan);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
 }
 nav.desktop-links a::after {
   content: '';
@@ -132,15 +186,16 @@ nav.desktop-links a::after {
 nav.desktop-links a:hover::after { width: 72%; }
 
 /* Mobile menu toggle */
-#menuToggle { background: none; border: 0; color: var(--text-main); cursor: pointer; padding: .25rem; }
+#menuToggle { background: none; border: 0; color: var(--text-default); cursor: pointer; padding: .25rem; }
 #mobileMenu { display: none; padding: .6rem 1rem; background: rgba(0,0,0,0.9); }
 
-/* Reduce navbar height slightly on scroll (optional, smooth) */
+/* Small header on scroll (optional) */
 header.nav-blur.small { padding: .55rem 0; }
 
 /* =========================
-   HERO / HOME
-   - ensure hero video sits behind and has safe vertical spacing
+   HERO / HOME SECTION
+   - Video ONLY here (video element present only on #home in index.html)
+   - We keep animated-bg + particles site-wide; video remains above animated-bg but behind hero content
    ========================= */
 #home {
   position: relative;
@@ -153,27 +208,27 @@ header.nav-blur.small { padding: .55rem 0; }
   overflow: hidden;
 }
 
-/* Video background: keep behind everything and darker */
-video.absolute, video.hero-video {
+/* hero video - ensure behind content and above animated-bg */
+#home video.hero-video, #home video.absolute {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -2; /* behind overlay/content */
+  z-index: -1; /* sits above animated-bg(-3) and floating-particles(-2), but behind content */
   filter: brightness(.52) saturate(.95);
   pointer-events: none;
 }
 
-/* subtle overlay for hero readability */
+/* overlay for readability on top of video */
 #home .absolute-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.62));
-  z-index: -1;
+  z-index: 0;
 }
 
-/* hero content container sits above video + overlay */
+/* hero content front-layer */
 .hero-content {
   position: relative;
   z-index: 20;
@@ -182,33 +237,33 @@ video.absolute, video.hero-video {
   margin: 0 auto;
 }
 
-/* Logo + title */
-.logo-large { width: 96px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); }
+/* logo and title styling */
+.logo-large { display:block; margin: 0 auto 1rem; width: 96px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
 h1.hero-title {
   font-family: var(--font-head);
   font-size: 2.6rem;
   line-height: 1.03;
   letter-spacing: 1px;
   margin-bottom: .6rem;
-  color: var(--text-main);
+  color: var(--text-default); /* ensure white */
 }
-@media(min-width:768px){ h1.hero-title { font-size: 3.8rem; } }
+@media (min-width: 768px) { h1.hero-title { font-size: 3.8rem; } }
 
 /* subtitle/lead */
 p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 
-/* CTA group */
+/* CTA wrapper */
 .hero-actions { display:flex; gap: .8rem; justify-content:center; flex-wrap:wrap; }
 
-/* Polished buttons */
+/* Buttons */
 .btn {
   display: inline-block;
-  padding: .9rem 1.6rem;
+  padding: .95rem 1.6rem;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.04);
-  background: rgba(255,255,255,0.025);
+  background: rgba(255,255,255,0.02);
   color: var(--accent-cyan);
-  font-weight: 700;
+  font-weight: 800;
   text-decoration: none;
   cursor: pointer;
   position: relative;
@@ -222,13 +277,12 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
   top: 0; left: -110%;
   height: 100%; width: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-  transition: left .5s ease;
-  opacity: .6;
+  transition: left .5s ease; opacity: .6;
 }
 .btn:hover { transform: translateY(-4px); background: var(--accent-cyan); color: #061118; box-shadow: var(--shadow-glow); }
 .btn:hover::before { left: 100%; }
 
-/* Strong primary */
+/* primary CTA */
 .btn-primary {
   padding: 1rem 2.2rem;
   border-radius: 999px;
@@ -241,17 +295,14 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 
 /* =========================
    ABOUT SECTION
-   - ensure adequate distance from hero (no touching the video)
+   - Increased top padding to ensure visible gap from hero/video (no touching)
    ========================= */
-
-/* By design the hero covers full screen; we add extra top padding on #about to guarantee separation.
-   This ensures the ABOUT heading never visually touches the video/edge on varied viewports. */
 #about {
-  padding: 6.25rem 1rem 3.5rem; /* larger top padding to ensure safe distance from hero/video */
+  padding: 6.25rem 1rem 3.5rem; /* enough vertical gap */
   background: transparent;
 }
 
-/* About container card */
+/* About card container */
 #about .bg-transparent {
   max-width: 1120px;
   margin: 0 auto;
@@ -263,15 +314,15 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
-/* Main about text */
+/* main about text styling */
 #mainBranch, #branch1, #branch2, #branch3 {
-  color: var(--text-dim);
+  color: var(--text-dim); /* white but slightly dim */
   font-size: .98rem;
   line-height: 1.7;
   text-align: center;
 }
 
-/* Branch cards grid - subtle card styling */
+/* Branch cards grid */
 #branchesContainer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.25rem; }
 .branch-card {
   padding: 1.2rem;
@@ -282,17 +333,15 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 }
 .branch-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,229,255,0.04); }
 
-/* Responsive fallback for branch grid */
-@media (max-width: 1024px) {
-  #branchesContainer { grid-template-columns: repeat(2, 1fr); }
-}
+/* responsive: 3 -> 2 -> 1 */
+@media (max-width: 1024px) { #branchesContainer { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) {
   #branchesContainer { grid-template-columns: 1fr; }
-  #about { padding-top: 4.25rem; } /* reduce on small screens to avoid huge empty space */
+  #about { padding-top: 4.25rem; } /* slightly smaller top-padding on small screens */
 }
 
 /* =========================
-   TEAM SECTION
+   TEAM / PROJECTS
    ========================= */
 #team { padding: 4.5rem 1rem; }
 .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; max-width: 1200px; margin: 0 auto; }
@@ -309,14 +358,7 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 .team-card img { width: 88px; height: 88px; object-fit: cover; border-radius: 999px; margin: 0 auto 0.6rem; border: 3px solid var(--accent-gold); box-shadow: 0 6px 22px rgba(0,0,0,0.6); }
 
 /* =========================
-   PROJECTS / GAMES
-   ========================= */
-#games { padding: 4.5rem 1rem; }
-.game-card .grid { gap: 1rem; align-items: center; }
-
-/* =========================
-   GALLERY (3D Carousel-ish)
-   - tuned to index.html usage
+   GALLERY (3D-ish)
    ========================= */
 #gallery { padding: 4rem 1rem; }
 #gallery .banner { width: 100%; height: 220px; position: relative; overflow: hidden; display:flex; align-items:center; justify-content:center; }
@@ -329,12 +371,9 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
   animation: galleryRotate 28s linear infinite;
 }
 #gallery .slider .item {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 220px; height: 140px;
-  transform-origin: center center;
-  border-radius: 12px;
-  overflow: hidden;
+  position: absolute; top: 50%; left: 50%;
+  width: 220px; height: 140px; transform-origin: center center;
+  border-radius: 12px; overflow: hidden;
   transition: transform .45s ease, box-shadow .25s ease;
 }
 #gallery .slider .item img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); }
@@ -345,7 +384,7 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 /* =========================
    PRE-REGISTRATION MODAL & FLOW
    ========================= */
-.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 4000; align-items:center; justify-content:center; padding: 1.25rem; }
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 4000; align-items: center; justify-content: center; padding: 1.25rem; }
 .modal.active { display: flex; }
 .modal .modal-content {
   width: 100%; max-width: 920px;
@@ -354,15 +393,14 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
   border: 1px solid rgba(79,195,247,0.06);
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
-
-/* step dots */
-.step-indicator { display:flex; justify-content:center; gap:.75rem; margin-bottom:1rem; }
-.step-dot { width:12px; height:12px; border-radius:50%; background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.06); }
+.step-indicator { display: flex; justify-content: center; gap: .75rem; margin-bottom: 1rem; }
+.step-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.06); }
 .step-dot.active { background: linear-gradient(45deg, var(--accent-gold), var(--accent-cyan)); box-shadow: 0 0 14px rgba(255,202,40,0.12); }
 .step-dot.completed { background: linear-gradient(45deg, var(--accent-cyan), #4dd0e1); }
 
 /* =========================
    FORMS / CONTACT / FEEDBACK
+   - UNIFIED color (white text) and matching card background
    ========================= */
 .input, input[type="text"], input[type="email"], input[type="tel"], textarea, select {
   width: 100%;
@@ -370,59 +408,60 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.06);
   background: rgba(0,0,0,0.36);
-  color: var(--text-main);
+  color: var(--text-default);
   font-size: 1rem;
   transition: box-shadow var(--t-fast), border-color var(--t-fast);
   backdrop-filter: blur(6px);
 }
-.input::placeholder, textarea::placeholder { color: var(--muted); }
+.input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.6); }
 .input:focus, textarea:focus { outline: none; border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(0,229,255,0.06); }
 
-/* checkbox */
-.checkbox-container { display:flex; align-items:center; gap:.6rem; padding:.5rem; border-radius: 8px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.02); }
-.checkbox-container input[type="checkbox"] { appearance: none; width:18px; height:18px; border-radius:4px; border:2px solid var(--accent-cyan); background:transparent; cursor:pointer; position:relative; }
-.checkbox-container input[type="checkbox"]:checked { background: var(--accent-cyan); box-shadow: 0 0 10px rgba(0,229,255,0.06); }
-.checkbox-container input[type="checkbox"]::before { content: ''; position:absolute; width:6px; height:10px; border:2px solid white; border-width:0 2px 2px 0; transform: rotate(45deg); top:2px; left:5px; opacity:0; transition:opacity .12s; }
-.checkbox-container input[type="checkbox"]:checked::before { opacity:1; }
+/* CONTACT card unified color (match site) */
+/* index.html uses a element with bg color class e.g., bg-[#0f172a] — override to match */
+#contact .bg-contact, #contact .bg-[#0f172a], #contact .contact-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 1.2rem;
+  border: 1px solid rgba(79,195,247,0.06);
+  color: var(--text-default);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
 
-/* feedback star */
-.star { font-size: 1.9rem; color: var(--muted); cursor:pointer; transition: transform .12s ease, color .12s ease; }
+/* contact status text */
+#contactStatus { margin-top: .6rem; color: var(--text-default); }
+
+/* checkbox styling (unchanged visual language) */
+.checkbox-container { display:flex; align-items:center; gap:.6rem; padding:.5rem; border-radius: 8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.02); }
+.checkbox-container input[type="checkbox"] { appearance: none; width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--accent-cyan); background: transparent; cursor: pointer; position: relative; }
+.checkbox-container input[type="checkbox"]:checked { background: var(--accent-cyan); box-shadow: 0 0 10px rgba(0,229,255,0.06); }
+.checkbox-container input[type="checkbox"]::before { content: ''; position: absolute; width: 6px; height: 10px; border: 2px solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); top: 2px; left: 5px; opacity: 0; transition: opacity .12s; }
+.checkbox-container input[type="checkbox"]:checked::before { opacity: 1; }
+
+/* star rating */
+.star { font-size: 1.9rem; color: rgba(255,255,255,0.7); cursor:pointer; transition: transform .12s ease, color .12s ease; }
 .star.active, .star.selected { color: var(--accent-gold); transform: scale(1.05); text-shadow: 0 0 10px rgba(255,202,40,0.08); }
 
 /* =========================
-   PARTICLES / HERO DECORATIONS
+   PARTICLES / LOGO ANIMATIONS
+   - small decorative animations, used site-wide
    ========================= */
-.floating-particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-.floating-particles .particle {
-  position: absolute;
-  width: 6px; height: 6px; border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--accent-cyan), var(--accent-cyan-2));
-  opacity: .9; filter: drop-shadow(0 0 10px rgba(0,229,255,0.06));
-  animation: floatParticle 8s linear infinite;
-}
-@keyframes floatParticle {
-  0% { transform: translateY(110vh) scale(.3); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(-10vh) scale(1); }
-}
-
-/* small logo animations */
 .animate-logo-entry { animation: logoEntry 1.2s ease-out forwards; }
 @keyframes logoEntry { 0% { opacity: 0; transform: scale(.3) rotate(-30deg); filter: blur(5px); } 60% { opacity: 1; transform: scale(1.05) rotate(5deg); } 100% { transform: scale(1) rotate(0deg); } }
 
 /* =========================
    GALLERY & PROJECTS TWEAKS
    ========================= */
-.project-teaser { padding: 1.1rem; border-radius: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.04); }
+#games { padding: 4.5rem 1rem; }
+.game-card .grid { gap: 1rem; align-items: center; }
 
 /* =========================
-   FOOTER / CONTACT
+   FOOTER / MISC
    ========================= */
-#contact { padding: 4.5rem 1rem; }
+footer { padding: 2.5rem 1rem; text-align: center; color: var(--text-dim); }
 
 /* =========================
    RESPONSIVE RULES
+   - tuned to avoid hero->about overlap on small screens
    ========================= */
 @media (max-width: 1024px) {
   nav.desktop-links { display: none; }
@@ -430,14 +469,17 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
   #branchesContainer { grid-template-columns: repeat(2, 1fr); }
   #gallery .slider { animation-duration: 36s; }
   #home { padding-top: 3.5rem; }
+  /* ensure hero video reduces height on mid screens to avoid touch */
+  #home { min-height: calc(90vh - 72px); }
 }
 @media (max-width: 768px) {
-  /* reduce hero title */
+  /* smaller hero sizes */
   h1.hero-title { font-size: 2.2rem; }
   .btn { padding: .7rem 1.05rem; }
   .team-card img { width: 72px; height: 72px; }
   #branchesContainer { grid-template-columns: 1fr; gap: .85rem; }
-  #about { padding-top: 4.25rem; } /* keep smaller but safe distance */
+  /* keep enough top spacing but reduce on small */
+  #about { padding-top: 4.25rem; }
 }
 @media (max-width: 480px) {
   #home { padding-top: 2.5rem; padding-bottom: 3rem; }
@@ -448,34 +490,40 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 }
 
 /* =========================
-   ACCESSIBILITY & FOCUSES
+   ACCESSIBILITY (focus / keyboard)
    ========================= */
 a:focus, button:focus, input:focus, textarea:focus, select:focus {
   outline: none;
   box-shadow: 0 0 0 4px rgba(0,229,255,0.06);
   border-radius: 8px;
 }
-
-/* keyboard-visible focus for anchor links */
 a:focus-visible { outline: 2px solid rgba(0,229,255,0.09); outline-offset: 2px; }
 
-/* scroll bar (webkit) */
+/* scrollbar styling (webkit) */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: rgba(0,0,0,0.25); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 6px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
 
 /* =========================
-   FINAL TWEAKS & NOTES
+   FINAL SMALL TWEAKS & NOTES
+   - Guarantee: ALL typographic colors white by default (var--text-default)
+   - Animated background + particles present on all pages
+   - Video element kept and only used in #home in index.html
+   - Contact forms/cards unified to site look + white text
    ========================= */
+
 /* Ensure branch text readability and consistent sizes */
-#mainBranch, #branch1, #branch2, #branch3 { font-size: .98rem; color: var(--text-dim); }
+#mainBranch, #branch1, #branch2, #branch3 {
+  font-size: .98rem;
+  color: var(--text-dim);
+}
 
-/* Make sure hero video is always behind and never covers nav or about heading */
-video.absolute { z-index: -2; pointer-events: none; }
+/* Make sure hero video is behind animated background but above ultimate background */
+video.absolute { z-index: -1; pointer-events: none; }
 
-/* Small helper classes used in index.html */
+/* small helper classes used in index.html */
 .lead { color: var(--text-dim); font-size: 1.02rem; }
-.glow-text { text-shadow: 0 0 8px rgba(0,229,255,0.06); color: var(--text-main); font-family: var(--font-head); }
+.glow-text { text-shadow: 0 0 8px rgba(0,229,255,0.06); color: var(--text-default); font-family: var(--font-head); }
 
-/* End of stylesheet - PIKA polished version */
+/* End of FILE — PIKA ULTIMATE POLISHED style.css */
