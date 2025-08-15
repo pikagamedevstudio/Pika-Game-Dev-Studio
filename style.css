@@ -819,7 +819,7 @@ body {
 /* ===== GALLERY SLIDER ===== */
 #gallery .banner {
   width: 100%;
-  height: 500px;
+  height: 100px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -829,8 +829,8 @@ body {
 
 #gallery .slider {
   position: absolute;
-  width: 220px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   top: 50%;
   left: calc(50% - 110px);
   transform-style: preserve-3d;
@@ -844,7 +844,7 @@ body {
 }
 
 #gallery .slider .item {
-  position: absolute;
+  position: center;
   inset: 0;
   transform:
     rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
@@ -855,7 +855,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 20px;
   border: 2px solid rgba(0, 255, 255, 0.3);
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -869,8 +869,8 @@ body {
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 1023px) {
   #gallery .slider {
-    width: 160px;
-    height: 120px;
+    width: 100%;
+    height: 100%;
     left: calc(50% - 80px);
   }
   #gallery .slider .item {
@@ -880,10 +880,10 @@ body {
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 800px) {
   #gallery .slider {
     width: 100px;
-    height: 80px;
+    height: 100px;
     left: calc(50% - 50px);
   }
   #gallery .slider .item {
@@ -1372,6 +1372,7 @@ body {
   transform: scale(1.03);
   box-shadow: 0 0 25px rgba(0,255,255,0.3);
 }
+
 
 
 
