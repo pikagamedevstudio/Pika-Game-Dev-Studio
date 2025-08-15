@@ -321,103 +321,53 @@ if (feedbackForm) {
   }); 
 }
 });
-// Load branch content + BG music control — smooth & robust
+// Load branch content and set up BG music — robust version
 window.addEventListener("DOMContentLoaded", () => {
-  // Load branch content
+  // branch files to load
   const branches = [
     ["pika-main.txt", "mainBranch"],
     ["pika-studio.txt", "branch1"],
     ["pika-tech.txt", "branch2"],
     ["pika-publishers.txt", "branch3"]
   ];
+
   branches.forEach(([file, id]) => loadBranchContent(file, id));
 
-  // BG Music setup
+  // BG Music: try autoplay, otherwise play on first user interaction
   const music = document.getElementById('bgMusic');
-  let muteTimeout = null;
-
   if (music) {
-    // Try immediate autoplay
+    // Try immediate play (may be blocked by browser)
     music.play().catch(() => {
+      // If blocked, attempt on first user interaction
       const playOnInteraction = () => {
-        music.play().catch(err => console.log("Music play blocked:", err));
+        music.play().catch(err => console.log("Music play blocked on interaction:", err));
       };
-      ["click", "keydown", "scroll"].forEach(evt => {
-        document.addEventListener(evt, playOnInteraction, { once: true });
-      });
+      document.addEventListener('click', playOnInteraction, { once: true });
+      document.addEventListener('keydown', playOnInteraction, { once: true });
     });
-
-    // 20-sec mute on logo click
-    const logo = document.querySelector('.site-logo'); // Change selector to match your logo element
-    if (logo) {
-      logo.addEventListener('click', () => {
-        if (!music.paused) {
-          music.pause();
-          showMuteNotification();
-          clearTimeout(muteTimeout);
-          muteTimeout = setTimeout(() => {
-            music.play().catch(err => console.log("Music resume blocked:", err));
-          }, 20000);
-        }
-      });
-    }
-
-    // Pause when inactive for 30s, resume on activity
-    let inactivityTimer;
-    const resetInactivity = () => {
-      clearTimeout(inactivityTimer);
-      if (music.paused) {
-        music.play().catch(() => {});
-      }
-      inactivityTimer = setTimeout(() => {
-        music.pause();
-      }, 30000);
-    };
-    ["mousemove", "keydown", "scroll", "touchstart"].forEach(evt => {
-      document.addEventListener(evt, resetInactivity);
-    });
-    resetInactivity();
   } else {
     console.warn("bgMusic element not found (#bgMusic).");
   }
 });
 
-// Load branch file
 function loadBranchContent(file, elementId) {
   const el = document.getElementById(elementId);
   if (!el) {
     console.warn("loadBranchContent: element not found ->", elementId);
     return;
   }
+
   fetch(file)
     .then(res => {
-      if (!res.ok) throw new Error(`Failed to fetch ${file} (status ${res.status})`);
+      if (!res.ok) throw new Error(Failed to fetch ${file} (status ${res.status}));
       return res.text();
     })
     .then(text => {
+      // use textContent to avoid layout quirks with innerText
       el.textContent = text;
     })
     .catch(err => {
       console.error("Error loading branch file:", file, err);
       el.textContent = "Failed to load.";
     });
-}
-
-// Show mute notification (futuristic style)
-function showMuteNotification() {
-  const note = document.createElement('div');
-  note.textContent = "🎵 Music muted for 20 seconds";
-  note.style.position = "fixed";
-  note.style.top = "20px";
-  note.style.right = "20px";
-  note.style.padding = "10px 15px";
-  note.style.background = "rgba(0, 0, 0, 0.75)";
-  note.style.color = "#00f7ff";
-  note.style.borderRadius = "8px";
-  note.style.fontFamily = "Orbitron, sans-serif";
-  note.style.fontSize = "14px";
-  note.style.boxShadow = "0 0 10px #00f7ff";
-  note.style.zIndex = "9999";
-  document.body.appendChild(note);
-  setTimeout(() => note.remove(), 3000);
 }
