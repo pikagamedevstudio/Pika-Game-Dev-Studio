@@ -321,19 +321,16 @@ if (feedbackForm) {
   }); 
 }
 });
-// Load branch content and set up BG music — robust version
-window.addEventListener("DOMContentLoaded", () => {
-  // branch files to load
+// ==================== BRANCH FILE LOADING ====================
   const branches = [
     ["pika-main.txt", "mainBranch"],
     ["pika-studio.txt", "branch1"],
     ["pika-tech.txt", "branch2"],
     ["pika-publishers.txt", "branch3"]
   ];
-
   branches.forEach(([file, id]) => loadBranchContent(file, id));
 
-  // BG Music: try autoplay, otherwise play on first user interaction
+  // ==================== BG MUSIC ====================
   const music = document.getElementById('bgMusic');
   if (music) {
     music.play().catch(() => {
