@@ -418,3 +418,82 @@ document.addEventListener('DOMContentLoaded', function () {
     console.warn("bgMusic element not found (#bgMusic).");
   }
 });
+/* ================================================
+   tsParticles Initialization
+   - Adds interactive particle background to all pages
+   - Fullscreen canvas with neon futuristic effect
+   - Hover: grab particles, Click: push particles
+================================================ */
+tsParticles.load("tsparticles", {
+    fpsLimit: 60,
+    background: {
+        color: "#0a0a0a"
+    },
+    particles: {
+        number: {
+            value: 80,
+            density: {
+                enable: true,
+                area: 800
+            }
+        },
+        color: {
+            value: ["#00ffff", "#ff00ff", "#ffff00"]
+        },
+        shape: {
+            type: "circle"
+        },
+        opacity: {
+            value: 0.7,
+            random: true
+        },
+        size: {
+            value: 3,
+            random: true
+        },
+        move: {
+            enable: true,
+            speed: 1.5,
+            direction: "none",
+            random: false,
+            straight: false,
+            outModes: {
+                default: "out"
+            }
+        },
+        links: {
+            enable: true,
+            distance: 120,
+            color: "#ffffff",
+            opacity: 0.3,
+            width: 1
+        }
+    },
+    interactivity: {
+        detectsOn: "canvas",
+        events: {
+            onHover: {
+                enable: true,
+                mode: "grab"
+            },
+            onClick: {
+                enable: true,
+                mode: "push"
+            },
+            resize: true
+        },
+        modes: {
+            grab: {
+                distance: 140,
+                links: {
+                    opacity: 0.5
+                }
+            },
+            push: {
+                quantity: 4
+            }
+        }
+    },
+    detectRetina: true
+});
+
