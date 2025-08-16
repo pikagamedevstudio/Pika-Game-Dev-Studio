@@ -405,4 +405,7 @@ a:focus-visible{outline:2px solid rgba(0,229,255,0.09);outline-offset:2px}
     height: 100%;
     z-index: -1; /* behind all content */
 }
-
+section {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+}
