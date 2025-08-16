@@ -1,38 +1,28 @@
-/* ==========================================================================
-   FINAL style.css — PIKA GAME DEV STUDIO (Site-wide polished)
-   - Matches user's index.html & script.js (single-page)
-   - Video only on #home (selector matches given HTML classes)
-   - Particles: white dots site-wide; hidden within #home
-   - Contact section styling unified to About/Team style
-   - All typography default to white
-   - Navbar border thin & subtle
-   - Safe spacing between hero/video and About
-   - Smooth reveal animations for sections
-   ========================================================================== */
+/* ===================================================================
+   PIKA GAME DEV STUDIO — CLEAN & CORRECT style.css
+   - Exact selectors matching provided HTML file
+   - No broken blocks, no duplicate IDs, #tsparticles properly closed
+   - Useful, concise comments (not noisy) explaining purpose of blocks
+   - Ready-to-paste: replace your existing style.css fully with this
+   =================================================================== */
 
 /* =========================
    ROOT VARIABLES
    ========================= */
-:root{
-  /* Colors */
-  --bg-0: #05060a;                        /* page base */
+/* Centralized colors, spacing, timings so tweaks are easy */
+:root {
+  /* Color / visual tokens */
+  --bg-0: #05060a;                                /* page base */
   --bg-grad: linear-gradient(180deg,#000,#081019);
-  --surface-glass-1: rgba(255,255,255,0.03);
-  --surface-glass-2: rgba(255,255,255,0.06);
-  --border-subtle: rgba(255,255,255,0.04);
   --accent-cyan: #00e5ff;
   --accent-cyan-2: #4fc3f7;
-  --text-white: #ffd54f;
-  --accent-purple: #8b5cf6;
+  --muted: rgba(255,255,255,0.06);
 
-  /* Typography */
-  --font-head: 'Orbitron', sans-serif;
-  --font-body: 'Poppins', system-ui, sans-serif;
-  --text-white: #ffffff;                  /* ALL site typography white */
-  --text-dim: rgba(255,255,255,0.78);     /* supporting text slightly dim */
+  /* Text */
+  --text-white: #ffffff;
+  --text-dim: rgba(255,255,255,0.78);
 
-  /* Layout */
-  --max-width: 1400px;
+  /* Radii / spacing */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -42,384 +32,518 @@
   --shadow-soft: 0 8px 30px rgba(0,0,0,0.6);
   --shadow-glow: 0 0 36px rgba(0,229,255,0.06);
 
-  /* Timings */
+  /* Timing */
   --t-quick: 160ms;
   --t-med: 280ms;
   --t-slow: 480ms;
+
+  /* Layout */
+  --max-width: 1400px;
 }
 
 /* =========================
-   RESET & BASE
+   RESET / BASE LAYOUT
    ========================= */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;width:100%}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{
-  font-family:var(--font-body);
-  background:var(--bg-0);
-  background-image:var(--bg-grad);
-  color:var(--text-white);        /* enforce white text everywhere */
-  line-height:1.55;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; width: 100%; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  font-family: "Poppins", system-ui, sans-serif;   /* fallback matches HTML font import */
+  background: var(--bg-0);
+  background-image: var(--bg-grad);
+  color: var(--text-white);
+  line-height: 1.55;
+  overflow-x: hidden;
 }
 
-/* Ensure headings are white */
-h1,h2,h3,h4,h5,h6{color:var(--text-white)}
+/* Headings consistent color */
+h1,h2,h3,h4,h5,h6 { color: var(--text-white); }
 
-/* Generic container */
-.container{max-width:var(--max-width);margin:0 auto;padding:0 1rem}
+/* Generic container used in the HTML */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1rem; }
 
-/* Utilities */
-.text-center{text-align:center}
-.mb-1{margin-bottom:.5rem}
-.mb-2{margin-bottom:1rem}
-.mb-3{margin-bottom:1.5rem}
-.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+/* Tiny utilities used throughout */
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: .5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.visually-hidden { position: absolute !important; height:1px; width:1px; overflow:hidden; clip: rect(1px,1px,1px,1px); white-space:nowrap; }
 
 /* =========================
-   SITE-WIDE ANIMATED BACKGROUND + PARTICLES
-   - Animated subtle gradients + particles visible on all sections
-   - Particles are white by design (contrasty)
-   - BUT particles are hidden inside #home (we keep the video there)
+   SITE BACKGROUNDS & PARTICLES
+   - Video is inside #home; particles and animated-bg are site-wide
+   - Ensure layering order: animated-bg (furthest back) -> particles -> video (#home) -> content
    ========================= */
 
-/* Animated subtle gradient layer (site-wide) */
-.animated-bg{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:-4; /* behind video and particles */
+/* subtle animated gradient that covers entire viewport */
+.animated-bg {
+  position: fixed;
+  inset: 0;                         /* shorthand: top/right/bottom/left = 0 */
+  width: 100%;
+  height: 100%;
+  z-index: -4;                      /* behind everything but below very-back elements */
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.95;
   background:
     radial-gradient(circle at 10% 20%, rgba(79,195,247,0.03) 0%, transparent 18%),
     radial-gradient(circle at 90% 80%, rgba(255,213,79,0.02) 0%, transparent 16%),
     var(--bg-grad);
-  pointer-events:none;
-  mix-blend-mode: screen;
-  opacity:0.95;
 }
 
-/* Floating particles container (site-wide) */
-.floating-particles{
-  position:fixed;
-  inset:0;
-  z-index:-3; /* above animated-bg but behind hero content/video */
-  pointer-events:none;
-  overflow:hidden;
+/* floating particle container (white dots) */
+.floating-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -3;                      /* above animated-bg but behind content/video */
+  pointer-events: none;
+  overflow: hidden;
 }
 
-/* Per-dot styling: white subtle dots */
-.floating-particles .particle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  /* white-centered radial gradient for crisp dot */
+/* single dot style (each .particle is positioned in HTML) */
+.floating-particles .particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 40%, rgba(255,255,255,0.45) 100%);
-  opacity:.95;
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.06));
+  opacity: 0.95;
   animation: particleFloat linear infinite;
 }
 
-/* Particles animation (vertical float) */
-@keyframes particleFloat{
-  0% { transform: translateY(110vh) scale(.25); opacity: 0; }
-  10% { opacity: 1; }
-  85% { opacity: 1; }
+/* vertical float animation for particles */
+@keyframes particleFloat {
+  0%   { transform: translateY(110vh) scale(.25); opacity: 0; }
+  10%  { opacity: 1; }
+  85%  { opacity: 1; }
   100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 
-/* HIDE particles inside #home (video takes precedence)
-   This ensures the home page keeps video visible and clean. */
-#home .floating-particles{ display: none !important; }
-
-/* If JS toggles or you want to hide for other reasons, use helper:
-   .no-particles { display: none !important; } */
+/* Hide floating-particles *inside* the hero to keep video area clean.
+   HTML places .floating-particles globally; this rule ensures that when
+   .floating-particles is inside #home context it will not display. */
+#home .floating-particles { display: none !important; }
 
 /* =========================
-   NAVBAR / HEADER
-   - Thin subtle border
-   - Responsive layout
+   HEADER / NAV
    ========================= */
-header.nav-blur{
-  position:fixed;top:0;left:0;right:0;
-  z-index:9999;
-  background: rgba(0,0,0,0.56);
+header.nav-blur {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.56);                    /* translucent dark header */
   backdrop-filter: blur(var(--glass-blur)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border-bottom: 1px solid var(--border-subtle); /* THIN */
+  border-bottom: 1px solid rgba(255,255,255,0.04);  /* subtle divider */
   transition: all var(--t-med);
 }
+header.nav-blur .container { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.9rem 0; }
+.futuristic-font { font-family: 'Orbitron', sans-serif; font-weight:700; letter-spacing:.6px; color:var(--text-white); }
 
-/* header container alignment */
-header.nav-blur .container{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 0}
-
-/* logo group */
-.logo-group{display:flex;align-items:center;gap:.6rem}
-.logo-group img{width:44px;height:44px;object-fit:cover;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
-.futuristic-font{font-family:var(--font-head);letter-spacing:.6px;color:var(--text-white);font-weight:700}
-
-/* desktop links styling */
-nav.desktop-links{display:flex;gap:1.2rem;align-items:center}
-nav.desktop-links a{
-  color:var(--text-white);text-decoration:none;font-weight:600;font-size:.95rem;padding:.35rem .5rem;border-radius:8px;transition:transform var(--t-quick),color var(--t-quick);
-  position:relative;
+/* desktop nav links style */
+nav.desktop-links { display:flex; gap:1.2rem; align-items:center; }
+nav.desktop-links a {
+  color: var(--text-white);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: .95rem;
+  padding: .35rem .5rem;
+  border-radius: 8px;
+  position: relative;
+  transition: transform var(--t-quick), color var(--t-quick);
 }
-nav.desktop-links a:hover{color:var(--accent-cyan);transform:translateY(-2px)}
-nav.desktop-links a::after{
-  content:'';position:absolute;left:50%;bottom:-6px;width:0;height:2px;background:linear-gradient(90deg,var(--accent-cyan),var(--text-white));transform:translateX(-50%);transition:width var(--t-quick);
+nav.desktop-links a:hover { color: var(--accent-cyan); transform: translateY(-2px); }
+nav.desktop-links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--text-white));
+  transform: translateX(-50%);
+  transition: width var(--t-quick);
 }
-nav.desktop-links a:hover::after{width:72%}
+nav.desktop-links a:hover::after { width: 72%; }
 
-/* mobile toggle */
-#menuToggle{background:none;border:0;color:var(--text-white);cursor:pointer;padding:.25rem}
-#mobileMenu{display:none;padding:.6rem 1rem;background:rgba(0,0,0,0.9)}
+/* mobile toggle basics (rest of mobile behaviour handled by tailwind/js) */
+#menuToggle { background: none; border: 0; color: var(--text-white); cursor: pointer; padding: .25rem; }
+#mobileMenu { display: none; padding: .6rem 1rem; background: rgba(0,0,0,0.9); }
 
-/* shrink header on .small state */
-header.nav-blur.small{padding:.55rem 0}
+/* small header variant for scroll shrink */
+header.nav-blur.small { padding: .55rem 0; }
 
 /* =========================
-   HERO / HOME
-   - Video ONLY in #home (we style video using .absolute selector to match user's HTML)
-   - Ensure safe gap between hero and about
+   HERO / HOME section
+   - Video sits behind hero content; text must be readable
    ========================= */
-#home{
-  position:relative;
-  min-height:calc(100vh - 88px); /* leave header */
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  padding:3.75rem 1rem 6rem;overflow:hidden;
+#home {
+  position: relative;
+  min-height: calc(100vh - 88px);   /* leave room for header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.75rem 1rem 6rem;
+  overflow: hidden;
 }
 
-/* Video selector — matches the HTML: class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" */
+/* Target the video inside #home using class combos to ensure object-fit */
 #home video.absolute,
 #home video.object-cover,
 #home video.w-full,
-#home video.h-full{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;
-  filter:brightness(.52) saturate(.95);pointer-events:none;
+#home video.h-full {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                /* cover the area */
+  z-index: -1;
+  filter: brightness(.52) saturate(.95);  /* dim video for contrast */
+  pointer-events: none;
 }
 
-/* Subtle overlay for better text contrast on video */
-#home .absolute-overlay{
-  position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.28),rgba(0,0,0,0.62));z-index:0;
+/* small overlay layer on top of video to further improve contrast */
+#home .absolute-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.62));
+  z-index: 0;
 }
 
 /* hero content front layer */
-.hero-content{position:relative;z-index:20;padding:1rem 1.2rem;max-width:1100px;margin:0 auto}
+.hero-content { position: relative; z-index: 20; padding: 1rem 1.2rem; max-width: 1100px; margin: 0 auto; }
 
-/* Logo/title */
-.logo-large{display:block;margin:0 auto 1rem;width:96px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
-h1.hero-title{font-family:var(--font-head);font-size:2.6rem;line-height:1.03;letter-spacing:1px;margin-bottom:.6rem;color:var(--text-white)}
-@media(min-width:768px){h1.hero-title{font-size:3.8rem}}
+/* Title styles */
+.logo-large { display:block; margin:0 auto 1rem; width:96px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.6); }
+h1.hero-title { font-family: 'Orbitron', sans-serif; font-size: 2.6rem; line-height:1.03; letter-spacing:1px; margin-bottom:.6rem; color:var(--text-white); }
+@media(min-width:768px) { h1.hero-title { font-size: 3.8rem; } }
 
-/* subtitle/lead */
-p.lead{color:var(--text-dim);font-size:1.02rem;margin-bottom:1.25rem}
+p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 
-/* CTA wrapper & buttons */
-.hero-actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
-.btn{
-  display:inline-block;padding:.95rem 1.6rem;border-radius:12px;border:1px solid rgba(255,255,255,0.04);
-  background:rgba(255,255,255,0.02);color:var(--accent-cyan);font-weight:800;text-decoration:none;cursor:pointer;position:relative;overflow:hidden;backdrop-filter:blur(6px);
-  transition:transform var(--t-quick),background var(--t-quick),box-shadow var(--t-quick);
+/* CTA buttons in hero */
+.hero-actions { display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; }
+.btn {
+  display:inline-block;
+  padding:.95rem 1.6rem;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.02);
+  color: var(--accent-cyan);
+  font-weight: 800;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  transition: transform var(--t-quick), background var(--t-quick), box-shadow var(--t-quick);
 }
-.btn::before{content:"";position:absolute;top:0;left:-110%;height:100%;width:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);transition:left .5s ease;opacity:.6}
-.btn:hover{transform:translateY(-4px);background:var(--accent-cyan);color:#061118;box-shadow:var(--shadow-glow)}
-.btn:hover::before{left:100%}
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -110%;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  transition: left .5s ease;
+  opacity:.6;
+}
+.btn:hover { transform: translateY(-4px); background: var(--accent-cyan); color: #061118; box-shadow: var(--shadow-glow); }
+.btn:hover::before { left: 100%; }
 
-/* primary CTA */
-.btn-primary{padding:1rem 2.2rem;border-radius:999px;border:2px solid var(--text-white);background:linear-gradient(135deg,var(--accent-cyan),var(--text-white));color:#071018;font-family:var(--font-head);font-weight:900}
+/* stronger primary CTA */
+.btn-primary {
+  padding: 1rem 2.2rem;
+  border-radius: 999px;
+  border: 2px solid var(--text-white);
+  background: linear-gradient(135deg, var(--accent-cyan), var(--text-white));
+  color: #071018;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+}
 
 /* =========================
-   ABOUT SECTION
-   - Add larger top padding so ABOUT heading never touches hero/video
-   - Particles are visible here (site-wide) because #home hides them
+   ABOUT section
    ========================= */
-#about{padding:6.25rem 1rem 3.5rem;background:transparent}
+#about { padding: 6.25rem 1rem 3.5rem; background: transparent; }
 
-/* about card container to match site visuals */
-#about .bg-transparent{
-  max-width:1120px;margin:0 auto;padding:2rem;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-  border-radius:16px;border:1px solid rgba(79,195,247,0.06);backdrop-filter:blur(var(--glass-blur));box-shadow:0 10px 40px rgba(0,0,0,0.6);
+/* The inner card that contains About content */
+#about .bg-transparent {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 16px;
+  border: 1px solid rgba(79,195,247,0.06);
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
-/* about text */
-#mainBranch,#branch1,#branch2,#branch3{color:var(--text-dim);font-size:.98rem;line-height:1.7;text-align:center}
+/* branch card grid in About */
+#branchesContainer { display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; margin-top:1.25rem; }
+.branch-card {
+  padding: 1.2rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0,229,255,0.02), rgba(79,195,247,0.01));
+  border: 1px solid rgba(0,229,255,0.10);
+  transition: transform var(--t-med), box-shadow var(--t-med);
+}
+.branch-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,229,255,0.04); }
 
-/* branches grid */
-#branchesContainer{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.25rem}
-.branch-card{padding:1.2rem;border-radius:12px;background:linear-gradient(135deg,rgba(0,229,255,0.02),rgba(79,195,247,0.01));border:1px solid rgba(0,229,255,0.10);transition:transform var(--t-med),box-shadow var(--t-med)}
-.branch-card:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(0,229,255,0.04)}
-
-/* responsive branch grid */
-@media(max-width:1024px){#branchesContainer{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){#branchesContainer{grid-template-columns:1fr}#about{padding-top:4.25rem}}
+/* Responsive: reduce columns on smaller screens */
+@media(max-width:1024px){ #branchesContainer { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:640px){ #branchesContainer { grid-template-columns: 1fr; } #about { padding-top: 4.25rem; } }
 
 /* =========================
-   TEAM & PROJECT CARDS
+   TEAM & PROJECT CARD STYLES
    ========================= */
-#team{padding:4.5rem 1rem}
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;max-width:1200px;margin:0 auto}
-.game-card,.team-card{
-  background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-  border-radius:14px;padding:1.25rem;border:1px solid rgba(255,255,255,0.04);
-  backdrop-filter:blur(var(--glass-blur));box-shadow:0 10px 36px rgba(0,0,0,0.6);transition:transform var(--t-med),box-shadow var(--t-med);
+#team { padding: 4.5rem 1rem; }
+.team-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1.25rem; max-width:1200px; margin:0 auto; }
+
+.game-card, .team-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 14px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 10px 36px rgba(0,0,0,0.6);
+  transition: transform var(--t-med), box-shadow var(--t-med);
 }
-.game-card:hover,.team-card:hover{transform:translateY(-10px);box-shadow:var(--shadow-glow);border-color:rgba(79,195,247,0.12)}
-.team-card img{width:88px;height:88px;object-fit:cover;border-radius:999px;margin:0 auto .6rem;border:3px solid var(--text-white);box-shadow:0 6px 22px rgba(0,0,0,0.6)}
+.game-card:hover, .team-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-glow); border-color: rgba(79,195,247,0.12); }
+.team-card img { width:88px; height:88px; object-fit:cover; border-radius:999px; margin:0 auto .6rem; border:3px solid var(--text-white); box-shadow:0 6px 22px rgba(0,0,0,0.6); }
+
+/* =========================
+   PROJECTS (games) section
+   ========================= */
+#games { padding: 4.5rem 1rem; }
+#games .game-card { padding: 2rem; }
+
+/* Small tweaks for rich image blocks inside project cards */
+#games img { display:block; width:100%; height:auto; border-radius: 12px; }
 
 /* =========================
    GALLERY / SLIDER
    ========================= */
-#gallery{padding:4rem 1rem}
-#gallery .banner{width:100%;height:220px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-#gallery .slider{--quantity:9;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transform-style:preserve-3d;animation:galleryRotate 28s linear infinite}
-#gallery .slider .item{position:absolute;top:50%;left:50%;width:220px;height:140px;transform-origin:center center;border-radius:12px;overflow:hidden;transition:transform .45s ease,box-shadow .25s ease}
-#gallery .slider .item img{width:100%;height:100%;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
-@keyframes galleryRotate{from{transform:translate(-50%,-50%) rotateY(0deg)}to{transform:translate(-50%,-50%) rotateY(360deg)}}
-@media(max-width:1024px){#gallery .slider{animation-duration:36s}#gallery .slider .item{width:160px;height:100px}}
-@media(max-width:640px){#gallery .banner{height:140px}#gallery .slider .item{width:120px;height:80px}}
-
-/* =========================
-   PRE-REG MODAL & STEPS
-   ========================= */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:4000;align-items:center;justify-content:center;padding:1.25rem}
-.modal.active{display:flex}
-.modal .modal-content{width:100%;max-width:920px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:1.6rem;border:1px solid rgba(79,195,247,0.06);box-shadow:0 10px 40px rgba(0,0,0,0.6)}
-.step-indicator{display:flex;justify-content:center;gap:.75rem;margin-bottom:1rem}
-.step-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.06)}
-.step-dot.active{background:linear-gradient(45deg,var(--text-white),var(--accent-cyan));box-shadow:0 0 14px rgba(255,202,40,0.12)}
-.step-dot.completed{background:linear-gradient(45deg,var(--accent-cyan),#4dd0e1);}
-
-/* =========================
-   FORMS / CONTACT / FEEDBACK
-   - Contact section/background unified to match About
-   - Text color enforced white
-   ========================= */
-.input,input[type="text"],input[type="email"],input[type="tel"],textarea,select{
-  width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);
-  background:rgba(0,0,0,0.36);color:var(--text-white);font-size:1rem;transition:box-shadow var(--t-quick),border-color var(--t-quick);backdrop-filter:blur(6px)
+#gallery { padding: 4rem 1rem; }
+#gallery .banner { width:100%; height:220px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+#gallery .slider {
+  --quantity: 9;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  transform-style: preserve-3d;
+  animation: galleryRotate 28s linear infinite;
 }
-.input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.6)}
-.input:focus,textarea:focus,input:focus,select:focus{outline:none;border-color:var(--accent-cyan);box-shadow:0 0 20px rgba(0,229,255,0.06)}
+#gallery .slider .item {
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:220px;
+  height:140px;
+  transform-origin:center center;
+  border-radius:12px;
+  overflow:hidden;
+  transition: transform .45s ease, box-shadow .25s ease;
+}
+#gallery .slider .item img { width:100%; height:100%; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,0.04); }
+@keyframes galleryRotate { from{ transform: translate(-50%,-50%) rotateY(0deg); } to{ transform: translate(-50%,-50%) rotateY(360deg); } }
 
-/* contact card unified style (matches About/Team) */
-/* includes safe selectors used commonly in templates */
-#contact .bg-contact, #contact .bg-[#0f172a], #contact .contact-card, #contact .bg-transparent {
+/* responsive gallery sizes */
+@media(max-width:1024px){ #gallery .slider { animation-duration:36s; } #gallery .slider .item { width:160px; height:100px; } }
+@media(max-width:640px){ #gallery .banner { height:140px; } #gallery .slider .item { width:120px; height:80px; } }
+
+/* =========================
+   ART PIPELINE section
+   - tech-diagram cards: keep border & subtle radial gradient as in HTML design
+   ========================= */
+#art-pipeline { padding: 4.5rem 1rem; }  /* spacing similar to other sections */
+
+/* card style used in art pipeline boxes */
+.tech-diagram {
+  padding: 1.2rem;
+  border-radius: 12px;
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 70%);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* small text styles inside pipeline boxes */
+.tech-diagram h4 { margin-bottom: .5rem; font-size: .95rem; color: var(--text-white); }
+.tech-diagram p, .tech-diagram ul { font-size: .82rem; color: var(--text-dim); line-height:1.5; }
+
+/* =========================
+   CONTACT section
+   - We DO NOT include broken selectors (no .bg-contact etc.)
+   - We style the main #contact container and inputs (HTML matches these)
+   ========================= */
+#contact { padding: 4.5rem 1rem; }   /* same vertical spacing as other sections */
+
+/* The outer wrapper that centers content */
+#contact > .max-w-6xl,
+#contact .max-w-6xl { max-width: 1120px; margin: 0 auto; }
+
+/* Contact: left info card + right form card layout handled by HTML/Tailwind.
+   Here we provide a unified card look that matches site aesthetic. */
+#contact .w-full.md\\:w-1\\/2, /* Tailwind-like compound selector used in HTML classes */
+#contact .p-6,
+#contact form {
+  /* We do not force full-section background here - we style cards individually (clean & explicit). */
+}
+
+/* Form elements: consistent look & accessible */
+input[type="text"], input[type="email"], textarea, select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.36);      /* dark input */
+  color: var(--text-white);
+  font-size: 1rem;
+  transition: box-shadow var(--t-quick), border-color var(--t-quick);
+  backdrop-filter: blur(6px);
+}
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.6); }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(0,229,255,0.06); }
+
+/* Contact labels & status text use white for readability */
+#contactStatus, #contact label { color: var(--text-white); }
+
+/* The form card visual: match other cards */
+#contact form {
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius: 12px;
   padding: 1.2rem;
   border: 1px solid rgba(79,195,247,0.06);
-  color: var(--text-white);
   box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
-/* contact status and labels should be white */
-#contactStatus, #contact label { color: var(--text-white) }
-
-/* checkbox styling (consistent) */
-.checkbox-container{display:flex;align-items:center;gap:.6rem;padding:.5rem;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
-.checkbox-container input[type="checkbox"]{appearance:none;width:18px;height:18px;border-radius:4px;border:2px solid var(--accent-cyan);background:transparent;cursor:pointer;position:relative}
-.checkbox-container input[type="checkbox"]:checked{background:var(--accent-cyan);box-shadow:0 0 10px rgba(0,229,255,0.06)}
-.checkbox-container input[type="checkbox"]::before{content:'';position:absolute;width:6px;height:10px;border:2px solid white;border-width:0 2px 2px 0;transform:rotate(45deg);top:2px;left:5px;opacity:0;transition:opacity .12s}
-.checkbox-container input[type="checkbox"]:checked::before{opacity:1}
-
-/* star rating */
-.star{font-size:1.9rem;color:rgba(255,255,255,0.75);cursor:pointer;transition:transform .12s ease,color .12s ease}
-.star.active,.star.selected{color:var(--text-white);transform:scale(1.05);text-shadow:0 0 10px rgba(255,202,40,0.08)}
-
-/* =========================
-   SMALL ANIMATIONS & HELPERS
-   - reveal on scroll (CSS classes only)
-   - if you want JS to auto-toggle .is-visible when element in viewport, I can add small snippet
-   ========================= */
-.reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,var(--t-med) transform .6s ease}
-.reveal.is-visible{opacity:1;transform:none}
-
-/* subtle fade utility */
-.fade-in{animation:fadeIn .45s ease both}
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-
-/* logo animation */
-.animate-logo-entry{animation:logoEntry 1.2s ease-out forwards}
-@keyframes logoEntry{0%{opacity:0;transform:scale(.3) rotate(-30deg);filter:blur(5px)}60%{opacity:1;transform:scale(1.05) rotate(5deg)}100%{transform:scale(1) rotate(0deg)}}
-
-/* =========================
-   FOOTER & MISC
-   ========================= */
-footer{padding:2.5rem 1rem;text-align:center;color:var(--text-dim)}
-
-/* =========================
-   RESPONSIVE RULES
-   - tuned to maintain hero->about spacing and prevent overlap
-   ========================= */
-@media (max-width: 1024px){
-  nav.desktop-links{display:none}
-  #mobileMenu{display:block}
-  #branchesContainer{grid-template-columns:repeat(2,1fr)}
-  #gallery .slider{animation-duration:36s}
-  /* slightly reduce hero height to avoid overlap */
-  #home{min-height:calc(90vh - 72px)}
-  /* ensure hero top padding reduced for medium devices */
-  #home{padding-top:3.5rem}
+/* The info card (left) visual: match form card */
+#contact .w-full.md\\:w-1\\/2.p-6 {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 1.2rem;
+  border: 1px solid rgba(79,195,247,0.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
-@media (max-width:768px){
-  h1.hero-title{font-size:2.2rem}
-  .btn{padding:.7rem 1.05rem}
-  .team-card img{width:72px;height:72px}
-  #branchesContainer{grid-template-columns:1fr;gap:.85rem}
-  #about{padding-top:4.25rem} /* reduce but keep safe separation */
-}
-@media (max-width:480px){
-  #home{padding-top:2.5rem;padding-bottom:3rem}
-  .logo-large{width:72px}
-  h1.hero-title{font-size:1.8rem}
-  .btn{padding:.6rem .9rem;font-size:.95rem}
-  #about{padding-top:3.25rem}
+
+/* Buttons inside contact & feedback */
+#contact .btn, #feedback .btn {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border-radius: 12px;
 }
 
 /* =========================
-   ACCESSIBILITY & FOCUS
+   FEEDBACK section
    ========================= */
-a:focus,button:focus,input:focus,textarea:focus,select:focus{
-  outline:none;box-shadow:0 0 0 4px rgba(0,229,255,0.06);border-radius:8px
+#feedback { padding: 4.5rem 1rem; }
+
+/* Feedback main form card already has class backdrop-blur-xl in HTML
+   Keep a matching look here as well (this selector targets the form used). */
+#feedback form {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 1.6rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  border: 1px solid rgba(79,195,247,0.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
-a:focus-visible{outline:2px solid rgba(0,229,255,0.09);outline-offset:2px}
 
-/* webkit scrollbars */
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-track{background:rgba(0,0,0,0.25)}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:6px}
-::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.12)}
+/* star rating and interactive bits */
+.star { font-size: 1.9rem; color: rgba(255,255,255,0.75); cursor: pointer; transition: transform .12s ease, color .12s ease; }
+.star.active, .star.selected { color: var(--text-white); transform: scale(1.05); text-shadow: 0 0 10px rgba(255,202,40,0.08); }
 
-/* ================================================
-   tsParticles Container Styling
-   - Fullscreen fixed canvas for particle background
-   - Positioned behind all page content
-================================================ */
+/* checkbox style used elsewhere */
+.checkbox-container {
+  display:flex; align-items:center; gap:.6rem; padding:.5rem; border-radius:8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.02);
+}
+.checkbox-container input[type="checkbox"] {
+  appearance: none; width:18px; height:18px; border-radius:4px; border:2px solid var(--accent-cyan);
+  background: transparent; cursor:pointer; position:relative;
+}
+.checkbox-container input[type="checkbox"]:checked { background: var(--accent-cyan); box-shadow: 0 0 10px rgba(0,229,255,0.06); }
+
+/* =========================
+   SMALL ANIMATIONS & UTILITIES
+   ========================= */
+.reveal { opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.is-visible { opacity:1; transform: none; }
+.fade-in { animation: fadeIn .45s ease both; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: none; } }
+
+/* logo entry animation (used in HTML) */
+.animate-logo-entry { animation: logoEntry 1.2s ease-out forwards; }
+@keyframes logoEntry { 0% { opacity:0; transform: scale(.3) rotate(-30deg); filter: blur(5px); } 60% { opacity:1; transform: scale(1.05) rotate(5deg); } 100% { transform: scale(1) rotate(0deg); } }
+
+/* =========================
+   FOOTER, RESPONSIVE, ACCESSIBILITY
+   ========================= */
+footer { padding: 2.5rem 1rem; text-align: center; color: var(--text-dim); }
+
+/* responsive adjustments to preserve spacing and prevent overlap */
+@media (max-width: 1024px) {
+  nav.desktop-links { display: none; }
+  #mobileMenu { display: block; }
+  #branchesContainer { grid-template-columns: repeat(2,1fr); }
+  #gallery .slider { animation-duration: 36s; }
+  #home { min-height: calc(90vh - 72px); padding-top: 3.5rem; }
+}
+@media (max-width: 768px) {
+  h1.hero-title { font-size: 2.2rem; }
+  .btn { padding: .7rem 1.05rem; }
+  .team-card img { width:72px; height:72px; }
+  #branchesContainer { grid-template-columns: 1fr; gap:.85rem; }
+  #about { padding-top: 4.25rem; }
+}
+@media (max-width: 480px) {
+  #home { padding-top: 2.5rem; padding-bottom: 3rem; }
+  .logo-large { width: 72px; }
+  h1.hero-title { font-size: 1.8rem; }
+  .btn { padding: .6rem .9rem; font-size: .95rem; }
+  #about { padding-top: 3.25rem; }
+}
+
+/* Focus / accessibility outlines (visible focus for keyboard) */
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0,229,255,0.06);
+  border-radius: 8px;
+}
+a:focus-visible { outline: 2px solid rgba(0,229,255,0.09); outline-offset: 2px; }
+
+/* webkit scrollbar visuals to match theme */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.25); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
+
+/* =========================
+   tsParticles container (closed & safe)
+   - This ensures the particles canvas sits behind all content
+   ========================= */
 #tsparticles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* behind all content */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
 
-   
 #about,
 #gallery,
 #team,
-#contact,
-#feedback,
+#games,
 #art-pipeline,
-#contact {
-  background: rgba(0,0,0,0.4) !important; /* feedback ka semi-transparent dark */
-  backdrop-filter: blur(10px) !important; /* glassy blur */
+#contact,
+#feedback {
+  background: rgba(0,0,0,0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
 }
-
-
-
-
-
-
-
