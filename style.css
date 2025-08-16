@@ -404,16 +404,17 @@ a:focus-visible{outline:2px solid rgba(0,229,255,0.09);outline-offset:2px}
     width: 100%;
     height: 100%;
     z-index: -1; /* behind all content */
-}
-section:not(#home),
-#gallery,
-#contact,
-#feedback,
+   
+/* Feedback jaisa BG sirf inner sections pe */
 #about,
+#gallery,
+#team,
 #games,
-#team {
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
+#contact,
+#feedback {
+  background: rgba(0,0,0,0.4) !important; /* semi-transparent black */
+  backdrop-filter: blur(10px) !important; /* glassy blur */
 }
+
 
 
