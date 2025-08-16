@@ -412,13 +412,14 @@ a:focus-visible{outline:2px solid rgba(0,229,255,0.09);outline-offset:2px}
 #games,
 #contact,
 #feedback,
-#artpipeline,
+#art-pipeline,
 #more-games,
 #contact-form,
 #contact-info {
   background: rgba(0,0,0,0.4) !important; /* feedback ka semi-transparent dark */
   backdrop-filter: blur(10px) !important; /* glassy blur */
 }
+
 
 
 
