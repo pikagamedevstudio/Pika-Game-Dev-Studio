@@ -1,87 +1,80 @@
-/* ===================================================================
-   PIKA GAME DEV STUDIO — CLEAN & CORRECT style.css
-   - Exact selectors matching provided HTML file
-   - No broken blocks, no duplicate IDs, #tsparticles properly closed
-   - Useful, concise comments (not noisy) explaining purpose of blocks
-   - Ready-to-paste: replace your existing style.css fully with this
-   =================================================================== */
-
 /* =========================
-   ROOT VARIABLES
+   ROOT VARIABLES (change here for theme tweaks)
    ========================= */
-/* Centralized colors, spacing, timings so tweaks are easy */
 :root {
-  /* Color / visual tokens */
-  --bg-0: #05060a;                                /* page base */
+  /* Colors */
+  --bg-black: #05060a;                         /* page base - used under animated gradient */
   --bg-grad: linear-gradient(180deg,#000,#081019);
   --accent-cyan: #00e5ff;
   --accent-cyan-2: #4fc3f7;
-  --muted: rgba(255,255,255,0.06);
+  --muted-border: rgba(255,255,255,0.04);
 
   /* Text */
   --text-white: #ffffff;
   --text-dim: rgba(255,255,255,0.78);
 
-  /* Radii / spacing */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-
-  /* Effects */
+  /* Glass & effects */
+  --glass-bg-light: rgba(255,255,255,0.02);   /* thin glass (light) used for cards */
+  --glass-bg-medium: rgba(0,0,0,0.36);        /* darker card inner backgrounds */
   --glass-blur: 10px;
   --shadow-soft: 0 8px 30px rgba(0,0,0,0.6);
   --shadow-glow: 0 0 36px rgba(0,229,255,0.06);
 
+  /* Layout */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --max-width: 1400px;
+
   /* Timing */
   --t-quick: 160ms;
   --t-med: 280ms;
-  --t-slow: 480ms;
-
-  /* Layout */
-  --max-width: 1400px;
 }
 
 /* =========================
-   RESET / BASE LAYOUT
+   RESET & BASE
    ========================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; width: 100%; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 body {
-  font-family: "Poppins", system-ui, sans-serif;   /* fallback matches HTML font import */
-  background: var(--bg-0);
+  font-family: "Poppins", system-ui, sans-serif;    /* matches HTML import */
+  background: var(--bg-black);
   background-image: var(--bg-grad);
   color: var(--text-white);
   line-height: 1.55;
-  overflow-x: hidden;
+  overflow-x: hidden; /* prevent horizontal scroll from small rounding issues */
 }
 
-/* Headings consistent color */
+/* headings color */
 h1,h2,h3,h4,h5,h6 { color: var(--text-white); }
 
-/* Generic container used in the HTML */
+/* container utility */
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1rem; }
 
-/* Tiny utilities used throughout */
+/* tiny helpers */
 .text-center { text-align: center; }
 .mb-1 { margin-bottom: .5rem; }
 .mb-2 { margin-bottom: 1rem; }
 .mb-3 { margin-bottom: 1.5rem; }
-.visually-hidden { position: absolute !important; height:1px; width:1px; overflow:hidden; clip: rect(1px,1px,1px,1px); white-space:nowrap; }
+.visually-hidden { position: absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
 
 /* =========================
-   SITE BACKGROUNDS & PARTICLES
-   - Video is inside #home; particles and animated-bg are site-wide
-   - Ensure layering order: animated-bg (furthest back) -> particles -> video (#home) -> content
+   SITE-LAYER ORDER (z-index guide)
+   - animated-bg  : z = -4
+   - floating dots : z = -3
+   - tsParticles   : z = -2
+   - video (hero)  : z = -1
+   - content       : z >= 0
    ========================= */
 
-/* subtle animated gradient that covers entire viewport */
+/* animated subtle gradient layer (full-screen) */
 .animated-bg {
   position: fixed;
-  inset: 0;                         /* shorthand: top/right/bottom/left = 0 */
+  inset: 0;                  /* top:0; right:0; bottom:0; left:0 */
   width: 100%;
   height: 100%;
-  z-index: -4;                      /* behind everything but below very-back elements */
+  z-index: -4;               /* behind everything except absolute very-back elements */
   pointer-events: none;
   mix-blend-mode: screen;
   opacity: 0.95;
@@ -91,28 +84,28 @@ h1,h2,h3,h4,h5,h6 { color: var(--text-white); }
     var(--bg-grad);
 }
 
-/* floating particle container (white dots) */
+/* floating particles (tiny white dots) */
 .floating-particles {
   position: fixed;
   inset: 0;
-  z-index: -3;                      /* above animated-bg but behind content/video */
+  z-index: -3;               /* above animated-bg */
   pointer-events: none;
   overflow: hidden;
 }
 
-/* single dot style (each .particle is positioned in HTML) */
+/* each visual particle (HTML provides .particle elements) */
 .floating-particles .particle {
   position: absolute;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 40%, rgba(255,255,255,0.45) 100%);
+  opacity: .95;
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.06));
-  opacity: 0.95;
   animation: particleFloat linear infinite;
 }
 
-/* vertical float animation for particles */
+/* particle vertical float animation */
 @keyframes particleFloat {
   0%   { transform: translateY(110vh) scale(.25); opacity: 0; }
   10%  { opacity: 1; }
@@ -120,37 +113,48 @@ h1,h2,h3,h4,h5,h6 { color: var(--text-white); }
   100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 
-/* Hide floating-particles *inside* the hero to keep video area clean.
-   HTML places .floating-particles globally; this rule ensures that when
-   .floating-particles is inside #home context it will not display. */
+/* hide floating-particles *within* hero to keep video area clean */
 #home .floating-particles { display: none !important; }
 
+/* tsParticles canvas (used by script) - behind content but above bg layers */
+#tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;               /* sits above animated-bg & floating-particles but below video/content */
+  pointer-events: none;
+}
+
 /* =========================
-   HEADER / NAV
+   NAVBAR / HEADER
    ========================= */
 header.nav-blur {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 9999;
-  background: rgba(0,0,0,0.56);                    /* translucent dark header */
+  background: rgba(0,0,0,0.56);                     /* slight dark to separate nav */
   backdrop-filter: blur(var(--glass-blur)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border-bottom: 1px solid rgba(255,255,255,0.04);  /* subtle divider */
+  border-bottom: 1px solid var(--muted-border);
   transition: all var(--t-med);
 }
 header.nav-blur .container { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.9rem 0; }
-.futuristic-font { font-family: 'Orbitron', sans-serif; font-weight:700; letter-spacing:.6px; color:var(--text-white); }
 
-/* desktop nav links style */
-nav.desktop-links { display:flex; gap:1.2rem; align-items:center; }
+/* branding font used in HTML */
+.futuristic-font { font-family: 'Orbitron', sans-serif; letter-spacing:.6px; color:var(--text-white); font-weight:700; }
+
+/* desktop nav links visuals */
+nav.desktop-links { display: flex; gap: 1.2rem; align-items:center; }
 nav.desktop-links a {
   color: var(--text-white);
   text-decoration: none;
-  font-weight: 600;
-  font-size: .95rem;
-  padding: .35rem .5rem;
-  border-radius: 8px;
-  position: relative;
+  font-weight:600;
+  font-size:.95rem;
+  padding:.35rem .5rem;
+  border-radius:8px;
+  position:relative;
   transition: transform var(--t-quick), color var(--t-quick);
 }
 nav.desktop-links a:hover { color: var(--accent-cyan); transform: translateY(-2px); }
@@ -167,16 +171,16 @@ nav.desktop-links a::after {
 }
 nav.desktop-links a:hover::after { width: 72%; }
 
-/* mobile toggle basics (rest of mobile behaviour handled by tailwind/js) */
-#menuToggle { background: none; border: 0; color: var(--text-white); cursor: pointer; padding: .25rem; }
-#mobileMenu { display: none; padding: .6rem 1rem; background: rgba(0,0,0,0.9); }
+/* mobile menu basics */
+#menuToggle { background: none; border: 0; color: var(--text-white); cursor:pointer; padding:.25rem; }
+#mobileMenu { display: none; padding:.6rem 1rem; background: rgba(0,0,0,0.9); }
 
-/* small header variant for scroll shrink */
+/* shrink header small state */
 header.nav-blur.small { padding: .55rem 0; }
 
 /* =========================
-   HERO / HOME section
-   - Video sits behind hero content; text must be readable
+   HERO / HOME
+   - video is absolute background in HTML; keep it behind content
    ========================= */
 #home {
   position: relative;
@@ -189,7 +193,7 @@ header.nav-blur.small { padding: .55rem 0; }
   overflow: hidden;
 }
 
-/* Target the video inside #home using class combos to ensure object-fit */
+/* video styling — matches HTML classes used */
 #home video.absolute,
 #home video.object-cover,
 #home video.w-full,
@@ -198,13 +202,13 @@ header.nav-blur.small { padding: .55rem 0; }
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;                /* cover the area */
-  z-index: -1;
-  filter: brightness(.52) saturate(.95);  /* dim video for contrast */
+  object-fit: cover;               /* cover entire hero area */
+  z-index: -1;                     /* behind content but above tsParticles */
+  filter: brightness(.52) saturate(.95); /* dim for legibility */
   pointer-events: none;
 }
 
-/* small overlay layer on top of video to further improve contrast */
+/* optional overlay inside hero (HTML had .absolute-overlay) */
 #home .absolute-overlay {
   position: absolute;
   inset: 0;
@@ -215,20 +219,12 @@ header.nav-blur.small { padding: .55rem 0; }
 /* hero content front layer */
 .hero-content { position: relative; z-index: 20; padding: 1rem 1.2rem; max-width: 1100px; margin: 0 auto; }
 
-/* Title styles */
-.logo-large { display:block; margin:0 auto 1rem; width:96px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.6); }
-h1.hero-title { font-family: 'Orbitron', sans-serif; font-size: 2.6rem; line-height:1.03; letter-spacing:1px; margin-bottom:.6rem; color:var(--text-white); }
-@media(min-width:768px) { h1.hero-title { font-size: 3.8rem; } }
-
-p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
-
-/* CTA buttons in hero */
-.hero-actions { display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; }
+/* CTA - button baseline */
 .btn {
-  display:inline-block;
-  padding:.95rem 1.6rem;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.04);
+  display: inline-block;
+  padding: .95rem 1.6rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
   background: rgba(255,255,255,0.02);
   color: var(--accent-cyan);
   font-weight: 800;
@@ -240,18 +236,16 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 .btn::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: -110%;
-  height: 100%;
-  width: 100%;
+  top: 0; left: -110%;
+  height: 100%; width: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
   transition: left .5s ease;
-  opacity:.6;
+  opacity: .6;
 }
 .btn:hover { transform: translateY(-4px); background: var(--accent-cyan); color: #061118; box-shadow: var(--shadow-glow); }
 .btn:hover::before { left: 100%; }
 
-/* stronger primary CTA */
+/* primary CTA */
 .btn-primary {
   padding: 1rem 2.2rem;
   border-radius: 999px;
@@ -263,228 +257,205 @@ p.lead { color: var(--text-dim); font-size: 1.02rem; margin-bottom: 1.25rem; }
 }
 
 /* =========================
-   ABOUT section
+   ABOUT SECTION
+   - entire section left transparent so background shows through
+   - the inner .bg-transparent card gets the glass look
    ========================= */
 #about { padding: 6.25rem 1rem 3.5rem; background: transparent; }
 
-/* The inner card that contains About content */
+/* About inner card (HTML uses class .bg-transparent) */
 #about .bg-transparent {
   max-width: 1120px;
   margin: 0 auto;
   padding: 2rem;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 16px;
+  background: linear-gradient(180deg, var(--glass-bg-light), rgba(255,255,255,0.01));
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(79,195,247,0.06);
   backdrop-filter: blur(var(--glass-blur));
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  box-shadow: var(--shadow-soft);
 }
 
-/* branch card grid in About */
-#branchesContainer { display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; margin-top:1.25rem; }
+/* branch cards (three cards inside about) */
+#branchesContainer { display: grid; grid-template-columns: repeat(3,1fr); gap:1rem; margin-top: 1.25rem; }
 .branch-card {
   padding: 1.2rem;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: linear-gradient(135deg, rgba(0,229,255,0.02), rgba(79,195,247,0.01));
   border: 1px solid rgba(0,229,255,0.10);
   transition: transform var(--t-med), box-shadow var(--t-med);
 }
 .branch-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,229,255,0.04); }
 
-/* Responsive: reduce columns on smaller screens */
-@media(max-width:1024px){ #branchesContainer { grid-template-columns: repeat(2,1fr); } }
-@media(max-width:640px){ #branchesContainer { grid-template-columns: 1fr; } #about { padding-top: 4.25rem; } }
+/* small screens for about grid */
+@media (max-width: 1024px) { #branchesContainer { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 640px)  { #branchesContainer { grid-template-columns: 1fr; } #about{ padding-top: 4.25rem; } }
 
 /* =========================
-   TEAM & PROJECT CARD STYLES
+   TEAM SECTION
    ========================= */
 #team { padding: 4.5rem 1rem; }
-.team-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1.25rem; max-width:1200px; margin:0 auto; }
+.team-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1.25rem; max-width:1200px; margin: 0 auto; }
 
-.game-card, .team-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+/* team cards */
+.team-card, .game-card {
+  background: linear-gradient(180deg, var(--glass-bg-light), rgba(255,255,255,0.01));
   border-radius: 14px;
   padding: 1.25rem;
   border: 1px solid rgba(255,255,255,0.04);
   backdrop-filter: blur(var(--glass-blur));
-  box-shadow: 0 10px 36px rgba(0,0,0,0.6);
+  box-shadow: var(--shadow-soft);
   transition: transform var(--t-med), box-shadow var(--t-med);
 }
-.game-card:hover, .team-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-glow); border-color: rgba(79,195,247,0.12); }
-.team-card img { width:88px; height:88px; object-fit:cover; border-radius:999px; margin:0 auto .6rem; border:3px solid var(--text-white); box-shadow:0 6px 22px rgba(0,0,0,0.6); }
+.team-card:hover, .game-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-glow); border-color: rgba(79,195,247,0.12); }
+
+/* avatars */
+.team-card img { width: 88px; height: 88px; object-fit: cover; border-radius: 999px; margin: 0 auto .6rem; border: 3px solid var(--text-white); box-shadow: 0 6px 22px rgba(0,0,0,0.6); }
 
 /* =========================
-   PROJECTS (games) section
+   PROJECTS / GAMES SECTION
    ========================= */
-#games { padding: 4.5rem 1rem; }
-#games .game-card { padding: 2rem; }
+#games { padding: 4.5rem 1rem; background: transparent; }
 
-/* Small tweaks for rich image blocks inside project cards */
-#games img { display:block; width:100%; height:auto; border-radius: 12px; }
+/* style for game-card (used widely in HTML) */
+#games .game-card { padding: 2rem; }
+#games img { display:block; width:100%; height:auto; border-radius:12px; }
+
+/* teaser grid under Projects */
+#games .grid { gap: 1rem; }
 
 /* =========================
    GALLERY / SLIDER
    ========================= */
-#gallery { padding: 4rem 1rem; }
-#gallery .banner { width:100%; height:220px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-#gallery .slider {
-  --quantity: 9;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  transform-style: preserve-3d;
-  animation: galleryRotate 28s linear infinite;
-}
-#gallery .slider .item {
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:220px;
-  height:140px;
-  transform-origin:center center;
-  border-radius:12px;
-  overflow:hidden;
-  transition: transform .45s ease, box-shadow .25s ease;
-}
+#gallery { padding: 4rem 1rem; background: transparent; }
+#gallery .banner { width:100%; height:220px; position:relative; overflow:hidden; display:flex;align-items:center; justify-content:center; }
+#gallery .slider { --quantity: 9; position:absolute; top:50%; left:50%; transform: translate(-50%,-50%); transform-style: preserve-3d; animation: galleryRotate 28s linear infinite; }
+#gallery .slider .item { position:absolute; top:50%; left:50%; width:220px; height:140px; transform-origin:center center; border-radius:12px; overflow:hidden; transition: transform .45s ease, box-shadow .25s ease; }
 #gallery .slider .item img { width:100%; height:100%; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,0.04); }
-@keyframes galleryRotate { from{ transform: translate(-50%,-50%) rotateY(0deg); } to{ transform: translate(-50%,-50%) rotateY(360deg); } }
+@keyframes galleryRotate { from { transform: translate(-50%,-50%) rotateY(0deg); } to { transform: translate(-50%,-50%) rotateY(360deg); } }
 
-/* responsive gallery sizes */
-@media(max-width:1024px){ #gallery .slider { animation-duration:36s; } #gallery .slider .item { width:160px; height:100px; } }
-@media(max-width:640px){ #gallery .banner { height:140px; } #gallery .slider .item { width:120px; height:80px; } }
+/* responsive gallery adjustments */
+@media (max-width:1024px) { #gallery .slider { animation-duration:36s; } #gallery .slider .item { width:160px; height:100px; } }
+@media (max-width:640px)  { #gallery .banner { height:140px; } #gallery .slider .item { width:120px; height:80px; } }
 
 /* =========================
-   ART PIPELINE section
-   - tech-diagram cards: keep border & subtle radial gradient as in HTML design
+   ART PIPELINE
+   - Section transparent; inner cards (.tech-diagram) get glass
    ========================= */
-#art-pipeline { padding: 4.5rem 1rem; }  /* spacing similar to other sections */
+#art-pipeline { padding: 4.5rem 1rem; background: transparent; }
 
-/* card style used in art pipeline boxes */
-.tech-diagram {
+/* tech-diagram card visuals */
+#art-pipeline .tech-diagram {
   padding: 1.2rem;
   border-radius: 12px;
-  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 70%);
+  background: linear-gradient(180deg, var(--glass-bg-light), rgba(255,255,255,0.01)); /* light glass */
   border: 1px solid rgba(255,255,255,0.06);
   box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
+#art-pipeline .tech-diagram h4 { margin-bottom: .5rem; font-size: .95rem; color: var(--text-white); }
+#art-pipeline .tech-diagram p, #art-pipeline .tech-diagram ul { font-size: .82rem; color: var(--text-dim); line-height: 1.5; }
 
-/* small text styles inside pipeline boxes */
-.tech-diagram h4 { margin-bottom: .5rem; font-size: .95rem; color: var(--text-white); }
-.tech-diagram p, .tech-diagram ul { font-size: .82rem; color: var(--text-dim); line-height:1.5; }
+/* layout (grid) already handled by HTML classes; CSS ensures visual look */
 
 /* =========================
-   CONTACT section
-   - We DO NOT include broken selectors (no .bg-contact etc.)
-   - We style the main #contact container and inputs (HTML matches these)
+   CONTACT SECTION
+   - Section transparent so background remains visible
+   - We target the *left* info card via structural selector and right form via #contactForm id
    ========================= */
-#contact { padding: 4.5rem 1rem; }   /* same vertical spacing as other sections */
+#contact { padding: 4.5rem 1rem; background: transparent; }
 
-/* The outer wrapper that centers content */
-#contact > .max-w-6xl,
-#contact .max-w-6xl { max-width: 1120px; margin: 0 auto; }
+/* center wrapper: in HTML it's .max-w-6xl mx-auto; ensure consistent max width */
+#contact > .max-w-6xl, #contact .max-w-6xl { max-width: 1120px; margin: 0 auto; }
 
-/* Contact: left info card + right form card layout handled by HTML/Tailwind.
-   Here we provide a unified card look that matches site aesthetic. */
-#contact .w-full.md\\:w-1\\/2, /* Tailwind-like compound selector used in HTML classes */
-#contact .p-6,
-#contact form {
-  /* We do not force full-section background here - we style cards individually (clean & explicit). */
+/* the flex container is: <div class="flex flex-col md:flex-row gap-8 w-full"> */
+/* left info card = first child DIV inside that flex container -> apply glass here */
+#contact .flex > div:first-child {
+  background: linear-gradient(180deg, var(--glass-bg-light), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 1.2rem;
+  border: 1px solid rgba(79,195,247,0.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  color: var(--text-white);
 }
 
-/* Form elements: consistent look & accessible */
-input[type="text"], input[type="email"], textarea, select {
+/* contact form card (right column) - HTML uses id="contactForm" */
+#contact form#contactForm {
+  background: linear-gradient(180deg, var(--glass-bg-light), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 1.2rem;
+  border: 1px solid rgba(79,195,247,0.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* inputs inside contact form */
+#contact input[type="text"],
+#contact input[type="email"],
+#contact textarea,
+#contact select {
   width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(0,0,0,0.36);      /* dark input */
+  background: rgba(0,0,0,0.36);
   color: var(--text-white);
   font-size: 1rem;
   transition: box-shadow var(--t-quick), border-color var(--t-quick);
   backdrop-filter: blur(6px);
 }
-input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.6); }
-input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(0,229,255,0.06); }
+#contact input::placeholder, #contact textarea::placeholder { color: rgba(255,255,255,0.6); }
+#contact input:focus, #contact textarea:focus, #contact select:focus { outline: none; border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(0,229,255,0.06); }
 
-/* Contact labels & status text use white for readability */
-#contactStatus, #contact label { color: var(--text-white); }
+/* contact labels & status text */
+#contact label, #contactStatus { color: var(--text-white); }
 
-/* The form card visual: match other cards */
-#contact form {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 12px;
-  padding: 1.2rem;
-  border: 1px solid rgba(79,195,247,0.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-}
-
-/* The info card (left) visual: match form card */
-#contact .w-full.md\\:w-1\\/2.p-6 {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 12px;
-  padding: 1.2rem;
-  border: 1px solid rgba(79,195,247,0.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-}
-
-/* Buttons inside contact & feedback */
-#contact .btn, #feedback .btn {
-  width: 100%;
-  padding: 0.95rem 1rem;
-  border-radius: 12px;
-}
+/* ensure contact buttons are full-width on mobile and consistent */
+#contact .btn { width: 100%; padding: .95rem 1rem; border-radius: 12px; }
 
 /* =========================
-   FEEDBACK section
+   FEEDBACK SECTION
+   - Section transparent, form card uses glass look
    ========================= */
-#feedback { padding: 4.5rem 1rem; }
+#feedback { padding: 4.5rem 1rem; background: transparent; }
 
-/* Feedback main form card already has class backdrop-blur-xl in HTML
-   Keep a matching look here as well (this selector targets the form used). */
-#feedback form {
+/* feedback form id = feedbackForm */
+#feedback form#feedbackForm {
   max-width: 920px;
   margin: 0 auto;
   padding: 1.6rem;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background: linear-gradient(180deg, var(--glass-bg-light), rgba(255,255,255,0.01));
   border-radius: 12px;
   border: 1px solid rgba(79,195,247,0.06);
   box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
-/* star rating and interactive bits */
+/* star rating / interactive small things */
 .star { font-size: 1.9rem; color: rgba(255,255,255,0.75); cursor: pointer; transition: transform .12s ease, color .12s ease; }
 .star.active, .star.selected { color: var(--text-white); transform: scale(1.05); text-shadow: 0 0 10px rgba(255,202,40,0.08); }
 
-/* checkbox style used elsewhere */
-.checkbox-container {
-  display:flex; align-items:center; gap:.6rem; padding:.5rem; border-radius:8px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.02);
-}
-.checkbox-container input[type="checkbox"] {
-  appearance: none; width:18px; height:18px; border-radius:4px; border:2px solid var(--accent-cyan);
-  background: transparent; cursor:pointer; position:relative;
-}
+/* checkbox styling used elsewhere on site (kept consistent) */
+.checkbox-container { display:flex; align-items:center; gap:.6rem; padding:.5rem; border-radius:8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.02); }
+.checkbox-container input[type="checkbox"] { appearance:none; width:18px; height:18px; border-radius:4px; border:2px solid var(--accent-cyan); background:transparent; cursor:pointer; position:relative; }
 .checkbox-container input[type="checkbox"]:checked { background: var(--accent-cyan); box-shadow: 0 0 10px rgba(0,229,255,0.06); }
 
 /* =========================
-   SMALL ANIMATIONS & UTILITIES
+   UTILITIES & ANIMATIONS
    ========================= */
-.reveal { opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
-.reveal.is-visible { opacity:1; transform: none; }
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.is-visible { opacity:1; transform:none; }
 .fade-in { animation: fadeIn .45s ease both; }
-@keyframes fadeIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: none; } }
+@keyframes fadeIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform:none; } }
 
-/* logo entry animation (used in HTML) */
 .animate-logo-entry { animation: logoEntry 1.2s ease-out forwards; }
-@keyframes logoEntry { 0% { opacity:0; transform: scale(.3) rotate(-30deg); filter: blur(5px); } 60% { opacity:1; transform: scale(1.05) rotate(5deg); } 100% { transform: scale(1) rotate(0deg); } }
+@keyframes logoEntry {
+  0% { opacity:0; transform: scale(.3) rotate(-30deg); filter: blur(5px); }
+  60% { opacity:1; transform: scale(1.05) rotate(5deg); filter: blur(0); }
+  100% { transform: scale(1) rotate(0deg); }
+}
 
 /* =========================
-   FOOTER, RESPONSIVE, ACCESSIBILITY
+   RESPONSIVE & FOOTER
    ========================= */
 footer { padding: 2.5rem 1rem; text-align: center; color: var(--text-dim); }
 
-/* responsive adjustments to preserve spacing and prevent overlap */
 @media (max-width: 1024px) {
   nav.desktop-links { display: none; }
   #mobileMenu { display: block; }
@@ -493,21 +464,19 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--text-dim); }
   #home { min-height: calc(90vh - 72px); padding-top: 3.5rem; }
 }
 @media (max-width: 768px) {
-  h1.hero-title { font-size: 2.2rem; }
+  h1 { font-size: 2.2rem; }
   .btn { padding: .7rem 1.05rem; }
-  .team-card img { width:72px; height:72px; }
   #branchesContainer { grid-template-columns: 1fr; gap:.85rem; }
   #about { padding-top: 4.25rem; }
 }
 @media (max-width: 480px) {
   #home { padding-top: 2.5rem; padding-bottom: 3rem; }
-  .logo-large { width: 72px; }
-  h1.hero-title { font-size: 1.8rem; }
+  h1 { font-size: 1.8rem; }
   .btn { padding: .6rem .9rem; font-size: .95rem; }
   #about { padding-top: 3.25rem; }
 }
 
-/* Focus / accessibility outlines (visible focus for keyboard) */
+/* focus outlines for accessibility */
 a:focus, button:focus, input:focus, textarea:focus, select:focus {
   outline: none;
   box-shadow: 0 0 0 4px rgba(0,229,255,0.06);
@@ -520,30 +489,3 @@ a:focus-visible { outline: 2px solid rgba(0,229,255,0.09); outline-offset: 2px; 
 ::-webkit-scrollbar-track { background: rgba(0,0,0,0.25); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 6px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
-
-/* =========================
-   tsParticles container (closed & safe)
-   - This ensures the particles canvas sits behind all content
-   ========================= */
-#tsparticles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-#about,
-#gallery,
-#team,
-#games,
-#art-pipeline,
-#contact,
-#feedback {
-  background: rgba(0,0,0,0.45);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-}
