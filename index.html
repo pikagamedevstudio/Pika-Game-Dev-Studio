@@ -565,26 +565,172 @@
   </div>
 </section>
 
-<!-- ===== GALLERY SECTION ===== -->
-<section id="gallery" class="py-20 px-6">
-    <div class="container mx-auto">
-        <h3 class="futuristic-font text-6xl font-bold text-center mb-12">GALLERY</h3>
+<!-- =========================GALLERY SECTION========================= -->
+  <section id="gallery" class="py-20 px-6">
+    <div class="max-w-7xl mx-auto container">
+      <h3 class="futuristic-font text-5xl md:text-6xl font-bold text-center mb-12">GALLERY</h3>
 
-        <div class="banner">
-            <div class="slider" style="--quantity: 9">
-                <div class="item" style="--position: 1"><img src="images/gallery_1.png" alt=""></div>
-                <div class="item" style="--position: 2"><img src="images/gallery_2.png" alt=""></div>
-                <div class="item" style="--position: 3"><img src="images/gallery_3.png" alt=""></div>
-                <div class="item" style="--position: 4"><img src="images/gallery_4.png" alt=""></div>
-                <div class="item" style="--position: 5"><img src="images/gallery_5.png" alt=""></div>
-                <div class="item" style="--position: 6"><img src="images/gallery_6.png" alt=""></div>
-                <div class="item" style="--position: 7"><img src="images/gallery_7.png" alt=""></div>
-                <div class="item" style="--position: 8"><img src="images/gallery_8.png" alt=""></div>
-                <div class="item" style="--position: 9"><img src="images/gallery_9.png" alt=""></div>
+      <!-- Gallery wrapper -->
+      <div class="gallery-wrapper">
+        <!-- Slider container: keep id="slider" because script will look for it -->
+        <div class="slider-container glass" id="slider" style="height:600px; perspective:1600px; position:relative; overflow:hidden;">
+          <div class="slider-track" style="display:flex; height:100%; transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);">
+
+            <!-- ====== Slide 1 ====== -->
+            <div class="slide" style="min-width:100%; height:100%; position:relative; overflow:hidden;">
+              <div class="side-shade left" aria-hidden="true"></div>
+              <div class="side-shade right" aria-hidden="true"></div>
+              <img src="images/gallery_1.png" alt="Gallery Image 1" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left" aria-hidden="true"></div>
+              <div class="inner-curve-right" aria-hidden="true"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 1</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
             </div>
+
+            <!-- ====== Slide 2 ====== -->
+            <div class="slide">
+              <div class="side-shade left"></div>
+              <div class="side-shade right"></div>
+              <img src="images/gallery_2.png" alt="Gallery Image 2" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left"></div>
+              <div class="inner-curve-right"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 2</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
+            </div>
+
+            <!-- ====== Slide 3 ====== -->
+            <div class="slide">
+              <div class="side-shade left"></div>
+              <div class="side-shade right"></div>
+              <img src="images/gallery_3.png" alt="Gallery Image 3" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left"></div>
+              <div class="inner-curve-right"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 3</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
+            </div>
+
+            <!-- ====== Slide 4 ====== -->
+            <div class="slide">
+              <div class="side-shade left"></div>
+              <div class="side-shade right"></div>
+              <img src="images/gallery_4.png" alt="Gallery Image 4" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left"></div>
+              <div class="inner-curve-right"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 4</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
+            </div>
+
+            <!-- ====== Slide 5 ====== -->
+            <div class="slide">
+              <div class="side-shade left"></div>
+              <div class="side-shade right"></div>
+              <img src="images/gallery_5.png" alt="Gallery Image 5" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left"></div>
+              <div class="inner-curve-right"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 5</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
+            </div>
+
+            <!-- ====== Slide 6 ====== -->
+            <div class="slide">
+              <div class="side-shade left"></div>
+              <div class="side-shade right"></div>
+              <img src="images/gallery_6.png" alt="Gallery Image 6" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left"></div>
+              <div class="inner-curve-right"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 6</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
+            </div>
+
+            <!-- ====== Slide 7 ====== -->
+            <div class="slide">
+              <div class="side-shade left"></div>
+              <div class="side-shade right"></div>
+              <img src="images/gallery_7.png" alt="Gallery Image 7" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left"></div>
+              <div class="inner-curve-right"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 7</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
+            </div>
+
+            <!-- ====== Slide 8 ====== -->
+            <div class="slide">
+              <div class="side-shade left"></div>
+              <div class="side-shade right"></div>
+              <img src="images/gallery_8.png" alt="Gallery Image 8" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left"></div>
+              <div class="inner-curve-right"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 8</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
+            </div>
+
+            <!-- ====== Slide 9 ====== -->
+            <div class="slide">
+              <div class="side-shade left"></div>
+              <div class="side-shade right"></div>
+              <img src="images/gallery_9.png" alt="Gallery Image 9" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <div class="inner-curve-left"></div>
+              <div class="inner-curve-right"></div>
+              <div class="slide-content">
+                <div class="slide-title">Gallery Shot 9</div>
+                <div class="slide-description">Curated visual from our studio collection</div>
+              </div>
+            </div>
+
+          </div> <!-- .slider-track -->
+
+          <!-- Navigation buttons (prev/next) -->
+          <button class="nav-btn prev" aria-label="Previous" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); z-index:10;">‹</button>
+          <button class="nav-btn next" aria-label="Next" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); z-index:10;">›</button>
+
+          <!-- Slide counter -->
+          <div class="slide-counter" style="position:absolute; top:20px; right:20px; z-index:10; background:rgba(0,0,0,0.45); padding:6px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); color:rgba(255,255,255,0.8);">
+            <span class="current">1</span> / <span class="total">9</span>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="progress-container" style="position:absolute; left:0; bottom:0; width:100%; height:3px; background:rgba(255,255,255,0.03); z-index:6;">
+            <div class="progress-bar" style="width:0%; height:100%; background:linear-gradient(90deg,#00e5ff,#4fc3f7);"></div>
+          </div>
+        </div> <!-- .slider-container -->
+
+        <!-- Thumbnails -->
+        <div class="thumbnails mt-6 flex gap-4 justify-center flex-wrap">
+          <div class="thumb active" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_1.png" alt="Thumb 1" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="thumb" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_2.png" alt="Thumb 2" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="thumb" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_3.png" alt="Thumb 3" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="thumb" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_4.png" alt="Thumb 4" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="thumb" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_5.png" alt="Thumb 5" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="thumb" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_6.png" alt="Thumb 6" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="thumb" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_7.png" alt="Thumb 7" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="thumb" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_8.png" alt="Thumb 8" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="thumb" style="width:80px;height:80px;border-radius:12px;overflow:hidden;"><img src="images/gallery_9.png" alt="Thumb 9" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
+
+        <!-- Modal (hidden by default) - will be toggled by JS -->
+        <div class="modal" role="dialog" aria-modal="true" aria-label="Fullscreen image" style="position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.9); z-index:1000;">
+          <button class="modal-close" aria-label="Close" style="position:absolute; top:24px; right:32px; background:rgba(255,255,255,0.06); border-radius:50%; width:40px; height:40px; border:none; color:#fff; font-size:20px;">×</button>
+          <img src="" alt="Fullscreen Image" style="max-width:90%; max-height:85%; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.6);">
+        </div>
+      </div> <!-- .gallery-wrapper -->
     </div>
-</section>
+  </section>
 
 <!-- Art Pipeline Section -->
 <section id="art-pipeline" class="py-20 px-6">
@@ -901,6 +1047,7 @@
 <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
