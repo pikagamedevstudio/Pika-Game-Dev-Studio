@@ -497,3 +497,91 @@ tsParticles.load("tsparticles", {
     detectRetina: true
 });
 
+// ========================== Gallery 3D Inner Curve ========================== //
+document.addEventListener("DOMContentLoaded", () => {
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('#gallery .slide');
+  const thumbnails = document.querySelectorAll('#gallery .thumb');
+  const sliderTrack = document.querySelector('#gallery .slider-track');
+  const progressBar = document.querySelector('#gallery .progress-bar');
+  const slideCounter = document.querySelector('#gallery .slide-counter .current');
+  const totalCounter = document.querySelector('#gallery .slide-counter .total');
+  const sliderContainer = document.querySelector('#gallery #slider');
+  const modal = document.querySelector('#gallery .modal');
+  const modalImg = document.querySelector('#gallery .modal img');
+  const modalClose = document.querySelector('#gallery .modal-close');
+
+  if (!slides.length) return;
+
+  totalCounter.textContent = slides.length;
+
+  function updateClassesFor3D() {
+    slides.forEach((slide, index) => {
+      slide.classList.remove('prev', 'active', 'next');
+      if (index === currentSlide) slide.classList.add('active');
+      else if (index === (currentSlide - 1 + slides.length) % slides.length) slide.classList.add('prev');
+      else if (index === (currentSlide + 1) % slides.length) slide.classList.add('next');
+    });
+  }
+
+  function updateSlider() {
+    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    updateClassesFor3D();
+    progressBar.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+    slideCounter.textContent = currentSlide + 1;
+    thumbnails.forEach((thumb, i) => thumb.classList.toggle('active', i === currentSlide));
+  }
+
+  function nextSlide() {
+    sliderContainer.classList.add('sliding-left');
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateSlider();
+    setTimeout(() => sliderContainer.classList.remove('sliding-left'), 500);
+  }
+
+  function prevSlide() {
+    sliderContainer.classList.add('sliding-right');
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    updateSlider();
+    setTimeout(() => sliderContainer.classList.remove('sliding-right'), 500);
+  }
+
+  function goToSlide(i) {
+    currentSlide = i;
+    updateSlider();
+  }
+
+  document.querySelector('#gallery .next')?.addEventListener('click', nextSlide);
+  document.querySelector('#gallery .prev')?.addEventListener('click', prevSlide);
+  thumbnails.forEach((thumb, i) => thumb.addEventListener('click', () => goToSlide(i)));
+
+  // Modal
+  slides.forEach(slide => {
+    const img = slide.querySelector('img');
+    img.addEventListener('click', () => {
+      modalImg.src = img.src;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  modalClose.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = 'auto'; });
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); document.body.style.overflow = 'auto'; });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (modal.classList.contains('active')) {
+      if (e.key === 'Escape') { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+      return;
+    }
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'ArrowRight') nextSlide();
+  });
+
+  // Auto-play
+  let autoPlay = setInterval(nextSlide, 5000);
+  sliderContainer.addEventListener('mouseenter', () => clearInterval(autoPlay));
+  sliderContainer.addEventListener('mouseleave', () => autoPlay = setInterval(nextSlide, 5000));
+
+  updateSlider();
+});
+
